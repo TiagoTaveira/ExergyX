@@ -22,6 +22,10 @@ func _on_Button_pressed():
 	process_next_year()
 	get_node("AnoAtual").text = "Ano Atual: " + str(PlayerVariables.current_year)
 	
+	#####EXPERIMENTAL#####
+	get_node("GrafHistorico/Control/TestLine2D").add_point(Vector2(PlayerVariables.current_year-2000, PlayerVariables.final_year_utility))
+	##"#####
+	
 	if PlayerVariables.current_year < PlayerVariables.final_year:
 		get_node("GridContainer/AnoAtual2").text = "Decisões para o ano de " + str(PlayerVariables.current_year + 1)
 		get_node("GridContainer2/RichTextLabel").text = "Previsões para ano " + str(PlayerVariables.final_year)
