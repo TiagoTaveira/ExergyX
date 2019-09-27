@@ -9,6 +9,10 @@ var utility = 100
 var co2_emissions = 70
 
 var investment_renewables_percentage = 30
+#var exergy_shares_sector_SECTORNAME =
+#var exergy_shares_sector_SECTORNAME =
+#var exergy_shares_sector_SECTORNAME = total of all = 100%
+#var electrification_shares_sector_SECTORNAME = ...
 var yearly_decisions = [YearlyDecision.new(2016, 30, 100, 71)]
 
 
