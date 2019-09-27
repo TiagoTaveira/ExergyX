@@ -16,6 +16,8 @@ var final_year = 2050
 var final_year_utility = 100
 var final_year_emissions = 70
 
+var utility_goals = 120
+var emission_goals = 35
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

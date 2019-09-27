@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Test.gd" type="Script" id=1]
-[ext_resource path="res://HistText.gd" type="Script" id=2]
+[ext_resource path="res://ObjText.gd" type="Script" id=2]
+[ext_resource path="res://HistText.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0470588, 0.00784314, 0.00784314, 1 )
+corner_detail = 9
+shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
+shadow_size = 5
 
 [node name="Panel" type="Panel"]
 margin_top = 1.29236
@@ -73,18 +80,18 @@ margin_bottom = 475.0
 rect_pivot_offset = Vector2( 96.828, 113.046 )
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="GridContainer2"]
-margin_left = 8.26086
-margin_top = 70.5977
-margin_right = 230.261
-margin_bottom = 110.598
+margin_left = 15.2609
+margin_top = 69.5977
+margin_right = 237.261
+margin_bottom = 109.598
 text = "Utilidade: 100
 Emissões CO2: 70 MT"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GridContainer2"]
-margin_left = 11.6312
-margin_top = 7.75414
-margin_right = 209.631
-margin_bottom = 37.7541
+margin_left = 15.6312
+margin_top = 9.75414
+margin_right = 213.631
+margin_bottom = 39.7541
 rect_scale = Vector2( 1.56456, 1.56456 )
 text = "Previsões para ano 2050"
 
@@ -95,12 +102,19 @@ margin_right = 1236.0
 margin_bottom = 654.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GridContainer3"]
-margin_left = 11.6312
-margin_top = 7.75414
-margin_right = 209.631
-margin_bottom = 37.7541
+margin_left = 14.6312
+margin_top = 8.75414
+margin_right = 212.631
+margin_bottom = 38.7541
 rect_scale = Vector2( 1.56456, 1.56456 )
-text = "Objetivos"
+text = "Objetivos para 2050"
+
+[node name="ObjText" type="RichTextLabel" parent="GridContainer3"]
+margin_left = 18.0
+margin_top = 46.0
+margin_right = 267.0
+margin_bottom = 148.0
+script = ExtResource( 2 )
 
 [node name="Historico" type="ItemList" parent="."]
 margin_left = 531.4
@@ -109,17 +123,56 @@ margin_right = 813.4
 margin_bottom = 658.907
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Historico"]
-margin_left = 11.6312
-margin_top = 7.75414
-margin_right = 209.631
-margin_bottom = 37.7541
+margin_left = 15.6312
+margin_top = 8.75414
+margin_right = 213.631
+margin_bottom = 38.7541
 rect_scale = Vector2( 1.56456, 1.56456 )
 text = "Histórico"
 
 [node name="HistText" type="RichTextLabel" parent="Historico"]
-margin_left = 13.0
-margin_top = 47.0
-margin_right = 262.0
-margin_bottom = 162.0
-script = ExtResource( 2 )
+margin_left = 17.0
+margin_top = 46.05
+margin_right = 266.0
+margin_bottom = 161.05
+script = ExtResource( 3 )
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+visible = true
+light_mask = 3
+margin_left = 320.504
+margin_top = 254.594
+margin_right = 995.504
+margin_bottom = 421.594
+custom_styles/panel = SubResource( 1 )
+
+[node name="Control" type="Control" parent="PopupPanel"]
+margin_right = 642.0
+margin_bottom = 169.0
+
+[node name="Results" type="RichTextLabel" parent="PopupPanel/Control"]
+margin_left = 34.0
+margin_top = 51.0
+margin_right = 220.0
+margin_bottom = 165.0
+text = "Utilidade: 100
+Objetivo: 120
+
+Emisssões CO2: 70 MT
+Objetivo: 35 MT"
+
+[node name="WonLostText" type="RichTextLabel" parent="PopupPanel/Control"]
+margin_left = 341.016
+margin_top = 82.6611
+margin_right = 527.016
+margin_bottom = 155.661
+text = "VENCEU!"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="PopupPanel/Control"]
+margin_left = 227.0
+margin_top = 13.0
+margin_right = 359.0
+margin_bottom = 43.0
+rect_scale = Vector2( 1.56456, 1.56456 )
+text = "Resultados em 2050"
 [connection signal="pressed" from="GridContainer/Button" to="." method="_on_Button_pressed"]
