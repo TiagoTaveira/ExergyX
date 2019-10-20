@@ -7,6 +7,7 @@ var current_year = 2017
 var money = 50000000
 var utility = 100
 var co2_emissions = 70
+var economic_growth = 1
 
 var investment_renewables_percentage = 30
 #var exergy_shares_sector_SECTORNAME =
@@ -19,9 +20,11 @@ var yearly_decisions = [YearlyDecision.new(2016, 30, 100, 71)]
 var final_year = 2050
 var final_year_utility = 100
 var final_year_emissions = 70
+var final_year_economic_growth = 1
 
 var utility_goals = 120
 var emission_goals = 35
+var economic_growth_goals = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

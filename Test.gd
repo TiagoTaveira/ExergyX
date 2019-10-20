@@ -28,8 +28,8 @@ func _on_Button_pressed():
 	
 	if PlayerVariables.current_year < PlayerVariables.final_year:
 		get_node("GridContainer/AnoAtual2").text = "Decisões para o ano de " + str(PlayerVariables.current_year + 1)
-		get_node("GridContainer2/RichTextLabel").text = "Previsões para ano " + str(PlayerVariables.final_year)
-		get_node("GridContainer2/RichTextLabel2").text = "Utilidade: " + str(PlayerVariables.final_year_utility) + "\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT"
+		get_node("GridContainer2/RichTextLabel").text = "Previsões (Objetivos) " + str(PlayerVariables.final_year)
+		get_node("GridContainer2/RichTextLabel2").text = "Felicidade: " + str(PlayerVariables.final_year_utility) + "\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT"
 	else:
 		get_node("GridContainer/Button").disabled = true
 		var won = (PlayerVariables.final_year_utility >= PlayerVariables.utility_goals) && (PlayerVariables.final_year_emissions <= PlayerVariables.emission_goals)
@@ -37,13 +37,13 @@ func _on_Button_pressed():
 			get_node("PopupPanel/Control/WonLostText").text = "VENCEU!"
 		else:
 			get_node("PopupPanel/Control/WonLostText").text = "PERDEU!"
-		get_node("PopupPanel/Control/Results").text = "Utilidade: " + str(PlayerVariables.final_year_utility) + "\n" + "Objetivo: " + str(PlayerVariables.utility_goals) + "\n\n" + "Emisssões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n" + "Objetivo: " + str(PlayerVariables.emission_goals) + " MT"
+		get_node("PopupPanel/Control/Results").text = "Felicidade: " + str(PlayerVariables.final_year_utility) + "\n" + "Objetivo: " + str(PlayerVariables.utility_goals) + "\n\n" + "Emisssões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n" + "Objetivo: " + str(PlayerVariables.emission_goals) + " MT"
 		get_node("PopupPanel").popup_centered()
 			
 func process_next_year():
 	
 	PlayerVariables.yearly_decisions.push_back(PlayerVariables.YearlyDecision.new(PlayerVariables.current_year, PlayerVariables.investment_renewables_percentage, PlayerVariables.utility, PlayerVariables.co2_emissions))
-	get_node("Historico/HistText").text = get_node("Historico/HistText").text + str(PlayerVariables.current_year) + "\n" + "% PIB En. Ren.: " + str(PlayerVariables.investment_renewables_percentage) + "%" + "\n" + "Utilidade: " + str(PlayerVariables.final_year_utility) + "\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n\n"
+	get_node("Historico/HistText").text = get_node("Historico/HistText").text + str(PlayerVariables.current_year) + "\n" + "% PIB En. Ren.: " + str(PlayerVariables.investment_renewables_percentage) + "%" + "\n" + "Felicidade: " + str(PlayerVariables.final_year_utility) + "\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n\n"
 	#above should be current utility+emissions, not final, but leaving like this for demo purposes
 	
 	PlayerVariables.current_year = PlayerVariables.current_year + 1
