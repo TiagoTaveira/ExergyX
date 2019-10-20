@@ -20,7 +20,7 @@ func on_History_Button_pressed():
 func _on_Button_pressed():
 	get_node("AcceptDialog").popup_centered_ratio(0.20)
 	process_next_year()
-	get_node("AnoAtual").text = "Ano Atual: " + str(PlayerVariables.current_year)
+	get_node("AnoAtual").text = str(PlayerVariables.current_year)
 	
 	#####EXPERIMENTAL#####
 	get_node("GrafHistorico/Control/TestLine2D").add_point(Vector2(PlayerVariables.current_year-2000, PlayerVariables.final_year_utility))
