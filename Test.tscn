@@ -1,33 +1,30 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Test.gd" type="Script" id=1]
 [ext_resource path="res://FONT_RobotoCondensed-Bold.tres" type="DynamicFont" id=2]
 [ext_resource path="res://RoundButtonst.theme" type="Theme" id=3]
-[ext_resource path="res://ObjText.gd" type="Script" id=4]
-[ext_resource path="res://HistText.gd" type="Script" id=5]
+[ext_resource path="res://FONT_RobotoCondensed-Light.tres" type="DynamicFont" id=4]
+[ext_resource path="res://FONT_WorkSans-SemiBold.tres" type="DynamicFont" id=5]
+[ext_resource path="res://FONT_WorkSans-Regular24.tres" type="DynamicFont" id=6]
+[ext_resource path="res://FONT_WorkSans-Bold.tres" type="DynamicFont" id=7]
+[ext_resource path="res://ObjText.gd" type="Script" id=8]
+[ext_resource path="res://HistText.gd" type="Script" id=9]
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
 expand_margin_left = 960.0
 expand_margin_right = 960.0
 expand_margin_top = 540.0
 expand_margin_bottom = 540.0
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.886275, 0.886275, 0.866667, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.886275, 0.886275, 0.866667, 1 )
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.886275, 0.886275, 0.866667, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -35,122 +32,137 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.886275, 0.886275, 0.866667, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.0470588, 0.00784314, 0.00784314, 1 )
 corner_detail = 9
 shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
 shadow_size = 5
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=6]
 
 [node name="Panel" type="Panel"]
-margin_left = 0.452074
-margin_top = -0.333405
-margin_right = 1920.45
+margin_left = 1.94475
+margin_top = -0.333435
+margin_right = 1921.94
 margin_bottom = 1078.67
-custom_styles/panel = SubResource( 10 )
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 
 [node name="AnoAtual" type="RichTextLabel" parent="."]
-margin_left = 137.0
-margin_top = 98.0
-margin_right = 494.0
-margin_bottom = 226.0
+margin_left = 141.0
+margin_top = 74.0
+margin_right = 498.0
+margin_bottom = 202.0
 custom_fonts/normal_font = ExtResource( 2 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 text = "2017"
 scroll_active = false
 
 [node name="GridContainer" type="ItemList" parent="."]
-margin_left = 754.0
+margin_left = 762.0
 margin_top = 211.0
-margin_right = 1196.0
+margin_right = 1204.0
 margin_bottom = 835.0
 rect_pivot_offset = Vector2( -126.604, 50.5367 )
-custom_styles/bg = SubResource( 6 )
+custom_styles/bg = SubResource( 2 )
 max_text_lines = 3
 
 [node name="Button" type="Button" parent="GridContainer"]
 margin_left = 69.0
-margin_top = 487.0
+margin_top = 493.0
 margin_right = 374.0
-margin_bottom = 579.0
+margin_bottom = 594.0
 theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 text = "Enviar decisões!"
 
 [node name="AnoAtual2" type="RichTextLabel" parent="GridContainer"]
-margin_left = 28.0087
-margin_top = 47.0078
-margin_right = 244.009
-margin_bottom = 87.0078
+margin_left = 28.0
+margin_top = 33.0
+margin_right = 428.0
+margin_bottom = 167.0
+custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
+custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
 text = "Decisões para o ano de 2018"
 
 [node name="PIBRenovaveis" type="SpinBox" parent="GridContainer"]
-margin_left = 263.595
-margin_top = 144.293
-margin_right = 337.595
-margin_bottom = 168.293
+margin_left = 272.553
+margin_top = 208.293
+margin_right = 346.553
+margin_bottom = 232.293
 value = 30.0
 rounded = true
 
 [node name="CheckButton" type="HSlider" parent="GridContainer"]
-margin_left = 269.362
-margin_top = 208.283
-margin_right = 345.362
-margin_bottom = 248.283
+margin_left = 271.362
+margin_top = 318.283
+margin_right = 347.362
+margin_bottom = 358.283
 value = 40.0
 ticks_on_borders = true
 
 [node name="CheckButton2" type="HSlider" parent="GridContainer"]
-margin_left = 269.362
-margin_top = 237.283
-margin_right = 345.362
-margin_bottom = 277.283
+margin_left = 271.362
+margin_top = 372.283
+margin_right = 347.362
+margin_bottom = 412.283
 value = 60.0
 ticks_on_borders = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GridContainer"]
-margin_left = 29.3789
-margin_top = 148.977
-margin_right = 251.379
-margin_bottom = 188.977
+margin_left = 29.0
+margin_top = 189.0
+margin_right = 251.0
+margin_bottom = 270.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "PIB para Energias Renováveis (%)"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="GridContainer"]
 margin_left = 30.228
-margin_top = 190.977
+margin_top = 275.977
 margin_right = 252.228
-margin_bottom = 230.977
+margin_bottom = 315.977
 rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/bold_font = ExtResource( 7 )
+custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Tipo de Economia:"
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="GridContainer"]
-margin_left = 68.599
-margin_top = 221.977
-margin_right = 290.599
-margin_bottom = 261.977
+margin_left = 30.0
+margin_top = 321.0
+margin_right = 252.0
+margin_bottom = 374.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Transportes"
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="GridContainer"]
-margin_left = 68.599
-margin_top = 251.977
-margin_right = 290.599
-margin_bottom = 291.977
+margin_left = 29.0
+margin_top = 375.0
+margin_right = 251.0
+margin_bottom = 418.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Agricultura"
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 visible = true
-margin_left = 794.19
-margin_top = 901.552
-margin_right = 1155.19
-margin_bottom = 1021.55
+margin_left = 791.068
+margin_top = 38.6375
+margin_right = 1152.07
+margin_bottom = 158.635
 size_flags_vertical = 9
 window_title = "Decisões Submetidas"
 dialog_text = "As decisões foram submetidas com sucesso,
@@ -162,29 +174,33 @@ margin_top = 208.54
 margin_right = 1805.78
 margin_bottom = 837.54
 rect_pivot_offset = Vector2( 96.828, 113.046 )
-custom_styles/bg = SubResource( 7 )
+custom_styles/bg = SubResource( 3 )
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="GridContainer2"]
-margin_left = 23.351
-margin_top = 106.744
-margin_right = 267.351
-margin_bottom = 179.744
-focus_mode = 2
+margin_left = 23.0
+margin_top = 190.0
+margin_right = 394.0
+margin_bottom = 411.0
+custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "Felicidade: [color=red]100[/color] (120)
+
 Emissões CO2: [color=red]70 MT[/color] (35 MT)
+
 Crescimento Económico: [color=green]1%[/color] (1%)"
 text = "Felicidade: 100 (120)
+
 Emissões CO2: 70 MT (35 MT)
+
 Crescimento Económico: 1% (1%)"
-selection_enabled = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GridContainer2"]
-margin_left = 23.9822
-margin_top = 46.4982
-margin_right = 221.982
-margin_bottom = 76.4982
+margin_left = 24.0
+margin_top = 35.0
+margin_right = 400.0
+margin_bottom = 148.0
+custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 text = "Previsões (Objetivos) 2050"
 
@@ -208,7 +224,7 @@ margin_left = 18.0
 margin_top = 46.0
 margin_right = 267.0
 margin_bottom = 148.0
-script = ExtResource( 4 )
+script = ExtResource( 8 )
 
 [node name="Historico" type="ItemList" parent="."]
 visible = false
@@ -230,45 +246,51 @@ margin_left = 17.0
 margin_top = 46.05
 margin_right = 266.0
 margin_bottom = 161.05
-script = ExtResource( 5 )
+script = ExtResource( 9 )
 
 [node name="EstadoAtual" type="ItemList" parent="."]
 margin_left = 121.797
 margin_top = 213.0
 margin_right = 585.797
 margin_bottom = 839.0
-custom_styles/bg = SubResource( 11 )
+custom_styles/bg = SubResource( 4 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="EstadoAtual"]
-margin_left = 27.4208
-margin_top = 47.2438
-margin_right = 225.421
-margin_bottom = 77.2438
+margin_left = 27.0
+margin_top = 37.0
+margin_right = 421.0
+margin_bottom = 108.0
+custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
-text = "No ano atual:"
+text = "No ano atual"
 
 [node name="HistText" type="RichTextLabel" parent="EstadoAtual"]
-margin_left = 27.4972
-margin_top = 91.5397
-margin_right = 276.497
-margin_bottom = 206.54
-focus_mode = 2
+margin_left = 27.0
+margin_top = 112.0
+margin_right = 429.0
+margin_bottom = 469.0
+custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "PIB: 197.5 mil milhões de euros
+
 PIB p/ Energias Renováveis: 30%
+
 Taxa de desemprego: 6.4%
+
 Crescimento Económico: 1%
+
 Emissões: 70 MT
+
 Felicidade dos cidadãos: 100 "
-selection_enabled = true
 
 [node name="Button" type="Button" parent="EstadoAtual"]
 anchor_right = 1.0
 margin_left = 91.3366
-margin_top = 479.0
+margin_top = 485.845
 margin_right = -93.6634
-margin_bottom = 581.0
+margin_bottom = 587.845
 theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 text = "Histórico"
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
@@ -277,7 +299,7 @@ margin_left = 320.504
 margin_top = 254.594
 margin_right = 995.504
 margin_bottom = 421.594
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 
 [node name="Control" type="Control" parent="PopupPanel"]
 margin_right = 675.0
@@ -314,7 +336,7 @@ margin_left = 127.943
 margin_top = 252.581
 margin_right = 1170.94
 margin_bottom = 575.581
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 6 )
 
 [node name="Control" type="Control" parent="GrafHistorico"]
 margin_right = 1043.0
