@@ -38,6 +38,13 @@ func _on_Button_pressed():
 		if won:
 			get_node("PopupPanel/Control/WonLostText").text = "VENCEU!"
 		else:
+			var red_style = StyleBoxFlat.new()
+			red_style.set_bg_color(Color("#800000"))
+			red_style.corner_radius_bottom_left = 20
+			red_style.corner_radius_bottom_right = 20
+			red_style.corner_radius_top_left = 20
+			red_style.corner_radius_top_right = 20
+			get_node("PopupPanel").set('custom_styles/panel', red_style)
 			get_node("PopupPanel/Control/WonLostText").text = "PERDEU!"
 		get_node("PopupPanel/Control/Results").text = "Felicidade: " + str(PlayerVariables.final_year_utility) + "\n" + "Objetivo: " + str(PlayerVariables.utility_goals) + "\n\n" + "Emisssões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n" + "Objetivo: " + str(PlayerVariables.emission_goals) + " MT"
 		get_node("PopupPanel").popup_centered()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Test.gd" type="Script" id=1]
 [ext_resource path="res://FONT_RobotoCondensed-Bold.tres" type="DynamicFont" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://FONT_WorkSans-Bold.tres" type="DynamicFont" id=7]
 [ext_resource path="res://ObjText.gd" type="Script" id=8]
 [ext_resource path="res://HistText.gd" type="Script" id=9]
+[ext_resource path="res://FONT_WorkSans-Black.tres" type="DynamicFont" id=10]
+[ext_resource path="res://FONT_RobotoCondensed-BoldItalic.tres" type="DynamicFont" id=11]
+[ext_resource path="res://FONT_WorkSans-SemiBold72.tres" type="DynamicFont" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
@@ -39,7 +42,11 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.0470588, 0.00784314, 0.00784314, 1 )
+bg_color = Color( 0.54902, 0.6, 0.294118, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 corner_detail = 9
 shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
 shadow_size = 5
@@ -138,9 +145,9 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Tipo de Economia:"
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="GridContainer"]
-margin_left = 30.0
+margin_left = 62.0
 margin_top = 321.0
-margin_right = 252.0
+margin_right = 284.0
 margin_bottom = 374.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -148,9 +155,9 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Transportes"
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="GridContainer"]
-margin_left = 29.0
+margin_left = 62.0
 margin_top = 375.0
-margin_right = 251.0
+margin_right = 284.0
 margin_bottom = 418.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -159,10 +166,10 @@ text = "Agricultura"
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 visible = true
-margin_left = 791.068
-margin_top = 38.6375
-margin_right = 1152.07
-margin_bottom = 158.635
+margin_left = 2350.49
+margin_top = 499.375
+margin_right = 2711.49
+margin_bottom = 619.373
 size_flags_vertical = 9
 window_title = "Decisões Submetidas"
 dialog_text = "As decisões foram submetidas com sucesso,
@@ -294,22 +301,24 @@ custom_fonts/font = ExtResource( 4 )
 text = "Histórico"
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
+visible = true
 light_mask = 3
-margin_left = 320.504
-margin_top = 254.594
-margin_right = 995.504
-margin_bottom = 421.594
+margin_left = 2038.41
+margin_top = 49.6472
+margin_right = 3226.41
+margin_bottom = 411.647
 custom_styles/panel = SubResource( 5 )
 
 [node name="Control" type="Control" parent="PopupPanel"]
-margin_right = 675.0
-margin_bottom = 167.0
+margin_right = 1188.0
+margin_bottom = 271.0
 
 [node name="Results" type="RichTextLabel" parent="PopupPanel/Control"]
-margin_left = 34.0
-margin_top = 51.0
-margin_right = 220.0
-margin_bottom = 165.0
+margin_left = 67.0
+margin_top = 119.0
+margin_right = 610.0
+margin_bottom = 351.0
+custom_fonts/normal_font = ExtResource( 10 )
 text = "Utilidade: 100
 Objetivo: 120
 
@@ -317,18 +326,20 @@ Emisssões CO2: 70 MT
 Objetivo: 35 MT"
 
 [node name="WonLostText" type="RichTextLabel" parent="PopupPanel/Control"]
-margin_left = 341.016
-margin_top = 82.6611
-margin_right = 527.016
-margin_bottom = 155.661
+margin_left = 707.031
+margin_top = 173.429
+margin_right = 1094.03
+margin_bottom = 360.429
+custom_fonts/normal_font = ExtResource( 11 )
 text = "VENCEU!"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="PopupPanel/Control"]
-margin_left = 227.0
+margin_left = 229.0
 margin_top = 13.0
-margin_right = 359.0
-margin_bottom = 43.0
-rect_scale = Vector2( 1.56456, 1.56456 )
+margin_right = 1006.0
+margin_bottom = 107.0
+custom_fonts/normal_font = ExtResource( 12 )
+custom_colors/default_color = Color( 0.235294, 0.376471, 0.168627, 1 )
 text = "Resultados em 2050"
 
 [node name="GrafHistorico" type="PopupPanel" parent="."]
