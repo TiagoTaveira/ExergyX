@@ -18,7 +18,7 @@ func on_History_Button_pressed():
 
 
 func _on_Button_pressed():
-	get_node("AcceptDialog").popup_centered_ratio(0.20)
+	#get_node("AcceptDialog").popup_centered_ratio(0.20)
 	process_next_year()
 	get_node("AnoAtual").text = str(PlayerVariables.current_year)
 	
@@ -32,6 +32,9 @@ func _on_Button_pressed():
 		get_node("GridContainer2/RichTextLabel2").bbcode_text = "Felicidade: " + str(PlayerVariables.final_year_utility) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n\n" + "Crescimento Económico: [color=green]1%[/color] (1%)"  #exemplo de texto
 		##Actual bbcode text setting (with conditions)
 		get_node("GridContainer2/RichTextLabel2").bbcode_text = "Felicidade: " + ("[color=red]" if PlayerVariables.final_year_utility < PlayerVariables.utility_goals else "[color=green]") + str(PlayerVariables.final_year_utility) + "[/color] (" + str(PlayerVariables.utility_goals) + ")\n\n"    +   "Emissões CO2: " + ("[color=red]" if PlayerVariables.final_year_emissions > PlayerVariables.emission_goals else "[color=green]") + str(PlayerVariables.final_year_emissions) + " MT[/color] (" + str(PlayerVariables.emission_goals) + " MT)\n\n"    +    "Crescimento Económico: " + ("[color=red]" if PlayerVariables.final_year_economic_growth < PlayerVariables.economic_growth_goals else "[color=green]") + str(PlayerVariables.final_year_economic_growth) + "%[/color] (" + str(PlayerVariables.economic_growth_goals) + "%)"
+		get_node("GridContainer2/Panel/PreviousYear").text = str(PlayerVariables.current_year  - 1)
+		get_node("GridContainer2/Panel/CurrentYear").text = str(PlayerVariables.current_year)
+		get_node("GridContainer2/Panel/NextYear").text = str(PlayerVariables.current_year + 1)
 	else:
 		get_node("GridContainer/Button").disabled = true
 		var won = (PlayerVariables.final_year_utility >= PlayerVariables.utility_goals) && (PlayerVariables.final_year_emissions <= PlayerVariables.emission_goals)
