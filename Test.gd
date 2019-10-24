@@ -21,6 +21,7 @@ func _on_Button_pressed():
 	#get_node("AcceptDialog").popup_centered_ratio(0.20)
 	process_next_year()
 	get_node("AnoAtual").text = str(PlayerVariables.current_year)
+	get_node("EstadoAtual/HistText").text = "PIB: 197.5 mil milhões de euros\n\nPIB p/ Energias Renováveis: " + str(PlayerVariables.investment_renewables_percentage) + "%\n\nTaxa de desemprego: 6.4%\n\nCrescimento Económico: 1%\n\nEmissões: 70 MT\n\nFelicidade dos cidadãos: 100"
 	
 	#####EXPERIMENTAL#####
 	get_node("GrafHistorico/Control/TestLine2D").add_point(Vector2(PlayerVariables.current_year-2000, PlayerVariables.final_year_utility))
@@ -49,7 +50,8 @@ func _on_Button_pressed():
 			red_style.corner_radius_top_right = 20
 			get_node("PopupPanel").set('custom_styles/panel', red_style)
 			get_node("PopupPanel/Control/WonLostText").text = "PERDEU!"
-		get_node("PopupPanel/Control/Results").text = "Felicidade: " + str(PlayerVariables.final_year_utility) + "\n" + "Objetivo: " + str(PlayerVariables.utility_goals) + "\n\n" + "Emisssões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n" + "Objetivo: " + str(PlayerVariables.emission_goals) + " MT"
+		get_node("GridContainer2/RichTextLabel").text = "Resultados (Objetivos) " + str(PlayerVariables.final_year)
+		get_node("PopupPanel/Control/Results").text = "Felicidade dos Cidadãos: " + str(PlayerVariables.final_year_utility) + "\n" + "Objetivo: " + str(PlayerVariables.utility_goals) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n" + "Objetivo: " + str(PlayerVariables.emission_goals) + " MT"+ "\n\n" + "Crescimento Económico: " + str(PlayerVariables.final_year_economic_growth) + "%" + "\n" + "Objetivo: " + str(PlayerVariables.economic_growth_goals) + "%"
 		get_node("PopupPanel").popup_centered()
 			
 func process_next_year():

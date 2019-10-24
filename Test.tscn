@@ -109,9 +109,10 @@ text = "Decisões para o ano de 2018"
 
 [node name="PIBRenovaveis" type="SpinBox" parent="GridContainer"]
 margin_left = 272.553
-margin_top = 208.293
+margin_top = 200.293
 margin_right = 346.553
-margin_bottom = 232.293
+margin_bottom = 224.293
+rect_scale = Vector2( 2, 2 )
 value = 30.0
 rounded = true
 
@@ -161,7 +162,7 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 7 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Eletrificação por Setor:"
+text = "Eletrificação p/ Setor:"
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="GridContainer"]
 margin_left = 62.0
@@ -195,20 +196,19 @@ text = "Setor 1"
 
 [node name="RichTextLabel6" type="RichTextLabel" parent="GridContainer"]
 margin_left = 62.2158
-margin_top = 537.0
+margin_top = 538.0
 margin_right = 284.216
-margin_bottom = 580.0
+margin_bottom = 581.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Setor 2"
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
-visible = true
-margin_left = 2350.49
-margin_top = 499.375
-margin_right = 2711.49
-margin_bottom = 619.373
+margin_left = 2341.3
+margin_top = 723.66
+margin_right = 2702.3
+margin_bottom = 843.658
 size_flags_vertical = 9
 window_title = "Decisões Submetidas"
 dialog_text = "As decisões foram submetidas com sucesso,
@@ -376,33 +376,36 @@ text = "Histórico"
 [node name="PopupPanel" type="PopupPanel" parent="."]
 visible = true
 light_mask = 3
-margin_left = 2038.41
-margin_top = 49.6472
-margin_right = 3226.41
-margin_bottom = 411.647
+margin_left = 2038.0
+margin_top = 50.0
+margin_right = 3226.0
+margin_bottom = 543.0
 custom_styles/panel = SubResource( 5 )
 
 [node name="Control" type="Control" parent="PopupPanel"]
 margin_right = 1188.0
-margin_bottom = 271.0
+margin_bottom = 493.0
 
 [node name="Results" type="RichTextLabel" parent="PopupPanel/Control"]
 margin_left = 67.0
-margin_top = 119.0
+margin_top = 128.0
 margin_right = 610.0
-margin_bottom = 351.0
+margin_bottom = 464.0
 custom_fonts/normal_font = ExtResource( 11 )
-text = "Utilidade: 100
+text = "Felicidade dos Cidadãos: 100
 Objetivo: 120
 
 Emissões CO2: 70 MT
-Objetivo: 35 MT"
+Objetivo: 35 MT
+
+Crescimento Económico: 1%
+Objetivo: 1%"
 
 [node name="WonLostText" type="RichTextLabel" parent="PopupPanel/Control"]
-margin_left = 707.031
-margin_top = 173.429
-margin_right = 1094.03
-margin_bottom = 360.429
+margin_left = 704.031
+margin_top = 233.429
+margin_right = 1091.03
+margin_bottom = 420.429
 custom_fonts/normal_font = ExtResource( 12 )
 text = "VENCEU!"
 
