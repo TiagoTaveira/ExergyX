@@ -80,10 +80,10 @@ text = "2017"
 scroll_active = false
 
 [node name="GridContainer" type="ItemList" parent="."]
-margin_left = 762.0
-margin_top = 211.0
-margin_right = 1204.0
-margin_bottom = 1029.0
+margin_left = 1374.0
+margin_top = 213.0
+margin_right = 1865.0
+margin_bottom = 1032.0
 rect_pivot_offset = Vector2( -126.604, 50.5367 )
 custom_styles/bg = SubResource( 2 )
 max_text_lines = 3
@@ -219,10 +219,10 @@ dialog_text = "As decisões foram submetidas com sucesso,
 e entretanto passou um ano..."
 
 [node name="GridContainer2" type="ItemList" parent="."]
-margin_left = 1380.0
-margin_top = 209.0
-margin_right = 1806.0
-margin_bottom = 1025.0
+margin_left = 679.0
+margin_top = 213.0
+margin_right = 1317.0
+margin_bottom = 1032.0
 rect_pivot_offset = Vector2( 96.828, 113.046 )
 custom_styles/bg = SubResource( 3 )
 
@@ -248,7 +248,7 @@ Crescimento Económico: 1% (1%)"
 [node name="RichTextLabel" type="RichTextLabel" parent="GridContainer2"]
 margin_left = 24.0
 margin_top = 35.0
-margin_right = 400.0
+margin_right = 616.0
 margin_bottom = 148.0
 custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
@@ -289,6 +289,16 @@ margin_bottom = 62.0
 custom_fonts/normal_font = ExtResource( 8 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "2018"
+
+[node name="Button" type="Button" parent="GridContainer2"]
+anchor_right = 1.0
+margin_left = 78.4981
+margin_top = 688.279
+margin_right = -106.502
+margin_bottom = 790.279
+theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
+text = "Histórico e Previsões"
 
 [node name="GridContainer3" type="ItemList" parent="."]
 editor/display_folded = true
@@ -339,8 +349,8 @@ script = ExtResource( 10 )
 [node name="EstadoAtual" type="ItemList" parent="."]
 margin_left = 122.0
 margin_top = 213.0
-margin_right = 586.0
-margin_bottom = 1031.0
+margin_right = 616.0
+margin_bottom = 1032.0
 custom_styles/bg = SubResource( 5 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="EstadoAtual"]
@@ -370,16 +380,6 @@ Crescimento Económico: 1%
 Emissões: 70 MT
 
 Felicidade dos cidadãos: 100 "
-
-[node name="Button" type="Button" parent="EstadoAtual"]
-anchor_right = 1.0
-margin_left = 91.3366
-margin_top = 680.845
-margin_right = -93.6634
-margin_bottom = 782.845
-theme = ExtResource( 3 )
-custom_fonts/font = ExtResource( 4 )
-text = "Histórico"
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 visible = true

@@ -7,7 +7,7 @@ extends Panel
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("GridContainer/Button").connect("pressed", self, "_on_Button_pressed")
-	get_node("EstadoAtual/Button").connect("pressed", self, "on_History_Button_pressed")
+	get_node("GridContainer2/Button").connect("pressed", self, "on_History_Button_pressed")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
