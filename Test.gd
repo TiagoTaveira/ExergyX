@@ -28,7 +28,7 @@ func _on_Button_pressed():
 	######################
 	
 	if PlayerVariables.current_year < PlayerVariables.final_year:
-		get_node("GridContainer/AnoAtual2").text = "Decisões para o ano de " + str(PlayerVariables.current_year + 1)
+		get_node("GridContainer/AnoAtual2").text = str(PlayerVariables.current_year + 1) + " - Decisões"
 		get_node("GridContainer2/RichTextLabel").text = "Previsões (Objetivos) " + str(PlayerVariables.final_year)
 		get_node("GridContainer2/RichTextLabel2").bbcode_text = "Felicidade: " + str(PlayerVariables.final_year_utility) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n\n" + "Crescimento Económico: [color=green]1%[/color] (1%)"  #exemplo de texto
 		##Actual bbcode text setting (with conditions)
