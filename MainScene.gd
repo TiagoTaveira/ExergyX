@@ -73,14 +73,15 @@ func _on_Button_pressed(): #Submit Decisions Button
 	calculate_percentages()
 	process_next_year()
 	get_node("AnoAtual").text = str(PlayerVariables.current_year)
-	get_node("EstadoAtual/HistText").text = "PIB: 197.5 mil milhões de euros\n\nPIB p/ Energias Renováveis: " + str(PlayerVariables.investment_renewables_percentage) + "%\n\nTaxa de desemprego: 6.4%\n\nCrescimento Económico: 1%\n\nEmissões: 70 MT\n\nFelicidade dos cidadãos: 100\n\nShares (Transportes): " + str(PlayerVariables.economy_type_percentage_transportation) + "%\n\nShares (Indústria): " + str(PlayerVariables.economy_type_percentage_industry) + "%\n\nShares (Residencial): " + str(PlayerVariables.economy_type_percentage_residential) + "%\n\nShares (Serviços): " + str(PlayerVariables.economy_type_percentage_services) + "%"
+	get_node("EstadoAtual/AnoAtual").text = "Ano Atual - " + str(PlayerVariables.current_year)
+	get_node("EstadoAtual/HistText").text = "PIB: 197.5 mil milhões de euros\n\nInvestimento p/ Energias Renováveis: " + str(PlayerVariables.investment_renewables_percentage) + "%\n\nCrescimento Económico: 1%\n\nEmissões: 70 MT\n\nFelicidade dos cidadãos: 100\n\nShares (Transportes): " + str(PlayerVariables.economy_type_percentage_transportation) + "%\n\nShares (Indústria): " + str(PlayerVariables.economy_type_percentage_industry) + "%\n\nShares (Residencial): " + str(PlayerVariables.economy_type_percentage_residential) + "%\n\nShares (Serviços): " + str(PlayerVariables.economy_type_percentage_services) + "%"
 	
 	#####EXPERIMENTAL#####
 	get_node("GrafHistorico/Control/TestLine2D").add_point(Vector2(PlayerVariables.current_year-2000, PlayerVariables.final_year_utility))
 	######################
 	
 	if PlayerVariables.current_year < PlayerVariables.final_year:
-		get_node("GridContainer/AnoAtual2").text = str(PlayerVariables.current_year + 1) + " - Decisões"
+		get_node("GridContainer/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
 		get_node("GridContainer2/RichTextLabel").text = str(PlayerVariables.final_year) + " - Previsões (Objetivos)"
 		get_node("GridContainer2/RichTextLabel2").bbcode_text = "Felicidade: " + str(PlayerVariables.final_year_utility) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n\n" + "Crescimento Económico: [color=green]1%[/color] (1%)"  #exemplo de texto
 		##Actual bbcode text setting (with conditions)
@@ -135,6 +136,12 @@ func process_next_year():
 		#mock formula follows:
 		PlayerVariables.final_year_utility = round(PlayerVariables.final_year_utility*(rand_range(0.9, 1.1) + 0.0005 * PlayerVariables.investment_renewables_percentage))
 		PlayerVariables.final_year_emissions = round(PlayerVariables.final_year_emissions*(rand_range(0.9, 1.1) - 0.005 * PlayerVariables.investment_renewables_percentage))
+
+func disable_all_buttons():
+	pass
+	
+func enable_all_buttons():
+	pass
 
 func update_level_images():
 	##Economy Types

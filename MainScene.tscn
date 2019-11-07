@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=2]
 
-[ext_resource path="res://Test.gd" type="Script" id=1]
+[ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://FONT_RobotoCondensed-Bold.tres" type="DynamicFont" id=2]
 [ext_resource path="res://RoundButtonst.theme" type="Theme" id=3]
 [ext_resource path="res://FONT_RobotoCondensed-Light.tres" type="DynamicFont" id=4]
@@ -84,6 +84,7 @@ __meta__ = {
 }
 
 [node name="AnoAtual" type="RichTextLabel" parent="."]
+visible = false
 margin_left = 141.0
 margin_top = 66.0
 margin_right = 846.0
@@ -94,9 +95,9 @@ text = "2017"
 scroll_active = false
 
 [node name="GridContainer" type="ItemList" parent="."]
-margin_left = 1374.0
-margin_top = 213.0
-margin_right = 1865.0
+margin_left = 1345.0
+margin_top = 54.0
+margin_right = 1859.0
 margin_bottom = 1032.0
 rect_pivot_offset = Vector2( -126.604, 50.5367 )
 custom_styles/bg = SubResource( 2 )
@@ -104,15 +105,15 @@ max_text_lines = 3
 
 [node name="Button" type="Button" parent="GridContainer"]
 margin_left = 69.0
-margin_top = 687.0
+margin_top = 843.0
 margin_right = 425.0
-margin_bottom = 788.0
+margin_bottom = 944.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 3 )
 custom_fonts/font = ExtResource( 4 )
 text = "Enviar decisões"
 
-[node name="AnoAtual2" type="RichTextLabel" parent="GridContainer"]
+[node name="ProximoAno" type="RichTextLabel" parent="GridContainer"]
 margin_left = 29.8328
 margin_top = 31.1674
 margin_right = 429.833
@@ -120,13 +121,13 @@ margin_bottom = 165.167
 custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
-text = "2018 - Decisões"
+text = "Decisões para 2018"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="GridContainer"]
 margin_left = 11.0
 margin_top = 94.0
-margin_right = 480.0
-margin_bottom = 666.0
+margin_right = 497.0
+margin_bottom = 828.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/ScrollContainer"]
 margin_right = 400.0
@@ -478,18 +479,18 @@ dialog_text = "As decisões foram submetidas com sucesso,
 e entretanto passou um ano..."
 
 [node name="GridContainer2" type="ItemList" parent="."]
-margin_left = 679.0
-margin_top = 213.0
-margin_right = 1317.0
+margin_left = 656.0
+margin_top = 55.0
+margin_right = 1288.0
 margin_bottom = 1032.0
 rect_pivot_offset = Vector2( 96.828, 113.046 )
 custom_styles/bg = SubResource( 3 )
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="GridContainer2"]
 margin_left = 23.0
-margin_top = 140.0
-margin_right = 394.0
-margin_bottom = 361.0
+margin_top = 176.0
+margin_right = 598.0
+margin_bottom = 397.0
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
@@ -512,6 +513,45 @@ margin_bottom = 148.0
 custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 text = "2050 - Previsões (Objetivos)"
+
+[node name="Metas" type="RichTextLabel" parent="GridContainer2"]
+margin_left = 22.4422
+margin_top = 126.555
+margin_right = 428.442
+margin_bottom = 166.555
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/bold_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 7 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[b]Metas:[/b]"
+text = "Metas:"
+
+[node name="DadosEnergeticos" type="RichTextLabel" parent="GridContainer2"]
+margin_left = 21.3449
+margin_top = 365.759
+margin_right = 427.345
+margin_bottom = 405.759
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/bold_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 7 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[b]Dados Energéticos:[/b]"
+text = "Dados Energéticos:"
+
+[node name="DadosEconomicos" type="RichTextLabel" parent="GridContainer2"]
+margin_left = 21.0531
+margin_top = 522.358
+margin_right = 427.053
+margin_bottom = 562.358
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/bold_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 7 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[b]Dados Económicos:[/b]"
+text = "Dados Económicos:"
 
 [node name="Panel" type="Panel" parent="GridContainer2"]
 editor/display_folded = true
@@ -552,9 +592,9 @@ text = "2018"
 [node name="Button" type="Button" parent="GridContainer2"]
 anchor_right = 1.0
 margin_left = 78.4981
-margin_top = 688.279
+margin_top = 844.279
 margin_right = -106.502
-margin_bottom = 790.279
+margin_bottom = 946.279
 mouse_default_cursor_shape = 2
 theme = ExtResource( 3 )
 custom_fonts/font = ExtResource( 4 )
@@ -607,33 +647,31 @@ margin_bottom = 161.05
 script = ExtResource( 15 )
 
 [node name="EstadoAtual" type="ItemList" parent="."]
-margin_left = 122.0
-margin_top = 213.0
-margin_right = 616.0
+margin_left = 97.0
+margin_top = 55.0
+margin_right = 597.0
 margin_bottom = 1032.0
 custom_styles/bg = SubResource( 5 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="EstadoAtual"]
+[node name="AnoAtual" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 27.0
 margin_top = 37.0
 margin_right = 421.0
 margin_bottom = 108.0
 custom_fonts/normal_font = ExtResource( 5 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
-text = "Ano atual"
+text = "Ano Atual - 2017"
 
 [node name="HistText" type="RichTextLabel" parent="EstadoAtual"]
-margin_left = 28.0
-margin_top = 137.0
-margin_right = 430.0
-margin_bottom = 804.0
+margin_left = 15.0
+margin_top = 179.0
+margin_right = 491.0
+margin_bottom = 846.0
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "PIB: 197.5 mil milhões de euros
 
-PIB p/ Energias Renováveis: 30%
-
-Taxa de desemprego: 6.4%
+Investimento p/ Energias Renováveis: 5%
 
 Crescimento Económico: 1%
 
@@ -648,6 +686,32 @@ Shares (Indústria): 25%
 Shares (Residencial): 25%
 
 Shares (Serviços): 25%"
+
+[node name="DadosEnergeticos" type="RichTextLabel" parent="EstadoAtual"]
+margin_left = 11.7022
+margin_top = 123.327
+margin_right = 417.702
+margin_bottom = 163.327
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/bold_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 7 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[b]Dados Energéticos:[/b]"
+text = "Dados Energéticos:"
+
+[node name="DadosEconomicos" type="RichTextLabel" parent="EstadoAtual"]
+margin_left = 15.5911
+margin_top = 749.198
+margin_right = 421.591
+margin_bottom = 789.198
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/bold_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 7 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[b]Dados Económicos:[/b]"
+text = "Dados Económicos:"
 
 [node name="GrafHistorico" type="PopupPanel" parent="."]
 margin_left = 57.0
