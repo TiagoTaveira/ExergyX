@@ -524,9 +524,9 @@ Shares (Serviços): 25%"
 
 [node name="TextoDadosSocioeconomicos" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 45.0
-margin_top = 726.0
+margin_top = 730.0
 margin_right = 591.0
-margin_bottom = 947.0
+margin_bottom = 951.0
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Consumo: "
@@ -568,9 +568,9 @@ text = "Outros Dados Energéticos:"
 
 [node name="DadosSocioeconomicos" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 21.0531
-margin_top = 685.358
+margin_top = 689.358
 margin_right = 427.053
-margin_bottom = 725.358
+margin_bottom = 729.358
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
