@@ -87,8 +87,8 @@ func on_Confirm_Button_pressed():
 	yield(get_tree().create_timer(1.0), "timeout") #wait() in GDscript
 	enable_all_buttons()
 	process_next_year()
-	get_node("AnoAtual").text = str(PlayerVariables.current_year)
-	get_node("EstadoAtual/AnoAtual").text = "Ano Atual - " + str(PlayerVariables.current_year)
+	get_node("AnoAtual/Ano").text = str(PlayerVariables.current_year)
+	get_node("EstadoAtual/AnoAtual").text = "Ano Atual"
 	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Investimento para Energias Renováveis: " + str(PlayerVariables.investment_renewables_percentage) + "% do PIB\n\nEmissões: 70 MT\n\nEficiência Agregada do País: " 
 	get_node("ContainerPrevisoes/TextoDadosEnergeticos").text = "Eficiência Agregada do País: " + "\n\nShares (Transportes): " + str(PlayerVariables.economy_type_percentage_transportation) + "%" + "\n\nShares (Indústria): " + str(PlayerVariables.economy_type_percentage_industry) + "%\n\nShares (Residencial): " + str(PlayerVariables.economy_type_percentage_residential) + "%\n\nShares (Serviços): " + str(PlayerVariables.economy_type_percentage_services) + "%"
 	
