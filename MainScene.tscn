@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://RoundButtonst.theme" type="Theme" id=2]
@@ -6,18 +6,19 @@
 [ext_resource path="res://FONT_WorkSans-SemiBold.tres" type="DynamicFont" id=4]
 [ext_resource path="res://FONT_WorkSans-Bold.tres" type="DynamicFont" id=5]
 [ext_resource path="res://FONT_WorkSans-Regular24.tres" type="DynamicFont" id=6]
-[ext_resource path="res://middle0.png" type="Texture" id=7]
-[ext_resource path="res://minus_black.png" type="Texture" id=8]
-[ext_resource path="res://minus_blue.png" type="Texture" id=9]
-[ext_resource path="res://plus_black.png" type="Texture" id=10]
-[ext_resource path="res://plus_red.png" type="Texture" id=11]
+[ext_resource path="res://minus_black.png" type="Texture" id=7]
+[ext_resource path="res://minus_blue.png" type="Texture" id=8]
+[ext_resource path="res://plus_black.png" type="Texture" id=9]
+[ext_resource path="res://plus_red.png" type="Texture" id=10]
+[ext_resource path="res://middle0.png" type="Texture" id=11]
 [ext_resource path="res://ChartHeaders.tres" type="DynamicFont" id=12]
 [ext_resource path="res://ObjText.gd" type="Script" id=13]
 [ext_resource path="res://HistText.gd" type="Script" id=14]
 [ext_resource path="res://FONT_RobotoCondensed-Bold.tres" type="DynamicFont" id=15]
-[ext_resource path="res://FONT_WorkSans-Black.tres" type="DynamicFont" id=16]
-[ext_resource path="res://FONT_RobotoCondensed-BoldItalic.tres" type="DynamicFont" id=17]
-[ext_resource path="res://FONT_WorkSans-SemiBold72.tres" type="DynamicFont" id=18]
+[ext_resource path="res://Ano.gd" type="Script" id=16]
+[ext_resource path="res://FONT_WorkSans-Black.tres" type="DynamicFont" id=17]
+[ext_resource path="res://FONT_RobotoCondensed-BoldItalic.tres" type="DynamicFont" id=18]
+[ext_resource path="res://FONT_WorkSans-SemiBold72.tres" type="DynamicFont" id=19]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
@@ -54,14 +55,44 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="Animation" id=6]
+resource_name = "NextYear"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.94 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 136, 26 ), Vector2( 136, -100 ), Vector2( 136, 26 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.31 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "hide_year_for_animation"
+} ]
+}
+
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.941176, 0.960784, 0.941176, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.54902, 0.6, 0.294118, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -71,7 +102,7 @@ corner_detail = 9
 shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
 shadow_size = 5
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.964706, 0.976471, 0.952941, 1 )
 border_width_left = 20
 border_width_top = 20
@@ -125,23 +156,17 @@ custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
 text = "Decisões"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="ContainerDecisoes"]
+[node name="ScrollContainer" type="Control" parent="ContainerDecisoes"]
 margin_left = 11.0
 margin_top = 132.0
 margin_right = 497.0
-margin_bottom = 866.0
+margin_bottom = 806.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ContainerDecisoes/ScrollContainer"]
-margin_right = 400.0
-margin_bottom = 1000.0
-rect_min_size = Vector2( 400, 1000 )
-custom_constants/separation = 0
-
-[node name="Control" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="PotenciaInstalada" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control"]
+[node name="PotenciaInstalada" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 17.0
 margin_top = 2.0
 margin_right = 423.0
@@ -154,10 +179,10 @@ bbcode_enabled = true
 bbcode_text = "[b]Potência Instalada Renovável:[/b]"
 text = "Potência Instalada Renovável:"
 
-[node name="PIBRenovaveis" type="SpinBox" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control"]
-margin_left = 288.0
+[node name="PIBRenovaveis" type="SpinBox" parent="ContainerDecisoes/ScrollContainer/Control"]
+margin_left = 196.629
 margin_top = 46.0
-margin_right = 372.0
+margin_right = 280.629
 margin_bottom = 70.0
 rect_scale = Vector2( 1.5, 1.5 )
 mouse_default_cursor_shape = 2
@@ -168,7 +193,7 @@ align = 3
 prefix = "+"
 suffix = "GW"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 visible = false
 margin_left = 18.0
 margin_top = 23.0
@@ -180,7 +205,7 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_text = "PIB para Energias Renováveis (%)"
 text = "PIB para Energias Renováveis (%)"
 
-[node name="Instalar" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control"]
+[node name="Instalar" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 49.0
 margin_top = 46.0
 margin_right = 271.0
@@ -190,7 +215,7 @@ custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "A instalar"
 
-[node name="Custo" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control"]
+[node name="Custo" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 49.0
 margin_top = 91.0
 margin_right = 271.0
@@ -200,15 +225,35 @@ custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Custo"
 
-[node name="Control2" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control"]
+margin_left = 351.445
+margin_top = 49.381
+margin_right = 391.445
+margin_bottom = 89.381
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+
+[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control"]
+margin_left = 401.938
+margin_top = 49.165
+margin_right = 441.938
+margin_bottom = 89.165
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
+
+[node name="Control2" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="TipoEconomia" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control2"]
+[node name="TipoEconomia" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control2"]
 margin_left = 17.0
-margin_top = 129.0
+margin_top = 157.0
 margin_right = 265.0
-margin_bottom = 169.0
+margin_bottom = 197.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -217,171 +262,171 @@ bbcode_enabled = true
 bbcode_text = "[b]Tipo de Economia:[/b]"
 text = "Tipo de Economia:"
 
-[node name="Control3" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control3" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="Transportes" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control3"]
+[node name="Transportes" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control3"]
 margin_left = 49.0
-margin_top = 170.0
+margin_top = 198.0
 margin_right = 271.0
-margin_bottom = 223.0
+margin_bottom = 251.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Transportes"
 
-[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control3"]
-position = Vector2( 277.267, 187.918 )
+[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/Control3"]
+position = Vector2( 277.267, 215.918 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 7 )
+texture = ExtResource( 11 )
 
-[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control3"]
+[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control3"]
 margin_left = 351.445
-margin_top = 173.381
+margin_top = 201.381
 margin_right = 391.445
-margin_bottom = 213.381
+margin_bottom = 241.381
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 9 )
-texture_hover = ExtResource( 9 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
 
-[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control3"]
+[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control3"]
 margin_left = 401.938
-margin_top = 173.165
+margin_top = 201.165
 margin_right = 441.938
-margin_bottom = 213.165
+margin_bottom = 241.165
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 11 )
-texture_hover = ExtResource( 11 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
 
-[node name="Control4" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control4" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="Industria" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control4"]
+[node name="Industria" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control4"]
 margin_left = 48.0
-margin_top = 220.0
+margin_top = 248.0
 margin_right = 270.0
-margin_bottom = 263.0
+margin_bottom = 291.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Indústria"
 
-[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control4"]
-position = Vector2( 277.369, 236.92 )
+[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/Control4"]
+position = Vector2( 277.369, 264.92 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 7 )
+texture = ExtResource( 11 )
 
-[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control4"]
+[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control4"]
 margin_left = 351.445
-margin_top = 223.381
+margin_top = 251.381
 margin_right = 391.445
-margin_bottom = 263.381
+margin_bottom = 291.381
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 9 )
-texture_hover = ExtResource( 9 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
 
-[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control4"]
+[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control4"]
 margin_left = 401.938
-margin_top = 223.164
+margin_top = 251.164
 margin_right = 441.938
-margin_bottom = 263.164
+margin_bottom = 291.164
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 11 )
-texture_hover = ExtResource( 11 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
 
-[node name="Control5" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control5" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="Residencial" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control5"]
+[node name="Residencial" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control5"]
 margin_left = 49.0
-margin_top = 267.0
+margin_top = 295.0
 margin_right = 271.0
-margin_bottom = 310.0
+margin_bottom = 338.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Residencial"
 
-[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control5"]
-position = Vector2( 277.419, 284.16 )
+[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/Control5"]
+position = Vector2( 277.419, 312.16 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 7 )
+texture = ExtResource( 11 )
 
-[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control5"]
+[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control5"]
 margin_left = 352.435
-margin_top = 269.391
+margin_top = 297.391
 margin_right = 392.435
-margin_bottom = 309.391
+margin_bottom = 337.391
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 9 )
-texture_hover = ExtResource( 9 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
 
-[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control5"]
+[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control5"]
 margin_left = 401.938
-margin_top = 269.164
+margin_top = 297.164
 margin_right = 441.938
-margin_bottom = 309.164
+margin_bottom = 337.164
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 11 )
-texture_hover = ExtResource( 11 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
 
-[node name="Control6" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control6" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="Servicos" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control6"]
+[node name="Servicos" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control6"]
 margin_left = 49.0
-margin_top = 312.0
+margin_top = 340.0
 margin_right = 271.0
-margin_bottom = 355.0
+margin_bottom = 383.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Serviços"
 
-[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control6"]
-position = Vector2( 277.433, 327.78 )
+[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/Control6"]
+position = Vector2( 277.433, 355.78 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 7 )
+texture = ExtResource( 11 )
 
-[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control6"]
+[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control6"]
 margin_left = 352.435
-margin_top = 313.391
+margin_top = 341.391
 margin_right = 392.435
-margin_bottom = 353.391
+margin_bottom = 381.391
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 9 )
-texture_hover = ExtResource( 9 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
 
-[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control6"]
+[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control6"]
 margin_left = 401.938
-margin_top = 313.164
+margin_top = 341.164
 margin_right = 441.938
-margin_bottom = 353.164
+margin_bottom = 381.164
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 11 )
-texture_hover = ExtResource( 11 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
 
-[node name="Control7" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control7" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="EletrificacaoSetor" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control7"]
+[node name="EletrificacaoSetor" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control7"]
 margin_left = 15.9575
-margin_top = 355.958
+margin_top = 410.958
 margin_right = 322.958
-margin_bottom = 395.958
+margin_bottom = 450.958
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -390,83 +435,83 @@ bbcode_enabled = true
 bbcode_text = "[b]Eletrificação por Setor:[/b]"
 text = "Eletrificação por Setor:"
 
-[node name="Control8" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control8" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="Transportes" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control8"]
+[node name="Transportes" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control8"]
 margin_left = 49.0
-margin_top = 401.0
+margin_top = 456.0
 margin_right = 271.0
-margin_bottom = 444.0
+margin_bottom = 499.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Transportes"
 
-[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control8"]
-position = Vector2( 277.316, 416.036 )
+[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/Control8"]
+position = Vector2( 277.316, 471.036 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 7 )
+texture = ExtResource( 11 )
 
-[node name="Control9" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control9" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="Industria" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control9"]
+[node name="Industria" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control9"]
 margin_left = 49.2158
-margin_top = 448.0
+margin_top = 503.0
 margin_right = 271.216
-margin_bottom = 491.0
+margin_bottom = 546.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Indústria"
 
-[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control9"]
-position = Vector2( 277.27, 464.591 )
+[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/Control9"]
+position = Vector2( 277.27, 519.591 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 7 )
+texture = ExtResource( 11 )
 
-[node name="Control10" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control10" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="Residencial" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control10"]
+[node name="Residencial" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control10"]
 margin_left = 49.2158
-margin_top = 495.0
+margin_top = 550.0
 margin_right = 271.216
-margin_bottom = 538.0
+margin_bottom = 593.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Residencial"
 
-[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control10"]
-position = Vector2( 277.261, 509.282 )
+[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/Control10"]
+position = Vector2( 277.261, 564.282 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 7 )
+texture = ExtResource( 11 )
 
-[node name="Control11" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control11" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
-[node name="Servicos" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control11"]
+[node name="Servicos" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control11"]
 margin_left = 49.2158
-margin_top = 539.0
+margin_top = 594.0
 margin_right = 271.216
-margin_bottom = 582.0
+margin_bottom = 637.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Serviços"
 
-[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/VBoxContainer/Control11"]
-position = Vector2( 277.342, 555.595 )
+[node name="Level" type="Sprite" parent="ContainerDecisoes/ScrollContainer/Control11"]
+position = Vector2( 277.342, 610.595 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 7 )
+texture = ExtResource( 11 )
 
-[node name="Control12" type="Control" parent="ContainerDecisoes/ScrollContainer/VBoxContainer"]
+[node name="Control12" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
@@ -525,10 +570,10 @@ Shares (Residencial): 25%
 Shares (Serviços): 25%"
 
 [node name="TextoDadosSocioeconomicos" type="RichTextLabel" parent="ContainerPrevisoes"]
-margin_left = 45.0
-margin_top = 730.0
+margin_left = 48.0
+margin_top = 735.0
 margin_right = 591.0
-margin_bottom = 951.0
+margin_bottom = 828.0
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Consumo: "
@@ -570,9 +615,9 @@ text = "Outros Dados Energéticos:"
 
 [node name="DadosSocioeconomicos" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 21.0531
-margin_top = 689.358
+margin_top = 692.358
 margin_right = 427.053
-margin_bottom = 729.358
+margin_bottom = 732.358
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -757,18 +802,22 @@ custom_styles/bg = SubResource( 5 )
 margin_left = 136.0
 margin_top = 26.0
 margin_right = 419.0
-margin_bottom = 154.0
+margin_bottom = 276.0
 custom_fonts/normal_font = ExtResource( 15 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 text = "2017"
 scroll_active = false
+script = ExtResource( 16 )
+
+[node name="NextYearAnimationPlayer" type="AnimationPlayer" parent="AnoAtual/Ano"]
+anims/NextYear = SubResource( 6 )
 
 [node name="GrafHistorico" type="PopupPanel" parent="."]
 margin_left = 57.0
 margin_top = 195.0
 margin_right = 1889.0
 margin_bottom = 1023.0
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 7 )
 
 [node name="Control" type="Control" parent="GrafHistorico"]
 margin_right = 1832.0
@@ -798,7 +847,7 @@ margin_left = 2038.0
 margin_top = 50.0
 margin_right = 3226.0
 margin_bottom = 543.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 8 )
 
 [node name="Control" type="Control" parent="PopupPanel"]
 margin_right = 1188.0
@@ -809,7 +858,7 @@ margin_left = 67.0
 margin_top = 128.0
 margin_right = 610.0
 margin_bottom = 464.0
-custom_fonts/normal_font = ExtResource( 16 )
+custom_fonts/normal_font = ExtResource( 17 )
 text = "Felicidade dos Cidadãos: 100
 Objetivo: 120
 
@@ -824,7 +873,7 @@ margin_left = 704.031
 margin_top = 233.429
 margin_right = 1091.03
 margin_bottom = 420.429
-custom_fonts/normal_font = ExtResource( 17 )
+custom_fonts/normal_font = ExtResource( 18 )
 text = "VENCEU!"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="PopupPanel/Control"]
@@ -832,7 +881,7 @@ margin_left = 229.0
 margin_top = 13.0
 margin_right = 1006.0
 margin_bottom = 107.0
-custom_fonts/normal_font = ExtResource( 18 )
+custom_fonts/normal_font = ExtResource( 19 )
 custom_colors/default_color = Color( 0.235294, 0.376471, 0.168627, 1 )
 text = "Resultados em 2050"
 
@@ -841,7 +890,7 @@ margin_left = 19.0
 margin_top = 19.0
 margin_right = 1895.0
 margin_bottom = 1056.0
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 9 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ConfirmationPopup"]
