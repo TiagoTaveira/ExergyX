@@ -16,3 +16,6 @@ func _ready():
 
 func hide_year_for_animation():
 	self.rect_position = Vector2(135,148)
+	
+func increase_year_text_by_one():
+	text = str(PlayerVariables.current_year + 1)

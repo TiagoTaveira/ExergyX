@@ -8,6 +8,8 @@ extends Panel
 func _ready():
 	get_node("ContainerDecisoes/EnviarDecisoes").connect("pressed", self, "_on_Button_pressed")
 	get_node("ContainerPrevisoes/HistoricoPrevisoes").connect("pressed", self, "on_History_Button_pressed")
+	get_node("ContainerDecisoes/ScrollContainer/Control/Minus").connect("pressed", self, "on_Investment_Minus_Button_pressed")
+	get_node("ContainerDecisoes/ScrollContainer/Control/Plus").connect("pressed", self, "on_Investment_Plus_Button_pressed")
 	get_node("ContainerDecisoes/ScrollContainer/Control3/Minus").connect("pressed", self, "on_Transport_Minus_Button_pressed")
 	get_node("ContainerDecisoes/ScrollContainer/Control3/Plus").connect("pressed", self, "on_Transport_Plus_Button_pressed")
 	get_node("ContainerDecisoes/ScrollContainer/Control4/Minus").connect("pressed", self, "on_Industry_Minus_Button_pressed")
@@ -25,6 +27,20 @@ func _ready():
 
 
 # Button presses
+func on_Investment_Minus_Button_pressed():
+	if(PlayerVariables.investment_renewables_percentage > 0):
+		PlayerVariables.investment_renewables_percentage -= 5
+		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
+		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * 1
+		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(PlayerVariables.investment_cost) + "[/right]"
+
+func on_Investment_Plus_Button_pressed():
+	if(PlayerVariables.investment_renewables_percentage < 100):
+		PlayerVariables.investment_renewables_percentage += 5
+		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
+		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * 1
+		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(PlayerVariables.investment_cost) + "[/right]"
+
 func on_Transport_Minus_Button_pressed():
 	if(PlayerVariables.economy_type_level_transportation > 1):
 		PlayerVariables.economy_type_level_transportation = PlayerVariables.economy_type_level_transportation - 1
@@ -83,6 +99,7 @@ func _on_Button_pressed(): #Submit Decisions Button
 	
 #move this function under the next one after done, and delete this comment
 func next_year_animation():
+	get_node("AnoAtual/Ano/NextYearAnimationPlayer").play("NextYear")
 	pass
 
 func on_Confirm_Button_pressed():
@@ -94,7 +111,7 @@ func on_Confirm_Button_pressed():
 	process_next_year()
 	get_node("AnoAtual/Ano").text = str(PlayerVariables.current_year)
 	get_node("EstadoAtual/AnoAtual").text = "Ano Atual"
-	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Investimento para Energias Renováveis: " + str(PlayerVariables.investment_renewables_percentage) + "% do PIB\n\nEmissões: 70 MT\n\nEficiência Agregada do País: " 
+	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Investimento para Energias Renováveis: " + str(PlayerVariables.investment_renewables_percentage) + "% do PIB\n\nEmissões: 70 MT\n\nEficiência Agregada do País: \n\nFração de Eletricidade Renovável: " 
 	get_node("ContainerPrevisoes/TextoDadosEnergeticos").text = "Eficiência Agregada do País: " + "\n\nShares (Transportes): " + str(PlayerVariables.economy_type_percentage_transportation) + "%" + "\n\nShares (Indústria): " + str(PlayerVariables.economy_type_percentage_industry) + "%\n\nShares (Residencial): " + str(PlayerVariables.economy_type_percentage_residential) + "%\n\nShares (Serviços): " + str(PlayerVariables.economy_type_percentage_services) + "%"
 	
 	#####EXPERIMENTAL#####
@@ -102,7 +119,8 @@ func on_Confirm_Button_pressed():
 	######################
 	
 	if PlayerVariables.current_year < PlayerVariables.final_year:
-		get_node("ContainerDecisoes/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
+		#get_node("ContainerDecisoes/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
+		get_node("ContainerDecisoes/ProximoAno").text = "Decisões"
 		get_node("ContainerPrevisoes/RichTextLabel").text = str(PlayerVariables.final_year) + " - Previsões (Objetivos)"
 		get_node("ContainerPrevisoes/RichTextLabel2").bbcode_text = "Felicidade dos Cidadãos: " + str(PlayerVariables.final_year_utility) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n\n" + "Crescimento Económico: [color=green]1%[/color] (1%)"  #exemplo de texto
 		##Actual bbcode text setting (with conditions)
@@ -221,13 +239,13 @@ func process_next_year():
 	#above should be current utility+emissions, not final, but leaving like this for demo purposes
 	
 	PlayerVariables.current_year = PlayerVariables.current_year + 1
-	var last_year_investment = PlayerVariables.investment_renewables_percentage
-	PlayerVariables.investment_renewables_percentage = get_node("ContainerDecisoes/ScrollContainer/Control/PIBRenovaveis").get_value()
+	#var last_year_investment = PlayerVariables.investment_renewables_percentage
+	#PlayerVariables.investment_renewables_percentage = get_node("ContainerDecisoes/ScrollContainer/Control/PIBRenovaveis").get_value()
 
-	if last_year_investment != PlayerVariables.investment_renewables_percentage:
+	#if last_year_investment != PlayerVariables.investment_renewables_percentage:
 		#mock formula follows:
-		PlayerVariables.final_year_utility = round(PlayerVariables.final_year_utility*(rand_range(0.9, 1.1) + 0.0005 * PlayerVariables.investment_renewables_percentage))
-		PlayerVariables.final_year_emissions = round(PlayerVariables.final_year_emissions*(rand_range(0.9, 1.1) - 0.005 * PlayerVariables.investment_renewables_percentage))
+	PlayerVariables.final_year_utility = round(PlayerVariables.final_year_utility*(rand_range(0.9, 1.1) + 0.0005 * PlayerVariables.investment_renewables_percentage))
+	PlayerVariables.final_year_emissions = round(PlayerVariables.final_year_emissions*(rand_range(0.9, 1.1) - 0.005 * PlayerVariables.investment_renewables_percentage))
 
 func disable_all_buttons():
 	get_node("ContainerDecisoes/ScrollContainer/Control3/Minus").disabled = true
@@ -257,11 +275,11 @@ func enable_all_buttons():
 	
 func update_confirmation_popup():
 	get_node("ConfirmationPopup/Control/ConfirmarDecisoes").text = "Confirmar e ir para " + str(PlayerVariables.current_year + 1)
-	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Será feita uma instalação de " + str(get_node("ContainerDecisoes/ScrollContainer/Control/PIBRenovaveis").get_value()) + "GW. Este processo terá o custo de " + "x" + "€, correspondendo a " + "x" + "% do Produto Interno Bruto (PIB)."
-	get_node("ConfirmationPopup/Control/Transportes").text = "Aproximadamente " + str(PlayerVariables.economy_type_percentage_transportation) + "% para o setor dos Transportes."
-	get_node("ConfirmationPopup/Control/Industria").text = "Aproximadamente " + str(PlayerVariables.economy_type_percentage_industry) + "% para o setor da Indústria."
-	get_node("ConfirmationPopup/Control/Residencial").text = "Aproximadamente " + str(PlayerVariables.economy_type_percentage_residential) + "% para o setor Residencial."
-	get_node("ConfirmationPopup/Control/Servicos").text = "Aproximadamente " + str(PlayerVariables.economy_type_percentage_services) + "% para o setor dos Serviços."
+	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(PlayerVariables.investment_cost) + " M€ ( % do PIB)"
+	get_node("ConfirmationPopup/Control/Transportes").text = "Transportes: Aprox. " + str(PlayerVariables.economy_type_percentage_transportation) + "%"
+	get_node("ConfirmationPopup/Control/Industria").text = "Indústria: Aprox. " + str(PlayerVariables.economy_type_percentage_industry) + "%"
+	get_node("ConfirmationPopup/Control/Residencial").text = "Residencial: Aprox. " + str(PlayerVariables.economy_type_percentage_residential) + "%"
+	get_node("ConfirmationPopup/Control/Servicos").text = "Serviços: Aprox. " + str(PlayerVariables.economy_type_percentage_services) + "%"
 	
 
 func update_level_images():

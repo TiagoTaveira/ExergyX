@@ -77,9 +77,12 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.31 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.3, 0.31 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "increase_year_text_by_one"
+}, {
 "args": [  ],
 "method": "hide_year_for_animation"
 } ]
@@ -152,7 +155,7 @@ margin_top = 31.1674
 margin_right = 429.833
 margin_bottom = 165.167
 custom_fonts/normal_font = ExtResource( 4 )
-custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
+custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
 custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
 text = "Decisões"
 
@@ -180,6 +183,7 @@ bbcode_text = "[b]Potência Instalada Renovável:[/b]"
 text = "Potência Instalada Renovável:"
 
 [node name="PIBRenovaveis" type="SpinBox" parent="ContainerDecisoes/ScrollContainer/Control"]
+visible = false
 margin_left = 196.629
 margin_top = 46.0
 margin_right = 280.629
@@ -208,17 +212,66 @@ text = "PIB para Energias Renováveis (%)"
 [node name="Instalar" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 49.0
 margin_top = 46.0
-margin_right = 271.0
+margin_right = 187.0
 margin_bottom = 99.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "A instalar"
 
+[node name="ValorPotencia" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
+margin_left = 189.0
+margin_top = 46.0
+margin_right = 246.0
+margin_bottom = 99.0
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[right]5[/right]"
+visible_characters = 3
+text = "5"
+
+[node name="ValorCusto" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
+margin_left = 189.0
+margin_top = 92.0
+margin_right = 246.0
+margin_bottom = 145.0
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[right]5[/right]"
+text = "5"
+
+[node name="GW" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
+margin_left = 254.0
+margin_top = 46.0
+margin_right = 311.0
+margin_bottom = 99.0
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "GW"
+text = "GW"
+
+[node name="ME" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
+margin_left = 254.0
+margin_top = 92.0
+margin_right = 311.0
+margin_bottom = 145.0
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "M€"
+text = "M€"
+
 [node name="Custo" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 49.0
 margin_top = 91.0
-margin_right = 271.0
+margin_right = 179.0
 margin_bottom = 144.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -454,6 +507,26 @@ position = Vector2( 277.316, 471.036 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 11 )
 
+[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control8"]
+margin_left = 352.435
+margin_top = 456.391
+margin_right = 392.435
+margin_bottom = 496.391
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+
+[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control8"]
+margin_left = 401.938
+margin_top = 456.164
+margin_right = 441.938
+margin_bottom = 496.164
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
+
 [node name="Control9" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
@@ -472,6 +545,26 @@ text = "Indústria"
 position = Vector2( 277.27, 519.591 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 11 )
+
+[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control9"]
+margin_left = 352.435
+margin_top = 505.391
+margin_right = 392.435
+margin_bottom = 545.391
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+
+[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control9"]
+margin_left = 401.938
+margin_top = 505.164
+margin_right = 441.938
+margin_bottom = 545.164
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
 
 [node name="Control10" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
@@ -492,6 +585,26 @@ position = Vector2( 277.261, 564.282 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 11 )
 
+[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control10"]
+margin_left = 352.435
+margin_top = 552.391
+margin_right = 392.435
+margin_bottom = 592.391
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+
+[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control10"]
+margin_left = 401.938
+margin_top = 552.164
+margin_right = 441.938
+margin_bottom = 592.164
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
+
 [node name="Control11" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
 rect_pivot_offset = Vector2( -2036.94, 71.1674 )
@@ -510,6 +623,26 @@ text = "Serviços"
 position = Vector2( 277.342, 610.595 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 11 )
+
+[node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control11"]
+margin_left = 352.435
+margin_top = 595.391
+margin_right = 392.435
+margin_bottom = 635.391
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+
+[node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control11"]
+margin_left = 401.938
+margin_top = 595.164
+margin_right = 441.938
+margin_bottom = 635.164
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
 
 [node name="Control12" type="Control" parent="ContainerDecisoes/ScrollContainer"]
 margin_right = 400.0
@@ -571,9 +704,9 @@ Shares (Serviços): 25%"
 
 [node name="TextoDadosSocioeconomicos" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 48.0
-margin_top = 735.0
+margin_top = 740.0
 margin_right = 591.0
-margin_bottom = 828.0
+margin_bottom = 833.0
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Consumo: "
@@ -584,7 +717,7 @@ margin_top = 35.0
 margin_right = 616.0
 margin_bottom = 148.0
 custom_fonts/normal_font = ExtResource( 4 )
-custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
+custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
 text = "2050 - Previsões (Objetivos)"
 
 [node name="Metas" type="RichTextLabel" parent="ContainerPrevisoes"]
@@ -615,9 +748,9 @@ text = "Outros Dados Energéticos:"
 
 [node name="DadosSocioeconomicos" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 21.0531
-margin_top = 692.358
+margin_top = 693.94
 margin_right = 427.053
-margin_bottom = 732.358
+margin_bottom = 733.94
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -732,7 +865,7 @@ margin_top = 37.0
 margin_right = 421.0
 margin_bottom = 108.0
 custom_fonts/normal_font = ExtResource( 4 )
-custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
+custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
 text = "Ano Atual"
 
 [node name="TextoDadosEnergeticos" type="RichTextLabel" parent="EstadoAtual"]
@@ -804,7 +937,7 @@ margin_top = 26.0
 margin_right = 419.0
 margin_bottom = 276.0
 custom_fonts/normal_font = ExtResource( 15 )
-custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
+custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
 text = "2017"
 scroll_active = false
 script = ExtResource( 16 )
@@ -909,48 +1042,52 @@ custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 text = "Decisões para o próximo ano - Resumo"
 
 [node name="ResumoPotenciaInstalada" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 152.0
-margin_top = 184.0
-margin_right = 1857.0
-margin_bottom = 237.0
+margin_left = 669.079
+margin_top = 187.482
+margin_right = 2374.08
+margin_bottom = 270.482
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "Será feita uma instalação de  GW. Este processo terá o custo de  €, correspondendo a  % do Produto Interno Bruto (PIB)."
-text = "Será feita uma instalação de  GW. Este processo terá o custo de  €, correspondendo a  % do Produto Interno Bruto (PIB)."
+bbcode_text = "Instalação:  GW
+Custo:  € ( % do PIB)"
+text = "Instalação:  GW
+Custo:  € ( % do PIB)"
 
 [node name="ResumoTipoEconomia" type="RichTextLabel" parent="ConfirmationPopup/Control"]
+visible = false
 margin_left = 152.0
 margin_top = 285.0
 margin_right = 1580.0
 margin_bottom = 328.0
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Com a distribuição de recursos definida, os setores abaixo beneficiarão dos seguintes shares de exergia:"
+text = "Shares de exergia:"
 
 [node name="ResumoEletrificacaoSetor" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 152.0
-margin_top = 582.0
-margin_right = 1582.0
-margin_bottom = 625.0
+visible = false
+margin_left = 153.741
+margin_top = 580.259
+margin_right = 1583.74
+margin_bottom = 623.259
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Com a distribuição de recursos definida, os setores abaixo beneficiarão dos seguintes shares de eletrificação:"
 
 [node name="FinalMessage" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 152.0
-margin_top = 833.0
-margin_right = 1536.0
-margin_bottom = 876.0
+margin_left = 559.431
+margin_top = 785.511
+margin_right = 1943.43
+margin_bottom = 828.511
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Estas decisões serão colocadas em ação após confirmação."
 
 [node name="PotenciaInstalada" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 131.0
-margin_top = 133.0
-margin_right = 1659.0
-margin_bottom = 192.0
+margin_left = 648.079
+margin_top = 136.482
+margin_right = 2176.08
+margin_bottom = 195.482
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -960,10 +1097,10 @@ bbcode_text = "[b]Potência Instalada Renovável:[/b]"
 text = "Potência Instalada Renovável:"
 
 [node name="TipoEconomia" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 131.0
-margin_top = 237.0
-margin_right = 510.0
-margin_bottom = 280.0
+margin_left = 648.079
+margin_top = 277.043
+margin_right = 1027.08
+margin_bottom = 320.043
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -973,10 +1110,10 @@ bbcode_text = "[b]Tipo de Economia:[/b]"
 text = "Tipo de Economia:"
 
 [node name="EletrificacaoSetor" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 131.0
-margin_top = 533.0
-margin_right = 981.0
-margin_bottom = 576.0
+margin_left = 648.435
+margin_top = 524.912
+margin_right = 1498.43
+margin_bottom = 567.912
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -986,100 +1123,100 @@ bbcode_text = "[b]Eletrificação por Setor:[/b]"
 text = "Eletrificação por Setor:"
 
 [node name="Transportes" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 215.0
-margin_top = 335.0
-margin_right = 1621.0
-margin_bottom = 378.0
+margin_left = 670.665
+margin_top = 324.001
+margin_right = 2076.66
+margin_bottom = 367.001
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "Aproximadamente  % para o setor dos Transportes."
-text = "Aproximadamente  % para o setor dos Transportes."
+bbcode_text = "Transportes: Aprox.  %"
+text = "Transportes: Aprox.  %"
 
 [node name="Transportes2" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 215.0
-margin_top = 635.0
-margin_right = 1576.0
-margin_bottom = 678.0
+margin_left = 672.885
+margin_top = 576.842
+margin_right = 2033.88
+margin_bottom = 619.842
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "Aproximadamente  % para o setor dos Transportes."
-text = "Aproximadamente  % para o setor dos Transportes."
+bbcode_text = "Transportes: Aprox.  %"
+text = "Transportes: Aprox.  %"
 
 [node name="Industria" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 214.0
-margin_top = 385.0
-margin_right = 1648.0
-margin_bottom = 428.0
+margin_left = 669.665
+margin_top = 374.001
+margin_right = 2103.66
+margin_bottom = 417.001
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "Aproximadamente  % para o setor da Indústria."
-text = "Aproximadamente  % para o setor da Indústria."
+bbcode_text = "Indústria: Aprox. %"
+text = "Indústria: Aprox. %"
 
 [node name="Industria2" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 214.0
-margin_top = 685.0
-margin_right = 1752.0
-margin_bottom = 728.0
+margin_left = 671.885
+margin_top = 626.842
+margin_right = 2209.88
+margin_bottom = 669.842
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "Aproximadamente  % para o setor da Indústria."
-text = "Aproximadamente  % para o setor da Indústria."
+bbcode_text = "Indústria: Aprox. %"
+text = "Indústria: Aprox. %"
 
 [node name="Residencial" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 215.0
-margin_top = 432.0
-margin_right = 1580.0
-margin_bottom = 475.0
+margin_left = 670.665
+margin_top = 421.001
+margin_right = 2035.66
+margin_bottom = 464.001
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "Aproximadamente  % para o setor Residencial."
-text = "Aproximadamente  % para o setor Residencial."
+bbcode_text = "Residencial: Aprox. %"
+text = "Residencial: Aprox. %"
 
 [node name="Residencial2" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 215.0
-margin_top = 732.0
-margin_right = 1568.0
-margin_bottom = 775.0
+margin_left = 672.885
+margin_top = 673.842
+margin_right = 2025.88
+margin_bottom = 716.842
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "Aproximadamente  % para o setor Residencial."
-text = "Aproximadamente  % para o setor Residencial."
+bbcode_text = "Residencial: Aprox. %"
+text = "Residencial: Aprox. %"
 
 [node name="Servicos" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 215.0
-margin_top = 477.0
-margin_right = 1623.0
-margin_bottom = 520.0
+margin_left = 670.665
+margin_top = 466.001
+margin_right = 2078.66
+margin_bottom = 509.001
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "Aproximadamente  % para o setor dos Serviços."
-text = "Aproximadamente  % para o setor dos Serviços."
+bbcode_text = "Serviços: Aprox. %"
+text = "Serviços: Aprox. %"
 
 [node name="Servicos2" type="RichTextLabel" parent="ConfirmationPopup/Control"]
-margin_left = 215.0
-margin_top = 777.0
-margin_right = 1477.0
-margin_bottom = 820.0
+margin_left = 672.885
+margin_top = 718.842
+margin_right = 1934.88
+margin_bottom = 761.842
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "Aproximadamente  % para o setor dos Serviços."
-text = "Aproximadamente  % para o setor dos Serviços."
+bbcode_text = "Serviços: Aprox. %"
+text = "Serviços: Aprox. %"
 
 [node name="ConfirmarDecisoes" type="Button" parent="ConfirmationPopup/Control"]
 margin_left = 1079.0

@@ -8,7 +8,8 @@ var co2_emissions = 70
 var economic_growth = 1
 
 # Player decisions here
-var investment_renewables_percentage = 30
+var investment_renewables_percentage = 5
+var investment_cost = 5
 var economy_type_level_transportation = 6       #from 1 to 11 (visual -5 to 5), maps to percentage
 var economy_type_level_industry = 6
 var economy_type_level_residential = 6
