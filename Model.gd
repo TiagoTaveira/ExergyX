@@ -26,7 +26,11 @@ var POTENCIA_MAXIMA_BIOMASSA= 1000000 #????
 
 var CUSTO_POR_GIGAWATT_INSTALADO = 5000 #???? #euro/GW
 
-var PERCENTAGEM_A_RETIRAR_DO_PIB = 2.0 #???? #valor decimal
+var PERCENTAGEM_A_RETIRAR_DO_PIB = 0.02 #???? #valor decimal
+
+var POPULACAO = 10000000 #????
+var ALFA = 0.60 #???? #percentagem de população
+
 
 
 # VARIÁVEIS
@@ -60,9 +64,25 @@ var custo_do_ano_vento = [0.0]
 var custo_do_ano_biomassa = [0.0]
 
 ## VARS 3)
-var pib_do_ano = [900000000] #valor 2017????
+var pib_do_ano = [900000000.0] #valor 2017????
 var investimento_total_do_ano = [0.0]
 var investimento_para_capital_do_ano = [0.0]
+
+## VARS 4)
+var capital_do_ano = [5000000.0] #valor 2017 necessario! ????
+
+## VARS 5)
+var labour_do_ano = [0] 
+
+## VARS 6)
+var tfp_do_ano = [0]
+var eficiencia_agregada_do_ano = [0.7] #valor 2017 necessario! ???? percentagem decimal
+
+## VARS 8)
+var exergia_util_do_ano = [0.0] #TJ
+
+## VARS 9)
+var exergia_final_do_ano = [0.0] #TJ
 
 
 # FUNÇÕES
@@ -143,4 +163,60 @@ func calcular_investimento_anual():
 	
 	investimento_total_do_ano.push_back(investimento_total_instantaneo)
 	investimento_para_capital_do_ano.push_back(investimento_total_instantaneo - custo_total_do_ano[ano_atual_indice])
+	
+# FUNCS 4) - CAPITAL (euros?)
+func calcular_capital_anual():
+
+	capital_do_ano.push_back(capital_do_ano.back() + investimento_para_capital_do_ano[ano_atual_indice])
+
+# FUNCS 5) - LABOUR (nº de pessoas)
+func calcular_labour_anual():
+	
+	labour_do_ano.push_back(ALFA * POPULACAO)
+	
+# FUNCS 6) - TOTAL FACTOR PRODUTIVITY (TFP)
+func calcular_tfp_anual():
+	
+	tfp_do_ano.push_back(1.87 * eficiencia_agregada_do_ano.back())
+	
+# FUNCS 7) - PIB (euros?)
+func calcular_pib_anual(): #????
+	#"função que utiliza os valores de labour(t), capital(t), e tfp(t)
+	pib_do_ano.push_back(pib_do_ano.back() + 1000000) #FUNÇAO DUMMY
+	
+# FUNCS 8) - EXERGIA ÚTIL ANUAL (1 terajoule = 1 euro)
+func calcular_exergia_util_anual():
+	exergia_util_do_ano.push_back(pib_do_ano[ano_atual_indice])
+	
+# FUNCS 9) - EXERGIA FINAL ANUAL
+func calcular_exergia_final_anual():
+	exergia_final_do_ano.push_back(exergia_util_do_ano[ano_atual_indice] / eficiencia_agregada_do_ano.back())
+
+# FUNCS 10) - SHARES DE EXERGIA FINAL POR SETOR
+
+# FUNCS 11) - SHARES DE EXERGIA FINAL POR SETOR POR CARRIER
+
+# FUNCS 12) - EXERGIA FINAL POR SETOR
+
+# FUNCS 13) - EXERGIA FINAL POR SETOR POR CARRIER
+
+# FUNCS 14) - EFICIÊNCIA POR SETOR
+
+# FUNCS 15) - EFICIÊNCIA AGREGADA (para cálculos em anos futuros)
+
+# FUNCS 16) - EXERGIA FINAL POR CARRIER
+
+# FUNCS 17) - EMISSÕES DE CO2 POR CARRIER (exceto eletricidade) (não há passo 18)
+
+# FUNCS 19) - ELETRICIDADE VINDA DE FONTES RENOVÁVEIS (i.e. emissões zero)
+
+# FUNCS 20) - ELETRICIDADE NÃO RENOVÁVEL
+
+# FUNCS 21) e 22) - EMISSÕES NÃO RENOVÁVEIS
+
+# FUNCS 23) - EMISSÕES TOTAIS (um dos objetivos do jogo) (Toneladas)
+
+# FUNCS 24) - CONSUMO
+
+# FUNCS 25) - UTILIDADE (Felicidade dos cidadãos; um dos objetivos do jogo)
 	

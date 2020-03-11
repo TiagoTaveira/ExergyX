@@ -1237,4 +1237,126 @@ mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
 text = "Cancelar"
+
+[node name="ModelPopup" type="PopupPanel" parent="."]
+visible = true
+margin_left = 19.0
+margin_top = 7.0
+margin_right = 1899.0
+margin_bottom = 1064.0
+custom_styles/panel = SubResource( 9 )
+popup_exclusive = true
+
+[node name="Control" type="Control" parent="ModelPopup"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1860.0
+margin_bottom = 1037.0
+
+[node name="Modelo" type="RichTextLabel" parent="ModelPopup/Control"]
+margin_left = 717.0
+margin_top = 52.0
+margin_right = 1400.0
+margin_bottom = 111.0
+custom_fonts/normal_font = ExtResource( 4 )
+custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
+text = "Modelo - Simulador"
+
+[node name="Texto" type="RichTextLabel" parent="ModelPopup/Control"]
+margin_left = 65.0
+margin_top = 96.0
+margin_right = 754.0
+margin_bottom = 676.0
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/bold_font = ExtResource( 5 )
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_text = "Ano: 2017
+Potencia Instalada Solar: 10000
+Potencia Instalada Vento: 10000
+Potencia Instalada Biomassa: 10000
+Custo solar: 0
+Custo vento: 0
+Custo biomassa: 0
+Custo total: 0
+PIB: 900000000
+Investimento para capital: 0
+Capital: 5000000
+Labour: 0
+TFP: 0"
+text = "Ano: 2017
+Potencia Instalada Solar: 10000
+Potencia Instalada Vento: 10000
+Potencia Instalada Biomassa: 10000
+Custo solar: 0
+Custo vento: 0
+Custo biomassa: 0
+Custo total: 0
+PIB: 900000000
+Investimento para capital: 0
+Capital: 5000000
+Labour: 0
+TFP: 0"
+
+[node name="Texto2" type="RichTextLabel" parent="ModelPopup/Control"]
+margin_left = 761.0
+margin_top = 227.0
+margin_right = 1072.0
+margin_bottom = 267.0
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/bold_font = ExtResource( 5 )
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "Potência a instalar (GW)"
+
+[node name="EscreverFicheiro" type="Button" parent="ModelPopup/Control"]
+margin_left = 1232.0
+margin_top = 902.0
+margin_right = 1646.0
+margin_bottom = 998.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+text = "Escrever para ficheiro"
+
+[node name="Simular" type="Button" parent="ModelPopup/Control"]
+margin_left = 697.0
+margin_top = 902.0
+margin_right = 1111.0
+margin_bottom = 998.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+text = "Simular próximo ano"
+
+[node name="Fechar" type="Button" parent="ModelPopup/Control"]
+margin_left = 165.0
+margin_top = 902.0
+margin_right = 579.0
+margin_bottom = 998.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+text = "Fechar"
+
+[node name="Potencia" type="SpinBox" parent="ModelPopup/Control"]
+margin_left = 1089.49
+margin_top = 219.691
+margin_right = 1258.49
+margin_bottom = 272.691
+
+[node name="TipoEconomiaTransportes" type="SpinBox" parent="ModelPopup/Control"]
+margin_left = 1089.49
+margin_top = 287.691
+margin_right = 1258.49
+margin_bottom = 340.691
+
+[node name="ModelButton" type="Button" parent="."]
+margin_left = 99.0
+margin_top = 15.0
+margin_right = 254.0
+margin_bottom = 47.0
+text = "Modelo"
 [connection signal="pressed" from="ContainerDecisoes/EnviarDecisoes" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="ModelPopup/Control/Simular" to="." method="_on_Simular_pressed"]
+[connection signal="pressed" from="ModelButton" to="." method="_on_Model_Button_pressed"]

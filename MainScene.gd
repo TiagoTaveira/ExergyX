@@ -97,6 +97,7 @@ func _on_Button_pressed(): #Submit Decisions Button
 	#ResourceSaver.save("res://my_scene.tscn", packed_scene)
 	#get_tree().change_scene("res://DecisionsScene.tscn")
 	
+	
 #move this function under the next one after done, and delete this comment
 func next_year_animation():
 	get_node("AnoAtual/Ano/NextYearAnimationPlayer").play("NextYear")
@@ -384,3 +385,28 @@ func update_level_images():
 	##Electrification
 
 
+
+
+
+
+
+
+
+## MODEL POPUP
+func _on_Model_Button_pressed(): 
+	get_node("ModelPopup").popup()
+
+
+func _on_Simular_pressed():
+	Model.input_potencia_a_instalar = get_node("ModelPopup/Control/Potencia").value
+	Model.mudar_de_ano()
+	Model.calcular_distribuicao_por_fonte()
+	Model.calcular_custo_anual()
+	Model.calcular_investimento_anual()
+	Model.calcular_capital_anual()
+	Model.calcular_labour_anual()
+	Model.calcular_tfp_anual()
+	Model.calcular_pib_anual()
+	$ModelPopup/Control/Texto.text = "Ano: " + str(Model.ano_atual) + "\nPotencia Instalada Solar: " + str(Model.potencia_do_ano_solar[Model.ano_atual_indice]) + "\nPotencia Instalada Vento: " + str(Model.potencia_do_ano_vento[Model.ano_atual_indice]) + "\nPotencia Instalada Biomassa: " + str(Model.potencia_do_ano_biomassa[Model.ano_atual_indice]) + "\nCusto solar: " + str(Model.custo_do_ano_solar[Model.ano_atual_indice]) + "\nCusto vento: " + str(Model.custo_do_ano_vento[Model.ano_atual_indice]) + "\nCusto biomassa: " + str(Model.custo_do_ano_biomassa[Model.ano_atual_indice]) + "\nCusto total: " + str(Model.custo_total_do_ano[Model.ano_atual_indice]) + "\nPIB: " + str(Model.pib_do_ano[Model.ano_atual_indice]) + "\nInvestimento para capital: " + str(Model.investimento_para_capital_do_ano[Model.ano_atual_indice]) + "\nCapital: " + str(Model.capital_do_ano[Model.ano_atual_indice]) + "\nLabour: " + str(Model.labour_do_ano[Model.ano_atual_indice]) + "\nTFP: " + str(Model.tfp_do_ano[Model.ano_atual_indice])
+	
+	
