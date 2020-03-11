@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 Global="*res://Global.tscn"
 PlayerVariables="*res://PlayerVariables.tscn"
+Model="*res://Model.gd"
 
 [display]
 
