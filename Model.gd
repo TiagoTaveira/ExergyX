@@ -31,6 +31,7 @@ var PERCENTAGEM_A_RETIRAR_DO_PIB = 0.02 #???? #valor decimal
 var POPULACAO = 10000000 #????
 var ALFA = 0.60 #???? #percentagem de população
 
+var PERCENTAGEM_INPUT_SETAS = 1.0 #????
 
 
 # VARIÁVEIS
@@ -75,7 +76,7 @@ var capital_do_ano = [5000000.0] #valor 2017 necessario! ????
 var labour_do_ano = [0] 
 
 ## VARS 6)
-var tfp_do_ano = [0]
+var tfp_do_ano = [0.00]
 var eficiencia_agregada_do_ano = [0.7] #valor 2017 necessario! ???? percentagem decimal
 
 ## VARS 8)
@@ -193,6 +194,7 @@ func calcular_exergia_final_anual():
 	exergia_final_do_ano.push_back(exergia_util_do_ano[ano_atual_indice] / eficiencia_agregada_do_ano.back())
 
 # FUNCS 10) - SHARES DE EXERGIA FINAL POR SETOR
+
 
 # FUNCS 11) - SHARES DE EXERGIA FINAL POR SETOR POR CARRIER
 

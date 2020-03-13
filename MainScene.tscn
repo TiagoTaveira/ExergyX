@@ -1266,7 +1266,7 @@ text = "Modelo - Simulador"
 margin_left = 65.0
 margin_top = 96.0
 margin_right = 754.0
-margin_bottom = 676.0
+margin_bottom = 822.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -1285,18 +1285,19 @@ Capital: 5000000
 Labour: 0
 TFP: 0"
 text = "Ano: 2017
-Potencia Instalada Solar: 10000
-Potencia Instalada Vento: 10000
-Potencia Instalada Biomassa: 10000
-Custo solar: 0
-Custo vento: 0
-Custo biomassa: 0
-Custo total: 0
-PIB: 900000000
-Investimento para capital: 0
-Capital: 5000000
-Labour: 0
-TFP: 0"
+Potencia Instalada Solar: 10000 GW
+Potencia Instalada Vento: 10000 GW
+Potencia Instalada Biomassa: 10000 GW
+Custo solar: 0 €
+Custo vento: 0 €
+Custo biomassa: 0 € 
+Custo total: 0 €
+PIB: 900000000 €
+Investimento para capital: 0 €
+Capital: 5000000 €
+Labour: 0 pessoas
+TFP: 0.00"
+scroll_following = true
 
 [node name="Texto2" type="RichTextLabel" parent="ModelPopup/Control"]
 margin_left = 761.0
