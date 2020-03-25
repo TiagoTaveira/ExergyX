@@ -16,10 +16,6 @@ func _ready():
 # CONSTANTES (podem ser alteradas, resultando num jogo diferente)
 var ANO_INICIAL = 2017
 
-var POTENCIA_DO_ANO_ZERO_SOLAR = 100000 #???? #GW
-var POTENCIA_DO_ANO_ZERO_VENTO= 100000 #????
-var POTENCIA_DO_ANO_ZERO_BIOMASSA = 100000 #????
-
 var POTENCIA_MAXIMA_SOLAR = 1000000 #????
 var POTENCIA_MAXIMA_VENTO = 1000000 #????
 var POTENCIA_MAXIMA_BIOMASSA= 1000000 #????
@@ -57,6 +53,47 @@ var EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_GAS_NATURAL = 0.55
 var EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_CARVAO = 0.40
 
 
+# VALORES DO ANO ZERO (e.g. 2017)
+var POTENCIA_DO_ANO_ZERO_SOLAR = 100000 #???? #GW
+var POTENCIA_DO_ANO_ZERO_VENTO= 100000 #????
+var POTENCIA_DO_ANO_ZERO_BIOMASSA = 100000 #????
+
+var CUSTO_TOTAL_DO_ANO_ZERO = 0.00 #valor 2017???? #i.e. custo da potência de todas as fontes renováveis consideradas
+var CUSTO_DO_ANO_ZERO_SOLAR = 0.00
+var CUSTO_DO_ANO_ZERO_VENTO = 0.00
+var CUSTO_DO_ANO_ZERO_BIOMASSA = 0.00
+
+var PIB_DO_ANO_ZERO = 900000000.0 #valor 2017????
+
+var CAPITAL_DO_ANO_ZERO = 5000000.0 #valor 2017????
+
+var EFICIENCIA_AGREGADA_DO_ANO_ZERO = 0.7 #valor 2017???
+
+var SHARES_EXERGIA_FINAL_TRANSPORTES_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_INDUSTRIA_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_RESIDENCIAL_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_SERVICOS_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+
+var SHARES_EXERGIA_FINAL_TRANSPORTES_CARVAO_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_INDUSTRIA_CARVAO_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_RESIDENCIAL_CARVAO_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_SERVICOS_CARVAO_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+
+var SHARES_EXERGIA_FINAL_TRANSPORTES_PETROLEO_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_INDUSTRIA_PETROLEO_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_RESIDENCIAL_PETROLEO_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_SERVICOS_PETROLEO_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+
+var SHARES_EXERGIA_FINAL_TRANSPORTES_ELETRICIDADE_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_INDUSTRIA_ELETRICIDADE_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_RESIDENCIAL_ELETRICIDADE_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_SERVICOS_ELETRICIDADE_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+
+var SHARES_EXERGIA_FINAL_TRANSPORTES_GAS_NATURAL_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_INDUSTRIA_GAS_NATURAL_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_RESIDENCIAL_GAS_NATURAL_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+var SHARES_EXERGIA_FINAL_SERVICOS_GAS_NATURAL_DO_ANO_ZERO = 0.25 #valor 2017 necessario! ???? percentagem decimal
+
 # VARIÁVEIS
 var ano_atual_indice = 0
 var ano_atual = ano_atual_indice + ANO_INICIAL
@@ -79,30 +116,30 @@ var potencia_solar_instantanea = 0.0
 var potencia_vento_instantanea = 0.0
 var potencia_biomassa_instantanea = 0.0
 
-var potencia_do_ano_solar = [POTENCIA_DO_ANO_ZERO_SOLAR]
-var potencia_do_ano_vento = [POTENCIA_DO_ANO_ZERO_VENTO]
-var potencia_do_ano_biomassa = [POTENCIA_DO_ANO_ZERO_BIOMASSA]
+var potencia_do_ano_solar = [POTENCIA_DO_ANO_ZERO_SOLAR] #????
+var potencia_do_ano_vento = [POTENCIA_DO_ANO_ZERO_VENTO] #????
+var potencia_do_ano_biomassa = [POTENCIA_DO_ANO_ZERO_BIOMASSA] #????
 
 ## VARS 2)
-var custo_total_do_ano = [0.0] #valor 2017????
-var custo_do_ano_solar = [0.0]
-var custo_do_ano_vento = [0.0]
-var custo_do_ano_biomassa = [0.0]
+var custo_total_do_ano = [CUSTO_TOTAL_DO_ANO_ZERO] #valor 2017????
+var custo_do_ano_solar = [CUSTO_DO_ANO_ZERO_SOLAR]
+var custo_do_ano_vento = [CUSTO_DO_ANO_ZERO_VENTO]
+var custo_do_ano_biomassa = [CUSTO_DO_ANO_ZERO_BIOMASSA]
 
 ## VARS 3)
-var pib_do_ano = [900000000.0] #valor 2017????
+var pib_do_ano = [PIB_DO_ANO_ZERO] #valor 2017????
 var investimento_total_do_ano = [0.0]
 var investimento_para_capital_do_ano = [0.0]
 
 ## VARS 4)
-var capital_do_ano = [5000000.0] #valor 2017 necessario! ????
+var capital_do_ano = [CAPITAL_DO_ANO_ZERO] #valor 2017 necessario! ????
 
 ## VARS 5)
 var labour_do_ano = [0] 
 
 ## VARS 6) e 15)
 var tfp_do_ano = [0.00]
-var eficiencia_agregada_do_ano = [0.7] #valor 2017 necessario! ???? percentagem decimal #USADA NO PASSO 15)
+var eficiencia_agregada_do_ano = [EFICIENCIA_AGREGADA_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal #USADA NO PASSO 15)
 
 ## VARS 8)
 var exergia_util_do_ano = [0.0] #TJ
@@ -111,31 +148,31 @@ var exergia_util_do_ano = [0.0] #TJ
 var exergia_final_do_ano = [0.0] #TJ
 
 ## VARS 10)
-var shares_exergia_final_transportes_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
 
 ## VARS 11)
-var shares_exergia_final_transportes_carvao_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_carvao_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_carvao_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_carvao_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_carvao_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_CARVAO_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_carvao_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_CARVAO_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_carvao_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_CARVAO_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_carvao_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_CARVAO_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
 
-var shares_exergia_final_transportes_petroleo_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_petroleo_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_petroleo_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_petroleo_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_petroleo_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_PETROLEO_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_petroleo_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_PETROLEO_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_petroleo_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_PETROLEO_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_petroleo_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_PETROLEO_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
 
-var shares_exergia_final_transportes_eletricidade_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_eletricidade_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_eletricidade_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_eletricidade_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_eletricidade_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_ELETRICIDADE_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_eletricidade_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_ELETRICIDADE_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_eletricidade_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_ELETRICIDADE_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_eletricidade_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_ELETRICIDADE_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
 
-var shares_exergia_final_transportes_gas_natural_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_gas_natural_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_gas_natural_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_gas_natural_do_ano = [0.25] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_gas_natural_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_GAS_NATURAL_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_gas_natural_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_GAS_NATURAL_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_gas_natural_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_GAS_NATURAL_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_gas_natural_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_GAS_NATURAL_DO_ANO_ZERO] #valor 2017 necessario! ???? percentagem decimal
 
 # VARS 12)
 var exergia_final_transportes_do_ano = [0.00] #TJ
