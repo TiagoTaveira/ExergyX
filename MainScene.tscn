@@ -1289,14 +1289,14 @@ Potencia Instalada Solar: 10000 GW
 Potencia Instalada Vento: 10000 GW
 Potencia Instalada Biomassa: 10000 GW
 Custo solar: 0 €
-Custo vento: 0 €
-Custo biomassa: 0 € 
+Custo vento: 0 € 
+Custo biomassa: 0 €
 Custo total: 0 €
 PIB: 900000000 €
 Investimento para capital: 0 €
 Capital: 5000000 €
 Labour: 0 pessoas
-TFP: 0.00"
+TFP: 0"
 scroll_following = true
 
 [node name="Texto2" type="RichTextLabel" parent="ModelPopup/Control"]
