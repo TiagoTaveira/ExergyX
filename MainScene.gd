@@ -7,6 +7,9 @@ extends Panel
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	initial_model_loading()
+	#function that initializes text from variables () goes here
+	update_text()
 	get_node("ContainerDecisoes/EnviarDecisoes").connect("pressed", self, "_on_Button_pressed")
 	get_node("ContainerPrevisoes/HistoricoPrevisoes").connect("pressed", self, "on_History_Button_pressed")
 	get_node("ContainerDecisoes/ScrollContainer/Control/Minus").connect("pressed", self, "on_Investment_Minus_Button_pressed")
@@ -26,20 +29,106 @@ func _ready():
 #func _process(delta):
 #	pass
 
+# Model handling
+func initial_model_loading(): 
+	PlayerVariables.current_year = Model.ano_atual
+	PlayerVariables.money = Model.pib_do_ano[Model.ano_atual_indice]
+	PlayerVariables.expenditure = Model.consumo_do_ano[Model.ano_atual_indice]
+	PlayerVariables.utility = Model.utilidade_do_ano[Model.ano_atual_indice]
+	PlayerVariables.co2_emissions = Model.emissoes_totais_do_ano[Model.ano_atual_indice]
+	PlayerVariables.economic_growth = 1
+	PlayerVariables.cost_per_gigawatt = Model.CUSTO_POR_GIGAWATT_INSTALADO
+	
+	PlayerVariables.economy_type_percentage_transportation = Model.shares_exergia_final_transportes_do_ano[Model.ano_atual_indice] * 100.0
+	PlayerVariables.economy_type_percentage_industry = Model.shares_exergia_final_industria_do_ano[Model.ano_atual_indice] * 100.0
+	PlayerVariables.economy_type_percentage_residential = Model.shares_exergia_final_residencial_do_ano[Model.ano_atual_indice] * 100.0
+	PlayerVariables.economy_type_percentage_services = Model.shares_exergia_final_servicos_do_ano[Model.ano_atual_indice] * 100.0
+	
+func send_game_decisions_to_model():
+	Model.input_potencia_a_instalar = PlayerVariables.investment_renewables_percentage
 
+	Model.input_percentagem_tipo_economia_transportes = PlayerVariables.economy_type_level_transportation - 6
+	Model.input_percentagem_tipo_economia_industria = PlayerVariables.economy_type_level_industry - 6
+	Model.input_percentagem_tipo_economia_residencial = PlayerVariables.economy_type_level_residential - 6
+	Model.input_percentagem_tipo_economia_servicos = PlayerVariables.economy_type_level_services - 6
+
+	Model.input_percentagem_eletrificacao_transportes = PlayerVariables.electrification_by_sector_level_transportation - 6
+	Model.input_percentagem_eletrificacao_industria = PlayerVariables.electrification_by_sector_level_industry - 6
+	Model.input_percentagem_eletrificacao_residencial = PlayerVariables.electrification_by_sector_level_residential - 6
+	Model.input_percentagem_eletrificacao_servicos = PlayerVariables.electrification_by_sector_level_services - 6
+	
+func update_model():
+	Model.mudar_de_ano()
+	Model.calcular_distribuicao_por_fonte()
+	Model.calcular_custo()
+	Model.calcular_investimento()
+	Model.calcular_capital()
+	Model.calcular_labour()
+	Model.calcular_tfp()
+	Model.calcular_pib()
+	Model.calcular_exergia_util()
+	Model.calcular_exergia_final()
+	Model.calcular_shares_de_exergia_final_por_setor()
+	Model.calcular_shares_de_exergia_final_por_setor_por_carrier()
+	Model.calcular_valores_absolutos_de_exergia_final_por_setor()
+	Model.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
+	Model.calcular_eficiencia_por_setor()
+	Model.calcular_eficiencia_agregada()
+	Model.calcular_valores_absolutos_de_exergia_final_por_carrier()
+	Model.calcular_emissoes_CO2_carvao_petroleo_gas_natural()
+	Model.calcular_eletricidade_de_fontes_renovaveis()
+	Model.calcular_eletricidade_nao_renovavel()
+	Model.calcular_emissoes_nao_renovaveis()
+	Model.calcular_emissoes_totais()
+	Model.calcular_consumo()
+	Model.calcular_utilidade()
+
+func update_game_after_model(): #TODO: change final year names to current year
+	PlayerVariables.current_year = Model.ano_atual
+	PlayerVariables.money = Model.pib_do_ano[Model.ano_atual_indice]
+	PlayerVariables.expenditure = Model.consumo_do_ano[Model.ano_atual_indice]
+	PlayerVariables.utility = Model.utilidade_do_ano[Model.ano_atual_indice]
+	PlayerVariables.co2_emissions = Model.emissoes_totais_do_ano[Model.ano_atual_indice]
+	PlayerVariables.economic_growth = 1
+	PlayerVariables.cost_per_gigawatt = Model.CUSTO_POR_GIGAWATT_INSTALADO
+	PlayerVariables.final_year_utility = Model.utilidade_do_ano[Model.ano_atual_indice]
+	PlayerVariables.final_year_emissions = Model.emissoes_totais_do_ano[Model.ano_atual_indice]
+	
+	PlayerVariables.economy_type_percentage_transportation = Model.shares_exergia_final_transportes_do_ano[Model.ano_atual_indice] * 100.0  #TODD: Apresentar com 1 casa decimal
+	PlayerVariables.economy_type_percentage_industry = Model.shares_exergia_final_industria_do_ano[Model.ano_atual_indice] * 100.0
+	PlayerVariables.economy_type_percentage_residential = Model.shares_exergia_final_residencial_do_ano[Model.ano_atual_indice] * 100.0
+	PlayerVariables.economy_type_percentage_services = Model.shares_exergia_final_servicos_do_ano[Model.ano_atual_indice] * 100.0
+
+# Handle game text
+func update_text():
+	get_node("AnoAtual/Ano").text = str(PlayerVariables.current_year)
+	get_node("EstadoAtual/AnoAtual").text = "Ano Atual"
+	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Nova Potência Instalada: " + str(PlayerVariables.investment_renewables_percentage) + " GW\n\nEmissões: 70 MT\n\nEficiência Agregada do País: \n\nFração de Eletricidade Renovável: " 
+	get_node("ContainerPrevisoes/TextoDadosEnergeticos").text = "Eficiência Agregada do País: " + "\n\nShares (Transportes): " + str(PlayerVariables.economy_type_percentage_transportation) + "%" + "\n\nShares (Indústria): " + str(PlayerVariables.economy_type_percentage_industry) + "%\n\nShares (Residencial): " + str(PlayerVariables.economy_type_percentage_residential) + "%\n\nShares (Serviços): " + str(PlayerVariables.economy_type_percentage_services) + "%"
+	get_node("ContainerPrevisoes/TextoDadosSocioeconomicos").text = "Consumo: " + str(PlayerVariables.expenditure) + " €"
+	#get_node("ContainerDecisoes/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
+	get_node("ContainerDecisoes/ProximoAno").text = "Decisões"
+	get_node("ContainerPrevisoes/RichTextLabel").text = str(PlayerVariables.final_year) + " - Previsões (Objetivos)"
+	get_node("ContainerPrevisoes/RichTextLabel2").bbcode_text = "Felicidade dos Cidadãos: " + str(PlayerVariables.final_year_utility) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n\n" + "Crescimento Económico: [color=green]1%[/color] (1%)"  #exemplo de texto
+	##Actual bbcode text setting (with conditions)
+	get_node("ContainerPrevisoes/RichTextLabel2").bbcode_text = "Felicidade dos Cidadãos: " + ("[color=red]" if PlayerVariables.final_year_utility < PlayerVariables.utility_goals else "[color=green]") + str(PlayerVariables.final_year_utility) + "[/color] (" + str(PlayerVariables.utility_goals) + ")\n\n"    +   "Emissões CO2: " + ("[color=red]" if PlayerVariables.final_year_emissions > PlayerVariables.emission_goals else "[color=green]") + str(PlayerVariables.final_year_emissions) + " MT[/color] (" + str(PlayerVariables.emission_goals) + " MT)\n\n"    +    "Crescimento Económico: " + ("[color=red]" if PlayerVariables.final_year_economic_growth < PlayerVariables.economic_growth_goals else "[color=green]") + str(PlayerVariables.final_year_economic_growth) + "%[/color] (" + str(PlayerVariables.economic_growth_goals) + "%)"
+	get_node("ContainerPrevisoes/Panel/PreviousYear").text = str(PlayerVariables.current_year  - 1)
+	get_node("ContainerPrevisoes/Panel/CurrentYear").text = str(PlayerVariables.current_year)
+	get_node("ContainerPrevisoes/Panel/NextYear").text = str(PlayerVariables.current_year + 1)
+	
 # Button presses
 func on_Investment_Minus_Button_pressed():
 	if(PlayerVariables.investment_renewables_percentage > 0):
 		PlayerVariables.investment_renewables_percentage -= 5
 		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
-		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * 1
+		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
 		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(PlayerVariables.investment_cost) + "[/right]"
 
 func on_Investment_Plus_Button_pressed():
 	if(PlayerVariables.investment_renewables_percentage < 100):
 		PlayerVariables.investment_renewables_percentage += 5
 		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
-		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * 1
+		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
 		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(PlayerVariables.investment_cost) + "[/right]"
 
 func on_Transport_Minus_Button_pressed():
@@ -111,32 +200,21 @@ func on_Confirm_Button_pressed():
 	yield(get_tree().create_timer(1.0), "timeout") #wait() in GDscript
 	enable_all_buttons()
 	process_next_year()
-	get_node("AnoAtual/Ano").text = str(PlayerVariables.current_year)
-	get_node("EstadoAtual/AnoAtual").text = "Ano Atual"
-	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Nova Potência Instalada: " + str(PlayerVariables.investment_renewables_percentage) + " GW\n\nEmissões: 70 MT\n\nEficiência Agregada do País: \n\nFração de Eletricidade Renovável: " 
-	get_node("ContainerPrevisoes/TextoDadosEnergeticos").text = "Eficiência Agregada do País: " + "\n\nShares (Transportes): " + str(PlayerVariables.economy_type_percentage_transportation) + "%" + "\n\nShares (Indústria): " + str(PlayerVariables.economy_type_percentage_industry) + "%\n\nShares (Residencial): " + str(PlayerVariables.economy_type_percentage_residential) + "%\n\nShares (Serviços): " + str(PlayerVariables.economy_type_percentage_services) + "%"
+	update_text()
+	
 	
 	#####EXPERIMENTAL#####
 	get_node("GrafHistorico/Control/TestLine2D").add_point(Vector2(PlayerVariables.current_year-2000, PlayerVariables.final_year_utility))
 	######################
 	
+	
 	if PlayerVariables.current_year < PlayerVariables.final_year:
-		#get_node("ContainerDecisoes/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
-		get_node("ContainerDecisoes/ProximoAno").text = "Decisões"
-		get_node("ContainerPrevisoes/RichTextLabel").text = str(PlayerVariables.final_year) + " - Previsões (Objetivos)"
-		get_node("ContainerPrevisoes/RichTextLabel2").bbcode_text = "Felicidade dos Cidadãos: " + str(PlayerVariables.final_year_utility) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n\n" + "Crescimento Económico: [color=green]1%[/color] (1%)"  #exemplo de texto
-		##Actual bbcode text setting (with conditions)
-		get_node("ContainerPrevisoes/RichTextLabel2").bbcode_text = "Felicidade dos Cidadãos: " + ("[color=red]" if PlayerVariables.final_year_utility < PlayerVariables.utility_goals else "[color=green]") + str(PlayerVariables.final_year_utility) + "[/color] (" + str(PlayerVariables.utility_goals) + ")\n\n"    +   "Emissões CO2: " + ("[color=red]" if PlayerVariables.final_year_emissions > PlayerVariables.emission_goals else "[color=green]") + str(PlayerVariables.final_year_emissions) + " MT[/color] (" + str(PlayerVariables.emission_goals) + " MT)\n\n"    +    "Crescimento Económico: " + ("[color=red]" if PlayerVariables.final_year_economic_growth < PlayerVariables.economic_growth_goals else "[color=green]") + str(PlayerVariables.final_year_economic_growth) + "%[/color] (" + str(PlayerVariables.economic_growth_goals) + "%)"
-		get_node("ContainerPrevisoes/Panel/PreviousYear").text = str(PlayerVariables.current_year  - 1)
-		get_node("ContainerPrevisoes/Panel/CurrentYear").text = str(PlayerVariables.current_year)
-		get_node("ContainerPrevisoes/Panel/NextYear").text = str(PlayerVariables.current_year + 1)
+		pass
 	else:
 		get_node("ContainerDecisoes/EnviarDecisoes").disabled = true
 		var won = (PlayerVariables.final_year_utility >= PlayerVariables.utility_goals) && (PlayerVariables.final_year_emissions <= PlayerVariables.emission_goals)
 		if won:
 			get_node("PopupPanel/Control/WonLostText").text = "VENCEU!"
-			PlayerVariables.extra_year_text = " - Venceu!"
-			get_node("AnoAtual").text = str(PlayerVariables.current_year) + PlayerVariables.extra_year_text
 		else:
 			var red_style = StyleBoxFlat.new()
 			red_style.set_bg_color(Color("#800000"))
@@ -146,8 +224,6 @@ func on_Confirm_Button_pressed():
 			red_style.corner_radius_top_right = 20
 			get_node("PopupPanel").set('custom_styles/panel', red_style)
 			get_node("PopupPanel/Control/WonLostText").text = "PERDEU!"
-			PlayerVariables.extra_year_text = " - Perdeu!"
-			get_node("AnoAtual").text = str(PlayerVariables.current_year) + PlayerVariables.extra_year_text
 		get_node("ContainerPrevisoes/RichTextLabel").text = str(PlayerVariables.final_year) + " - Resultados (Objetivos)"
 		get_node("PopupPanel/Control/Results").text = "Felicidade dos Cidadãos: " + str(PlayerVariables.final_year_utility) + "\n" + "Objetivo: " + str(PlayerVariables.utility_goals) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n" + "Objetivo: " + str(PlayerVariables.emission_goals) + " MT"+ "\n\n" + "Crescimento Económico: " + str(PlayerVariables.final_year_economic_growth) + "%" + "\n" + "Objetivo: " + str(PlayerVariables.economic_growth_goals) + "%"
 		get_node("PopupPanel").popup_centered()
@@ -236,18 +312,34 @@ func calculate_percentages():
 	
 func process_next_year():
 	
+	#DEPRECATED
 	PlayerVariables.yearly_decisions.push_back(PlayerVariables.YearlyDecision.new(PlayerVariables.current_year, PlayerVariables.investment_renewables_percentage, PlayerVariables.utility, PlayerVariables.co2_emissions))
+	
+	
+	#Send decisions to model
+	send_game_decisions_to_model()
+	
+	#Update model
+	update_model()
+	
+	#Update game
+	update_game_after_model()
+	
+	
+	
+	
+	#DEPRECATED
 	get_node("Historico/HistText").text = get_node("Historico/HistText").text + str(PlayerVariables.current_year) + "\n" + "% PIB En. Ren.: " + str(PlayerVariables.investment_renewables_percentage) + "%" + "\n" + "Felicidade: " + str(PlayerVariables.final_year_utility) + "\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " MT" + "\n\n"
 	#above should be current utility+emissions, not final, but leaving like this for demo purposes
 	
-	PlayerVariables.current_year = PlayerVariables.current_year + 1
+	#PlayerVariables.current_year = PlayerVariables.current_year + 1
 	#var last_year_investment = PlayerVariables.investment_renewables_percentage
 	#PlayerVariables.investment_renewables_percentage = get_node("ContainerDecisoes/ScrollContainer/Control/PIBRenovaveis").get_value()
 
 	#if last_year_investment != PlayerVariables.investment_renewables_percentage:
 		#mock formula follows:
-	PlayerVariables.final_year_utility = round(PlayerVariables.final_year_utility*(rand_range(0.9, 1.1) + 0.0005 * PlayerVariables.investment_renewables_percentage))
-	PlayerVariables.final_year_emissions = round(PlayerVariables.final_year_emissions*(rand_range(0.9, 1.1) - 0.005 * PlayerVariables.investment_renewables_percentage))
+	#PlayerVariables.final_year_utility = round(PlayerVariables.final_year_utility*(rand_range(0.9, 1.1) + 0.0005 * PlayerVariables.investment_renewables_percentage))
+	#PlayerVariables.final_year_emissions = round(PlayerVariables.final_year_emissions*(rand_range(0.9, 1.1) - 0.005 * PlayerVariables.investment_renewables_percentage))
 
 func disable_all_buttons():
 	get_node("ContainerDecisoes/ScrollContainer/Control3/Minus").disabled = true

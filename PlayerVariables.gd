@@ -1,11 +1,13 @@
 extends Node
 
 # Current year variables
-var current_year = 2017
+var current_year = 2014
 var money = 50000000
+var expenditure = 0 #"consumo"
 var utility = 100
 var co2_emissions = 70
 var economic_growth = 1
+var cost_per_gigawatt = 5000
 
 # Player decisions here
 var investment_renewables_percentage = 5
@@ -19,17 +21,18 @@ var electrification_by_sector_level_industry = 6
 var electrification_by_sector_level_residential = 6
 var electrification_by_sector_level_services = 6
 
-var yearly_decisions = [YearlyDecision.new(2016, 30, 100, 71)]  #TODO: Update
+
+var yearly_decisions = [YearlyDecision.new(2016, 30, 100, 71)]  #TODO: Update #DEPRECATED
 
 # Storage for post-processed player decisions (for percentages, add all values then map to %)
-var economy_type_percentage_transportation = 25       #from 0 to 100
-var economy_type_percentage_industry = 25
-var economy_type_percentage_residential = 25
-var economy_type_percentage_services = 25
-var electrification_by_sector_percentage_transportation = 25   #from 0 to 100
-var electrification_by_sector_percentage_industry = 25
-var electrification_by_sector_percentage_residential = 25
-var electrification_by_sector_percentage_services = 25
+var economy_type_percentage_transportation = 25.00     #from 0 to 100
+var economy_type_percentage_industry = 25.00
+var economy_type_percentage_residential = 25.00
+var economy_type_percentage_services = 25.00
+var electrification_by_sector_percentage_transportation = 25.00  #from 0 to 100
+var electrification_by_sector_percentage_industry = 25.00
+var electrification_by_sector_percentage_residential = 25.00
+var electrification_by_sector_percentage_services = 25.00
 
 # Final year predictions
 var final_year = 2050
@@ -52,6 +55,8 @@ func _ready():
 #func _process(delta):
 #	pass
 
+
+#DEPRECATED
 func new_yearly_decision(y, i, u, e):
     return YearlyDecision.new(y, i, u, e)
 
