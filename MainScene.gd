@@ -179,7 +179,7 @@ func on_History_Button_pressed():
 func _on_Button_pressed(): #Submit Decisions Button
 	#get_node("AcceptDialog").popup_centered_ratio(0.20)
 	disable_all_buttons()
-	calculate_percentages()
+	#calculate_percentages()  #DEPRECATED
 	update_confirmation_popup()
 	get_node("ConfirmationPopup").popup()
 	#var packed_scene = PackedScene.new()
@@ -369,11 +369,8 @@ func enable_all_buttons():
 	
 func update_confirmation_popup():
 	get_node("ConfirmationPopup/Control/ConfirmarDecisoes").text = "Confirmar e ir para " + str(PlayerVariables.current_year + 1)
-	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(PlayerVariables.investment_cost) + " M€ ( % do PIB)"
-	get_node("ConfirmationPopup/Control/Transportes").text = "Transportes: Aprox. " + str(PlayerVariables.economy_type_percentage_transportation) + "%"
-	get_node("ConfirmationPopup/Control/Industria").text = "Indústria: Aprox. " + str(PlayerVariables.economy_type_percentage_industry) + "%"
-	get_node("ConfirmationPopup/Control/Residencial").text = "Residencial: Aprox. " + str(PlayerVariables.economy_type_percentage_residential) + "%"
-	get_node("ConfirmationPopup/Control/Servicos").text = "Serviços: Aprox. " + str(PlayerVariables.economy_type_percentage_services) + "%"
+	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(PlayerVariables.investment_cost) + " M€ (" + str(stepify(((PlayerVariables.investment_cost / PlayerVariables.money)) * 100, 0.1)) + "% do PIB)"
+
 	
 
 func update_level_images():
