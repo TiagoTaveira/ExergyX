@@ -1,0 +1,15 @@
+TODO:
+Ecrã de novo jogo (com explicação)
+Fazer um configurador para o ano zero
+Aplicar o funcionamento dos shares (setas) à eletrificação na parte do jogo
+Corrigir funcionamento das setas na parte do modelo
+Acabar simulador
+
+
+DONE:
+Enviar código do jogo
+Ligar jogo com modelo 
+Atenção à conversão de valores no fim
+Corrigir passos 19 e 19.5 e 20 e 21 e 22
+Adicionar funções TODO
+No ecrã das decisões apenas colocar uma confirmação do ecrã à direita. Organização horizontal.

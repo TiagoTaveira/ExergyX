@@ -292,10 +292,11 @@ func mudar_de_ano():
 	ano_atual_indice += 1
 
 	#após execução desta função, acede-se aos valores do ano anterior presentes em vetores com um .back(),
-	#desde que não tenha sido já colocado o valor do ano ano atual
+	#desde que não tenha sido já colocado o valor do ano atual. Neste último caso, tem de ser procurar
+	#pelo índice [ano_atual_indice - 1]
 	
 
-# FUNCS 1) - POTENCIA ELETRICA ACUMULADA POR FONTE RENOVÁVEL (gigawatts)
+# FUNCS 1) - POTÊNCIA ELETRICA ACUMULADA POR FONTE RENOVÁVEL (gigawatts)
 # TODO: Evitar
 func calcular_distribuicao_por_fonte():
 	

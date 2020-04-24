@@ -378,95 +378,139 @@ func update_level_images():
 	#Transports
 	if(PlayerVariables.economy_type_level_transportation == 1):
 		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down5.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down5.png")
 	if(PlayerVariables.economy_type_level_transportation == 2):
 		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down4.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down4.png")
 	if(PlayerVariables.economy_type_level_transportation == 3):
 		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down3.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down3.png")
 	if(PlayerVariables.economy_type_level_transportation == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down2.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down2.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down2.png")
 	if(PlayerVariables.economy_type_level_transportation == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down1.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down1.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down1.png")
 	if(PlayerVariables.economy_type_level_transportation == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://middle0.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://middle0.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://middle0.png")
 	if(PlayerVariables.economy_type_level_transportation == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up1.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up1.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up1.png")
 	if(PlayerVariables.economy_type_level_transportation == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up2.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up2.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up2.png")
 	if(PlayerVariables.economy_type_level_transportation == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up3.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up3.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up3.png")
 	if(PlayerVariables.economy_type_level_transportation == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up4.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up4.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up4.png")
 	if(PlayerVariables.economy_type_level_transportation == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up5.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up5.png")
+		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up5.png")
 	#Industry
 	if(PlayerVariables.economy_type_level_industry == 1):
 		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down5.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down5.png")
 	if(PlayerVariables.economy_type_level_industry == 2):
 		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down4.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down4.png")
 	if(PlayerVariables.economy_type_level_industry == 3):
 		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down3.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down3.png")
 	if(PlayerVariables.economy_type_level_industry == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down2.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down2.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down2.png")
 	if(PlayerVariables.economy_type_level_industry == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down1.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down1.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down1.png")
 	if(PlayerVariables.economy_type_level_industry == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://middle0.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://middle0.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://middle0.png")
 	if(PlayerVariables.economy_type_level_industry == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up1.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up1.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up1.png")
 	if(PlayerVariables.economy_type_level_industry == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up2.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up2.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up2.png")
 	if(PlayerVariables.economy_type_level_industry == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up3.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up3.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up3.png")
 	if(PlayerVariables.economy_type_level_industry == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up4.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up4.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up4.png")
 	if(PlayerVariables.economy_type_level_industry == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up5.png")		
+		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up5.png")
+		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up5.png")
 	#Residential
 	if(PlayerVariables.economy_type_level_residential == 1):
 		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down5.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down5.png")
 	if(PlayerVariables.economy_type_level_residential == 2):
 		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down4.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down4.png")
 	if(PlayerVariables.economy_type_level_residential == 3):
 		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down3.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down3.png")
 	if(PlayerVariables.economy_type_level_residential == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down2.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down2.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down2.png")
 	if(PlayerVariables.economy_type_level_residential == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down1.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down1.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down1.png")
 	if(PlayerVariables.economy_type_level_residential == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://middle0.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://middle0.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://middle0.png")
 	if(PlayerVariables.economy_type_level_residential == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up1.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up1.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up1.png")
 	if(PlayerVariables.economy_type_level_residential == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up2.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up2.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up2.png")
 	if(PlayerVariables.economy_type_level_residential == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up3.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up3.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up3.png")
 	if(PlayerVariables.economy_type_level_residential == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up4.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up4.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up4.png")
 	if(PlayerVariables.economy_type_level_residential == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up5.png")		
+		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up5.png")
+		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up5.png")
 	#Services
 	if(PlayerVariables.economy_type_level_services == 1):
 		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down5.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down5.png")
 	if(PlayerVariables.economy_type_level_services == 2):
 		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down4.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down4.png")
 	if(PlayerVariables.economy_type_level_services == 3):
 		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down3.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down3.png")
 	if(PlayerVariables.economy_type_level_services == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down2.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down2.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down3.png")
 	if(PlayerVariables.economy_type_level_services == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down1.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down1.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down1.png")
 	if(PlayerVariables.economy_type_level_services == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://middle0.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://middle0.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://middle0.png")
 	if(PlayerVariables.economy_type_level_services == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up1.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up1.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up1.png")
 	if(PlayerVariables.economy_type_level_services == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up2.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up2.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up2.png")
 	if(PlayerVariables.economy_type_level_services == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up3.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up3.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up3.png")
 	if(PlayerVariables.economy_type_level_services == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up4.png")	
+		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up4.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up4.png")
 	if(PlayerVariables.economy_type_level_services == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up5.png")		
+		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up5.png")
+		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up5.png")
 	
 	
 	
