@@ -887,9 +887,9 @@ Fração de Eletricidade Renovável: "
 
 [node name="TextoDadosSocioeconomicos" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 38.0
-margin_top = 505.0
+margin_top = 544.0
 margin_right = 478.0
-margin_bottom = 817.0
+margin_bottom = 856.0
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "PIB: 197.5 mil milhões de euros
@@ -915,9 +915,9 @@ text = "Dados Energéticos:"
 
 [node name="DadosSocioeconomicos" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 20.5911
-margin_top = 449.198
+margin_top = 488.198
 margin_right = 426.591
-margin_bottom = 489.198
+margin_bottom = 528.198
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
