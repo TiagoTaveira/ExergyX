@@ -286,6 +286,9 @@ var utilidade_do_ano = [0.0]
 func indice_do_ano(ano):
 	return ano - ANO_INICIAL
 	
+func ano_do_indice(indice):
+	return indice + ANO_INICIAL
+	
 # FUNCS 0) - PREPARAÇÃO
 func mudar_de_ano():
 	ano_atual += 1

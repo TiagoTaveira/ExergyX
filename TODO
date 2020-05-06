@@ -1,15 +1,30 @@
-TODO:
-Ecrã de novo jogo (com explicação)
+#TODO:
+Ecrã de novo jogo (com explicação) e créditos
+Tabela de registo de pontuações (estatísticas para o jogador saber como se vai saindo de jogo para jogo)
+-> Guardar: nº de vezes jogado, score, etc. (e possivelmente uma tabela high score top 10)
 Fazer um configurador para o ano zero
-Aplicar o funcionamento dos shares (setas) à eletrificação na parte do jogo
-Corrigir funcionamento das setas na parte do modelo
+Corrigir funcionamento das setas na parte do modelo (i.e. o peso das percentagens)
 Acabar simulador
+Gráfico de histórico (Possivelmente usar o "for" do simulador)
+-> Usar uma checkbox para decidir que valores mostrar
+Apresentação de casas decimais 
+Painel das  previsões usa o modelo fazendo fast-forward
+No ecrã de resultados final, permitir analisar o histórico para o jogador poder refletir sobre as ações
+BUG: Cálculo da percentagem do PIB
+BUG: Animação de mudança de ano
 
 
-DONE:
+#TESTES:
+Enviar para testes com um questionário simples aberto
+Para ver se as pessoas conseguem tomar decisões informadas / ver se elas percebem
+
+
+
+#DONE:
 Enviar código do jogo
 Ligar jogo com modelo 
 Atenção à conversão de valores no fim
 Corrigir passos 19 e 19.5 e 20 e 21 e 22
 Adicionar funções TODO
 No ecrã das decisões apenas colocar uma confirmação do ecrã à direita. Organização horizontal.
+Aplicar o funcionamento dos shares (setas) à eletrificação na parte do jogo

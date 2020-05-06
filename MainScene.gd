@@ -1,8 +1,7 @@
 extends Panel
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# Declare member variables here.
+var FINAL_YEAR = 2050
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,6 +9,7 @@ func _ready():
 	initial_model_loading()
 	#function that initializes text from variables () goes here
 	update_text()
+	update_simulator_text()
 	get_node("ContainerDecisoes/EnviarDecisoes").connect("pressed", self, "_on_Button_pressed")
 	get_node("ContainerPrevisoes/HistoricoPrevisoes").connect("pressed", self, "on_History_Button_pressed")
 	get_node("ContainerDecisoes/ScrollContainer/Control/Minus").connect("pressed", self, "on_Investment_Minus_Button_pressed")
@@ -38,8 +38,10 @@ func _ready():
 #	pass
 
 # Model handling
-func initial_model_loading(): 
+func initial_model_loading():
+	PlayerVariables.starting_year = Model.ANO_INICIAL
 	PlayerVariables.current_year = Model.ano_atual
+	PlayerVariables.final_year = FINAL_YEAR
 	PlayerVariables.money = Model.pib_do_ano[Model.ano_atual_indice]
 	PlayerVariables.expenditure = Model.consumo_do_ano[Model.ano_atual_indice]
 	PlayerVariables.utility = Model.utilidade_do_ano[Model.ano_atual_indice]
@@ -121,7 +123,7 @@ func update_game_after_model(): #TODO: change final year names to current year
 func update_text():
 	get_node("AnoAtual/Ano").text = str(PlayerVariables.current_year)
 	get_node("EstadoAtual/AnoAtual").text = "Ano Atual"
-	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Nova Potência Instalada: " + str(PlayerVariables.investment_renewables_percentage) + " GW\n\nEmissões: 70 MT\n\nEficiência Agregada do País: \n\nFração de Eletricidade Renovável: " 
+	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Nova Potência Instalada: " + str(PlayerVariables.investment_renewables_percentage) + " GW\n\n" + "Potência Total Instalada: " + "GW\n\n" + "Emissões: 70 MT\n\nEficiência Agregada do País: \n\nFração de Eletricidade Renovável: " 
 	get_node("ContainerPrevisoes/TextoDadosEnergeticos").text = "Eficiência Agregada do País: " + "\n\nShares (Transportes): " + str(PlayerVariables.economy_type_percentage_transportation) + "%" + "\n\nShares (Indústria): " + str(PlayerVariables.economy_type_percentage_industry) + "%\n\nShares (Residencial): " + str(PlayerVariables.economy_type_percentage_residential) + "%\n\nShares (Serviços): " + str(PlayerVariables.economy_type_percentage_services) + "%"
 	get_node("ContainerPrevisoes/TextoDadosSocioeconomicos").text = "Consumo: " + str(PlayerVariables.expenditure) + " €"
 	#get_node("ContainerDecisoes/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
@@ -133,6 +135,9 @@ func update_text():
 	get_node("ContainerPrevisoes/Panel/PreviousYear").text = str(PlayerVariables.current_year  - 1)
 	get_node("ContainerPrevisoes/Panel/CurrentYear").text = str(PlayerVariables.current_year)
 	get_node("ContainerPrevisoes/Panel/NextYear").text = str(PlayerVariables.current_year + 1)
+	get_node("GrafHistorico/Control/StartingYear").bbcode_text = str(PlayerVariables.starting_year)
+	get_node("GrafHistorico/Control/CurrentYear").bbcode_text = str(PlayerVariables.current_year)
+	get_node("GrafHistorico/Control/FinalYear").bbcode_text = str(PlayerVariables.final_year)
 	
 # Button presses
 func on_Investment_Minus_Button_pressed():
@@ -744,10 +749,24 @@ func update_level_images():
 ## MODEL SIMULATOR POPUP
 func _on_Model_Button_pressed(): 
 	get_node("ModelPopup").popup()
+	
+func _on_Fechar_pressed():
+	update_game_after_model()
+	update_text()
+	get_node("ModelPopup").hide()
 
 
 func _on_Simular_pressed():
 	Model.input_potencia_a_instalar = get_node("ModelPopup/Control/Potencia").value
+	Model.input_percentagem_tipo_economia_transportes = get_node("ModelPopup/Control/TipoEconomiaTransportes").value
+	Model.input_percentagem_tipo_economia_industria = get_node("ModelPopup/Control/TipoEconomiaIndustria").value
+	Model.input_percentagem_tipo_economia_residencial = get_node("ModelPopup/Control/TipoEconomiaResidencial").value
+	Model.input_percentagem_tipo_economia_servicos = get_node("ModelPopup/Control/TipoEconomiaServicos").value	
+	Model.input_percentagem_eletrificacao_transportes = get_node("ModelPopup/Control/EletrificacaoTransportes").value
+	Model.input_percentagem_eletrificacao_industria = get_node("ModelPopup/Control/EletrificacaoIndustria").value
+	Model.input_percentagem_eletrificacao_residencial = get_node("ModelPopup/Control/EletrificacaoResidencial").value
+	Model.input_percentagem_eletrificacao_servicos = get_node("ModelPopup/Control/EletrificacaoServicos").value
+	
 	Model.mudar_de_ano()
 	Model.calcular_distribuicao_por_fonte()
 	Model.calcular_custo()
@@ -756,6 +775,68 @@ func _on_Simular_pressed():
 	Model.calcular_labour()
 	Model.calcular_tfp()
 	Model.calcular_pib()
-	$ModelPopup/Control/Texto.text = "Ano: " + str(Model.ano_atual) + "\nPotencia Instalada Solar: " + str(Model.potencia_do_ano_solar[Model.ano_atual_indice]) + "\nPotencia Instalada Vento: " + str(Model.potencia_do_ano_vento[Model.ano_atual_indice]) + "\nPotencia Instalada Biomassa: " + str(Model.potencia_do_ano_biomassa[Model.ano_atual_indice]) + "\nCusto solar: " + str(Model.custo_do_ano_solar[Model.ano_atual_indice]) + "\nCusto vento: " + str(Model.custo_do_ano_vento[Model.ano_atual_indice]) + "\nCusto biomassa: " + str(Model.custo_do_ano_biomassa[Model.ano_atual_indice]) + "\nCusto total: " + str(Model.custo_total_do_ano[Model.ano_atual_indice]) + "\nPIB: " + str(Model.pib_do_ano[Model.ano_atual_indice]) + "\nInvestimento para capital: " + str(Model.investimento_para_capital_do_ano[Model.ano_atual_indice]) + "\nCapital: " + str(Model.capital_do_ano[Model.ano_atual_indice]) + "\nLabour: " + str(Model.labour_do_ano[Model.ano_atual_indice]) + "\nTFP: " + str(Model.tfp_do_ano[Model.ano_atual_indice])
+	Model.calcular_exergia_util()
+	Model.calcular_exergia_final()
+	Model.calcular_shares_de_exergia_final_por_setor()
+	Model.calcular_shares_de_exergia_final_por_setor_por_carrier()
+	Model.calcular_valores_absolutos_de_exergia_final_por_setor()
+	Model.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
+	Model.calcular_eficiencia_por_setor()
+	Model.calcular_eficiencia_agregada()
+	Model.calcular_valores_absolutos_de_exergia_final_por_carrier()
+	Model.calcular_emissoes_CO2_carvao_petroleo_gas_natural()
+	Model.calcular_eletricidade_de_fontes_renovaveis()
+	Model.calcular_eletricidade_nao_renovavel()
+	Model.calcular_emissoes_nao_renovaveis()
+	Model.calcular_emissoes_totais()
+	Model.calcular_consumo()
+	Model.calcular_utilidade()
+
+	update_simulator_text()
+	
+
+func _on_EscreverFicheiro_pressed():
+	get_node("FileWritePopup").popup()
+
 	
 	
+func update_simulator_text():
+	$ModelPopup/Control/Texto.text = ""
+	
+	# loop for n = 0 to ano_atual_indice
+	for n in range(Model.ano_atual_indice + 1):
+		$ModelPopup/Control/Texto.text += "Ano: " + str(Model.ano_do_indice(n)) \
+			+ "\nPotencia Instalada Solar: " + str(Model.potencia_do_ano_solar[n]) + " GW" \
+			+ "\nPotencia Instalada Vento: " + str(Model.potencia_do_ano_vento[n]) + " GW" \
+			+ "\nPotencia Instalada Biomassa: " + str(Model.potencia_do_ano_biomassa[n]) + " GW" \
+			+ "\nCusto solar: " + str(Model.custo_do_ano_solar[n]) + " euros" \
+			+ "\nCusto vento: " + str(Model.custo_do_ano_vento[n]) + " euros" \
+			+ "\nCusto biomassa: " + str(Model.custo_do_ano_biomassa[n]) + " euros" \
+			+ "\nCusto total: " + str(Model.custo_total_do_ano[n]) + " euros" \
+			+ "\nPIB: " + str(Model.pib_do_ano[n]) + " euros" \
+			+ "\nInvestimento para capital: " + str(Model.investimento_para_capital_do_ano[n]) + " euros" \
+			+ "\nCapital: " + str(Model.capital_do_ano[n]) + " euros" \
+			+ "\nLabour: " + str(Model.labour_do_ano[n]) + " horas de trabalho" \
+			+ "\nTFP: " + str(Model.tfp_do_ano[n]) \
+			+ "\nExergia Útil: " + str(Model.exergia_util_do_ano[n]) + " TJ" \
+			+ "\nExergia Final: " + str(Model.exergia_final_do_ano[n]) + " TJ" \
+			+ "\nShares Exergia Final Transportes: " + str(Model.shares_exergia_final_transportes_do_ano[n]) \
+			+ "\nShares Exergia Final Indústria: " + str(Model.shares_exergia_final_industria_do_ano[n]) \
+			+ "\nShares Exergia Final Residencial: " + str(Model.shares_exergia_final_residencial_do_ano[n]) \
+			+ "\nShares Exergia Final Serviços: " + str(Model.shares_exergia_final_servicos_do_ano[n]) \
+			+ "\nShares Exergia Final Transportes Carvão: " + str(Model.shares_exergia_final_transportes_carvao_do_ano[n]) \
+			+ "\nShares Exergia Final Indústria Carvão: " + str(Model.shares_exergia_final_industria_carvao_do_ano[n]) \
+			+ "\nShares Exergia Final Residencial Carvão: " + str(Model.shares_exergia_final_residencial_carvao_do_ano[n]) \
+			+ "\nShares Exergia Final Serviços Carvão: " + str(Model.shares_exergia_final_servicos_carvao_do_ano[n]) \
+			+ "\nShares Exergia Final Transportes Petróleo: " + str(Model.shares_exergia_final_transportes_petroleo_do_ano[n]) \
+			+ "\nShares Exergia Final Indústria Petróleo: " + str(Model.shares_exergia_final_industria_petroleo_do_ano[n]) \
+			+ "\nShares Exergia Final Residencial Petróleo: " + str(Model.shares_exergia_final_residencial_petroleo_do_ano[n]) \
+			+ "\nShares Exergia Final Serviços Petróleo: " + str(Model.shares_exergia_final_servicos_petroleo_do_ano[n]) \
+			+ "\n\n"
+		
+
+
+
+func _on_FecharEscreverFicheiro_pressed():
+	get_node("FileWritePopup").hide()
+

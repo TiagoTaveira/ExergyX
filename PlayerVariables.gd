@@ -1,5 +1,7 @@
 extends Node
 
+var starting_year = 2014
+
 # Current year variables
 var current_year = 2014
 var money = 50000000
@@ -8,6 +10,7 @@ var utility = 100
 var co2_emissions = 70
 var economic_growth = 1
 var cost_per_gigawatt = 5000
+var efficiency = 0.7
 
 # Player decisions here
 var investment_renewables_percentage = 0
