@@ -824,6 +824,10 @@ func update_simulator_text():
 			+ "\nShares Exergia Final Indústria: " + str(Model.shares_exergia_final_industria_do_ano[n]) \
 			+ "\nShares Exergia Final Residencial: " + str(Model.shares_exergia_final_residencial_do_ano[n]) \
 			+ "\nShares Exergia Final Serviços: " + str(Model.shares_exergia_final_servicos_do_ano[n]) \
+			+ "\nShares Exergia Final Transportes Eletricidade: " + str(Model.shares_exergia_final_transportes_eletricidade_do_ano[n]) \
+			+ "\nShares Exergia Final Indústria Eletricidade: " + str(Model.shares_exergia_final_industria_eletricidade_do_ano[n]) \
+			+ "\nShares Exergia Final Residencial Eletricidade: " + str(Model.shares_exergia_final_residencial_eletricidade_do_ano[n]) \
+			+ "\nShares Exergia Final Serviços Eletricidade: " + str(Model.shares_exergia_final_servicos_eletricidade_do_ano[n]) \
 			+ "\nShares Exergia Final Transportes Carvão: " + str(Model.shares_exergia_final_transportes_carvao_do_ano[n]) \
 			+ "\nShares Exergia Final Indústria Carvão: " + str(Model.shares_exergia_final_industria_carvao_do_ano[n]) \
 			+ "\nShares Exergia Final Residencial Carvão: " + str(Model.shares_exergia_final_residencial_carvao_do_ano[n]) \
@@ -832,6 +836,14 @@ func update_simulator_text():
 			+ "\nShares Exergia Final Indústria Petróleo: " + str(Model.shares_exergia_final_industria_petroleo_do_ano[n]) \
 			+ "\nShares Exergia Final Residencial Petróleo: " + str(Model.shares_exergia_final_residencial_petroleo_do_ano[n]) \
 			+ "\nShares Exergia Final Serviços Petróleo: " + str(Model.shares_exergia_final_servicos_petroleo_do_ano[n]) \
+			+ "\nShares Exergia Final Transportes Gás Natural: " + str(Model.shares_exergia_final_transportes_gas_natural_do_ano[n]) \
+			+ "\nShares Exergia Final Indústria Gás Natural: " + str(Model.shares_exergia_final_industria_gas_natural_do_ano[n]) \
+			+ "\nShares Exergia Final Residencial Gás Natural: " + str(Model.shares_exergia_final_residencial_gas_natural_do_ano[n]) \
+			+ "\nShares Exergia Final Serviços Gás Natural: " + str(Model.shares_exergia_final_servicos_gas_natural_do_ano[n]) \
+			+ "\nExergia Final Transportes Gás Natural: " + str(Model.exergia_final_transportes_do_ano[n]) + " TJ"  \
+			+ "\nExergia Final Indústria Gás Natural: " + str(Model.exergia_final_industria_do_ano[n]) + " TJ"  \
+			+ "\nExergia Final Residencial Gás Natural: " + str(Model.exergia_final_residencial_do_ano[n]) + " TJ"  \
+			+ "\nExergia Final Serviços Gás Natural: " + str(Model.exergia_final_servicos_do_ano[n]) + " TJ"  \
 			+ "\n\n"
 		
 

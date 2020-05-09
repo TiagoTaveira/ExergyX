@@ -88,7 +88,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.54902, 0.6, 0.294118, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -98,7 +98,7 @@ corner_detail = 9
 shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
 shadow_size = 5
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.964706, 0.976471, 0.952941, 1 )
 border_width_left = 20
 border_width_top = 20
@@ -111,7 +111,7 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 anti_aliasing_size = 3
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.941176, 0.960784, 0.941176, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -880,7 +880,7 @@ margin_left = 2038.0
 margin_top = 50.0
 margin_right = 3226.0
 margin_bottom = 543.0
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 7 )
 
 [node name="Control" type="Control" parent="PopupPanel"]
 margin_right = 1188.0
@@ -923,7 +923,7 @@ margin_left = 262.0
 margin_top = 234.0
 margin_right = 1730.0
 margin_bottom = 839.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 8 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ConfirmationPopup"]
@@ -1183,7 +1183,7 @@ margin_left = 19.0
 margin_top = 7.0
 margin_right = 1899.0
 margin_bottom = 1064.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 8 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ModelPopup"]
@@ -1223,10 +1223,10 @@ Investimento para capital: 0
 Capital: 5000000
 Labour: 0
 TFP: 0"
-text = "Ano: 2014
-Potencia Instalada Solar: 0
-Potencia Instalada Vento: 0
-Potencia Instalada Biomassa: 0
+text = "Ano: 2017
+Potencia Instalada Solar: 10000
+Potencia Instalada Vento: 10000
+Potencia Instalada Biomassa: 10000
 Custo solar: 0
 Custo vento: 0
 Custo biomassa: 0
@@ -1450,13 +1450,14 @@ margin_left = 19.0
 margin_top = 839.0
 margin_right = 1899.0
 margin_bottom = 1064.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 8 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="FileWritePopup"]
-margin_left = 1.33514e-005
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1860.0
+margin_bottom = 205.0
 
 [node name="EscreverFicheiro" type="RichTextLabel" parent="FileWritePopup/Control"]
 margin_left = 720.0
@@ -1605,10 +1606,10 @@ margin_left = 19.0
 margin_top = 8.0
 margin_right = 1898.0
 margin_bottom = 1076.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 9 )
 
 [node name="Control" type="Control" parent="GrafHistorico"]
-margin_right = 1900.0
+margin_right = 1879.0
 margin_bottom = 1068.0
 
 [node name="TestLine2D" type="Line2D" parent="GrafHistorico/Control"]
