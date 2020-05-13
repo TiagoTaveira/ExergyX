@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Management of Energy Systems"
+config/name="exergyX"
 run/main_scene="res://MainScene.tscn"
 config/icon="res://icon.png"
 

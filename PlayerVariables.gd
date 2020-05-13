@@ -9,11 +9,11 @@ var expenditure = 0 #"consumo"
 var utility = 100
 var co2_emissions = 70
 var economic_growth = 1
-var cost_per_gigawatt = 5000
+var cost_per_gigawatt = 2100
 var efficiency = 0.7
 
 # Player decisions here
-var investment_renewables_percentage = 0
+var investment_renewables_percentage = 0.00
 var investment_cost = 0
 var economy_type_level_transportation = 6       #from 1 to 11 (visual -5 to 5), maps to percentage
 var economy_type_level_industry = 6

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://RoundButtonst.theme" type="Theme" id=2]
@@ -98,17 +98,20 @@ corner_detail = 9
 shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
 shadow_size = 5
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.964706, 0.976471, 0.952941, 1 )
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.988235, 0.952941, 0.913725, 1 )
+border_color = Color( 1, 1, 1, 1 )
 border_blend = true
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+anti_aliasing_size = 3
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 1, 1, 1, 1 )
+border_color = Color( 1, 1, 1, 1 )
+border_blend = true
 anti_aliasing_size = 3
 
 [sub_resource type="StyleBoxFlat" id=9]
@@ -220,7 +223,7 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "A instalar"
 
 [node name="ValorPotencia" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
-margin_left = 189.0
+margin_left = 177.0
 margin_top = 46.0
 margin_right = 246.0
 margin_bottom = 99.0
@@ -229,7 +232,7 @@ custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "[right]0[/right]"
-visible_characters = 3
+visible_characters = 5
 text = "0"
 
 [node name="ValorCusto" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
@@ -265,8 +268,8 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "M€"
-text = "M€"
+bbcode_text = "€"
+text = "€"
 
 [node name="Custo" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 49.0
@@ -804,6 +807,7 @@ margin_bottom = 946.279
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
+disabled = true
 text = "Histórico e Previsões"
 
 [node name="GridContainer3" type="ItemList" parent="."]
@@ -923,7 +927,7 @@ margin_left = 262.0
 margin_top = 234.0
 margin_right = 1730.0
 margin_bottom = 839.0
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 10 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ConfirmationPopup"]
@@ -1207,6 +1211,7 @@ margin_top = 87.0
 margin_right = 778.0
 margin_bottom = 873.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
+focus_mode = 2
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1237,6 +1242,7 @@ Capital: 5000000
 Labour: 0
 TFP: 0"
 scroll_following = true
+selection_enabled = true
 
 [node name="Texto2" type="RichTextLabel" parent="ModelPopup/Control"]
 margin_left = 1033.13
@@ -1445,6 +1451,51 @@ margin_bottom = 794.473
 min_value = -5.0
 max_value = 5.0
 
+[node name="NewGamePopup" type="PopupPanel" parent="."]
+margin_left = -21.0
+margin_top = 7.0
+margin_right = 2280.0
+margin_bottom = 1477.0
+custom_styles/panel = SubResource( 8 )
+popup_exclusive = true
+
+[node name="Control" type="Control" parent="NewGamePopup"]
+margin_right = 2301.0
+margin_bottom = 1470.0
+
+[node name="Title" type="RichTextLabel" parent="NewGamePopup/Control"]
+margin_left = 648.0
+margin_top = 243.0
+margin_right = 1331.0
+margin_bottom = 466.0
+custom_fonts/normal_font = ExtResource( 4 )
+custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
+tab_size = 3
+text = "			   	energyX
+		 (placeholder logo)"
+scroll_active = false
+
+[node name="Text" type="RichTextLabel" parent="NewGamePopup/Control"]
+margin_left = 787.288
+margin_top = 514.15
+margin_right = 1098.29
+margin_bottom = 581.15
+rect_pivot_offset = Vector2( 0, 21.7076 )
+custom_fonts/bold_font = ExtResource( 5 )
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "Texto explicativo"
+
+[node name="StartGame" type="Button" parent="NewGamePopup/Control"]
+margin_left = 703.421
+margin_top = 700.684
+margin_right = 1117.42
+margin_bottom = 796.684
+mouse_default_cursor_shape = 2
+theme = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+text = "Começar Jogo"
+
 [node name="FileWritePopup" type="PopupPanel" parent="."]
 margin_left = 19.0
 margin_top = 839.0
@@ -1637,13 +1688,14 @@ default_color = Color( 0, 0, 0, 1 )
 texture_mode = -1088421888
 
 [node name="TextoAviso" type="RichTextLabel" parent="GrafHistorico/Control"]
-margin_left = 51.6317
-margin_top = 1015.58
-margin_right = 1930.63
-margin_bottom = 1067.58
+margin_left = 195.231
+margin_top = 967.828
+margin_right = 1106.23
+margin_bottom = 1056.83
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Os dados de previsão aqui apresentados são estimativas baseadas no histórico e não representam qualquer garantia."
+text = "Os dados de previsão aqui apresentados são estimativas
+baseadas no histórico e não representam qualquer garantia."
 
 [node name="StartingYear" type="RichTextLabel" parent="GrafHistorico/Control"]
 margin_left = 171.027
@@ -1683,9 +1735,39 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "[b]2050[/b]"
 text = "2050"
+
+[node name="FecharHistorico" type="Button" parent="GrafHistorico/Control"]
+margin_left = 1352.52
+margin_top = 953.645
+margin_right = 1766.52
+margin_bottom = 1049.64
+mouse_default_cursor_shape = 2
+theme = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
+text = "Fechar"
+
+[node name="ShowEmissions" type="CheckBox" parent="GrafHistorico/Control"]
+margin_left = 208.691
+margin_top = 848.563
+margin_right = 579.691
+margin_bottom = 923.563
+theme = ExtResource( 2 )
+pressed = true
+text = " Emissões CO2"
+
+[node name="ShowUtility" type="CheckBox" parent="GrafHistorico/Control"]
+margin_left = 618.691
+margin_top = 848.563
+margin_right = 989.691
+margin_bottom = 923.563
+theme = ExtResource( 2 )
+pressed = true
+text = " Felicidade"
 [connection signal="pressed" from="ContainerDecisoes/EnviarDecisoes" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="ModelPopup/Control/EscreverFicheiro" to="." method="_on_EscreverFicheiro_pressed"]
 [connection signal="pressed" from="ModelPopup/Control/Simular" to="." method="_on_Simular_pressed"]
 [connection signal="pressed" from="ModelPopup/Control/Fechar" to="." method="_on_Fechar_pressed"]
+[connection signal="pressed" from="NewGamePopup/Control/StartGame" to="." method="_on_StartGame_pressed"]
 [connection signal="pressed" from="FileWritePopup/Control/Fechar" to="." method="_on_FecharEscreverFicheiro_pressed"]
 [connection signal="pressed" from="ModelButton" to="." method="_on_Model_Button_pressed"]
+[connection signal="pressed" from="GrafHistorico/Control/FecharHistorico" to="." method="_on_FecharHistorico_pressed"]
