@@ -179,7 +179,7 @@ func update_text():
 	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoResidencial").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_residential, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoServicos").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_services, 0.01)) + "%"
 	get_node("EstadoAtual/TextoDadosSocioeconomicos").text = "PIB: " + str(stepify(PlayerVariables.money, 1)) + "€" + "\n\nConsumo: " + str(stepify(PlayerVariables.expenditure, 1)) + "€" + "\n\nFelicidade dos Cidadãos: " + str(stepify(PlayerVariables.utility, 1))
-	get_node("ContainerPrevisoes/TextoOutrosDados").text = "Eficiência Agregada do País: " + str(stepify(PlayerVariables.final_year_efficiency * 100, 0.1)) + "\n\nConsumo: " + str(stepify(PlayerVariables.final_year_expenditure, 1)) + "€" + "\n\nPIB: " + str(stepify(PlayerVariables.final_year_money, 1)) +"€"
+	get_node("ContainerPrevisoes/TextoOutrosDados").text = "Eficiência Agregada do País: " + str(stepify(PlayerVariables.final_year_efficiency * 100, 0.1)) + "\n\nPIB: " + str(stepify(PlayerVariables.final_year_money, 1)) +"€" + "\n\nConsumo: " + str(stepify(PlayerVariables.final_year_expenditure, 1)) + "€"
 	#get_node("ContainerDecisoes/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
 	get_node("ContainerDecisoes/ProximoAno").text = "Decisões"
 	get_node("ContainerPrevisoes/RichTextLabel").text = str(PlayerVariables.final_year) + " - Previsões"

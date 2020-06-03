@@ -702,9 +702,9 @@ custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Eficiência Agregada do País: N/A
 
-Consumo: 
+PIB:
 
-PIB:"
+Consumo: "
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 71.0
@@ -1426,7 +1426,7 @@ margin_bottom = 466.0
 custom_fonts/normal_font = ExtResource( 4 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 tab_size = 3
-text = "			   	energyX
+text = "			   	exergyX
 		 (placeholder logo)"
 scroll_active = false
 
