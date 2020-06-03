@@ -11,23 +11,9 @@ var co2_emissions = 70
 var economic_growth = 1
 var cost_per_gigawatt = 2100
 var efficiency = 0.7
+var total_installed_power = 0.00
+var renewable_energy = 0.00
 
-# Player decisions here
-var investment_renewables_percentage = 0.00
-var investment_cost = 0
-var economy_type_level_transportation = 6       #from 1 to 11 (visual -5 to 5), maps to percentage
-var economy_type_level_industry = 6
-var economy_type_level_residential = 6
-var economy_type_level_services = 6
-var electrification_by_sector_level_transportation = 6   #from 1 to 11 (visual -5 to 5), maps to percentage
-var electrification_by_sector_level_industry = 6
-var electrification_by_sector_level_residential = 6
-var electrification_by_sector_level_services = 6
-
-
-var yearly_decisions = [YearlyDecision.new(2016, 30, 100, 71)]  #TODO: Update #DEPRECATED
-
-# Storage for post-processed player decisions (for percentages, add all values then map to %)
 var economy_type_percentage_transportation = 25.00     #from 0 to 100
 var economy_type_percentage_industry = 25.00
 var economy_type_percentage_residential = 25.00
@@ -41,12 +27,26 @@ var electrification_by_sector_percentage_services = 25.00
 var final_year = 2050
 var final_year_utility = 100
 var final_year_emissions = 70
+var final_year_efficiency = 0.00
+var final_year_expenditure = 0
+var final_year_money = 0
 var final_year_economic_growth = 1
 
 # Final year goals
 var utility_goals = 120
 var emission_goals = 35
 var economic_growth_goals = 1
+# Player decisions here
+var investment_renewables_percentage = 0.00
+var investment_cost = 0
+var economy_type_level_transportation = 6       #from 1 to 11 (visual -5 to 5), maps to percentage
+var economy_type_level_industry = 6
+var economy_type_level_residential = 6
+var economy_type_level_services = 6
+var electrification_by_sector_level_transportation = 6   #from 1 to 11 (visual -5 to 5), maps to percentage
+var electrification_by_sector_level_industry = 6
+var electrification_by_sector_level_residential = 6
+var electrification_by_sector_level_services = 6
 
 var extra_year_text = ""
 
@@ -60,6 +60,9 @@ func _ready():
 
 
 #DEPRECATED
+var yearly_decisions = [YearlyDecision.new(2016, 30, 100, 71)]  #TODO: Update #DEPRECATED
+
+
 func new_yearly_decision(y, i, u, e):
     return YearlyDecision.new(y, i, u, e)
 

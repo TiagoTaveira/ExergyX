@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://RoundButtonst.theme" type="Theme" id=2]
@@ -14,11 +14,11 @@
 [ext_resource path="res://ChartHeaders.tres" type="DynamicFont" id=12]
 [ext_resource path="res://ObjText.gd" type="Script" id=13]
 [ext_resource path="res://HistText.gd" type="Script" id=14]
-[ext_resource path="res://FONT_RobotoCondensed-Bold.tres" type="DynamicFont" id=15]
-[ext_resource path="res://Ano.gd" type="Script" id=16]
-[ext_resource path="res://FONT_WorkSans-Black.tres" type="DynamicFont" id=17]
-[ext_resource path="res://FONT_RobotoCondensed-BoldItalic.tres" type="DynamicFont" id=18]
-[ext_resource path="res://FONT_WorkSans-SemiBold72.tres" type="DynamicFont" id=19]
+[ext_resource path="res://FONT_WorkSans-Black.tres" type="DynamicFont" id=15]
+[ext_resource path="res://FONT_RobotoCondensed-BoldItalic.tres" type="DynamicFont" id=16]
+[ext_resource path="res://FONT_WorkSans-SemiBold72.tres" type="DynamicFont" id=17]
+[ext_resource path="res://FONT_RobotoCondensed-Bold.tres" type="DynamicFont" id=18]
+[ext_resource path="res://Ano.gd" type="Script" id=19]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
@@ -47,6 +47,32 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.54902, 0.6, 0.294118, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 9
+shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.988235, 0.952941, 0.913725, 1 )
+border_color = Color( 1, 1, 1, 1 )
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+anti_aliasing_size = 3
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 1, 1, 1, 1 )
+border_color = Color( 1, 1, 1, 1 )
+border_blend = true
+anti_aliasing_size = 3
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.886275, 0.886275, 0.866667, 1 )
@@ -88,33 +114,14 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.54902, 0.6, 0.294118, 1 )
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.819608, 0.819608, 0.819608, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-corner_detail = 9
-shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
-shadow_size = 5
 
 [sub_resource type="StyleBoxFlat" id=10]
-bg_color = Color( 0.988235, 0.952941, 0.913725, 1 )
-border_color = Color( 1, 1, 1, 1 )
-border_blend = true
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-anti_aliasing_size = 3
-
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 1, 1, 1, 1 )
-border_color = Color( 1, 1, 1, 1 )
-border_blend = true
-anti_aliasing_size = 3
-
-[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.941176, 0.960784, 0.941176, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -123,9 +130,9 @@ corner_radius_bottom_left = 20
 
 [node name="Panel" type="Panel"]
 margin_left = 1.94475
-margin_top = -0.333435
+margin_top = -1.14008
 margin_right = 1921.94
-margin_bottom = 1078.67
+margin_bottom = 1077.86
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -153,10 +160,10 @@ custom_fonts/font = ExtResource( 3 )
 text = "Enviar decisões"
 
 [node name="ProximoAno" type="RichTextLabel" parent="ContainerDecisoes"]
-margin_left = 29.8328
-margin_top = 31.1674
-margin_right = 429.833
-margin_bottom = 165.167
+margin_left = 165.0
+margin_top = 36.0
+margin_right = 367.0
+margin_bottom = 100.0
 custom_fonts/normal_font = ExtResource( 4 )
 custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
 custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
@@ -174,9 +181,9 @@ rect_pivot_offset = Vector2( -2036.94, 71.1674 )
 
 [node name="PotenciaInstalada" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 17.0
-margin_top = 2.0
+margin_top = -8.0
 margin_right = 423.0
-margin_bottom = 42.0
+margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -214,9 +221,9 @@ text = "PIB para Energias Renováveis (%)"
 
 [node name="Instalar" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 49.0
-margin_top = 46.0
+margin_top = 36.0
 margin_right = 187.0
-margin_bottom = 99.0
+margin_bottom = 89.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -224,9 +231,9 @@ text = "A instalar"
 
 [node name="ValorPotencia" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 177.0
-margin_top = 46.0
+margin_top = 36.0
 margin_right = 246.0
-margin_bottom = 99.0
+margin_bottom = 89.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -237,9 +244,9 @@ text = "0"
 
 [node name="ValorCusto" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 154.0
-margin_top = 92.0
+margin_top = 82.0
 margin_right = 294.0
-margin_bottom = 145.0
+margin_bottom = 135.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -249,9 +256,9 @@ text = "0"
 
 [node name="GW" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 254.0
-margin_top = 46.0
+margin_top = 36.0
 margin_right = 311.0
-margin_bottom = 99.0
+margin_bottom = 89.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -261,9 +268,9 @@ text = "GW"
 
 [node name="ME" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 350.0
-margin_top = 92.0
+margin_top = 82.0
 margin_right = 407.0
-margin_bottom = 145.0
+margin_bottom = 135.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -273,9 +280,9 @@ text = "€"
 
 [node name="Custo" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 49.0
-margin_top = 91.0
+margin_top = 81.0
 margin_right = 179.0
-margin_bottom = 144.0
+margin_bottom = 134.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -283,9 +290,9 @@ text = "Custo"
 
 [node name="Minus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 351.445
-margin_top = 49.381
+margin_top = 39.381
 margin_right = 391.445
-margin_bottom = 89.381
+margin_bottom = 79.381
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 8 )
@@ -293,9 +300,9 @@ texture_hover = ExtResource( 8 )
 
 [node name="Plus" type="TextureButton" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 401.938
-margin_top = 49.165
+margin_top = 39.165
 margin_right = 441.938
-margin_bottom = 89.165
+margin_bottom = 79.165
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
@@ -662,72 +669,57 @@ dialog_text = "As decisões foram submetidas com sucesso,
 e entretanto passou um ano..."
 
 [node name="ContainerPrevisoes" type="ItemList" parent="."]
-margin_left = 656.0
+margin_left = 97.0
 margin_top = 55.0
-margin_right = 1288.0
-margin_bottom = 1032.0
+margin_right = 595.0
+margin_bottom = 1033.0
 rect_pivot_offset = Vector2( 96.828, 113.046 )
 custom_styles/bg = SubResource( 3 )
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 45.0
-margin_top = 176.0
-margin_right = 591.0
-margin_bottom = 397.0
+margin_top = 166.0
+margin_right = 492.0
+margin_bottom = 327.0
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "Felicidade dos Cidadãos: [color=red]100[/color] (120)
 
 Emissões CO2: [color=red]70 MT[/color] (35 MT)
-
-Crescimento Económico: [color=green]1%[/color] (1%)"
+"
 text = "Felicidade dos Cidadãos: 100 (120)
 
 Emissões CO2: 70 MT (35 MT)
+"
 
-Crescimento Económico: 1% (1%)"
-
-[node name="TextoDadosEnergeticos" type="RichTextLabel" parent="ContainerPrevisoes"]
-margin_left = 47.0
-margin_top = 399.0
-margin_right = 593.0
-margin_bottom = 707.0
+[node name="TextoOutrosDados" type="RichTextLabel" parent="ContainerPrevisoes"]
+margin_left = 45.0
+margin_top = 585.0
+margin_right = 492.0
+margin_bottom = 764.0
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Eficiência Agregada do País: 
+text = "Eficiência Agregada do País: N/A
 
-Shares (Transportes): 25%
+Consumo: 
 
-Shares (Indústria): 25%
-
-Shares (Residencial): 25%
-
-Shares (Serviços): 25%"
-
-[node name="TextoDadosSocioeconomicos" type="RichTextLabel" parent="ContainerPrevisoes"]
-margin_left = 48.0
-margin_top = 740.0
-margin_right = 591.0
-margin_bottom = 833.0
-custom_fonts/normal_font = ExtResource( 6 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Consumo: "
+PIB:"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ContainerPrevisoes"]
-margin_left = 24.0
-margin_top = 35.0
-margin_right = 616.0
-margin_bottom = 148.0
+margin_left = 71.0
+margin_top = 34.0
+margin_right = 427.0
+margin_bottom = 169.0
 custom_fonts/normal_font = ExtResource( 4 )
 custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
-text = "2050 - Previsões (Objetivos)"
+text = "2050 - Previsões"
 
 [node name="Metas" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 22.4422
-margin_top = 125.555
+margin_top = 115.555
 margin_right = 428.442
-margin_bottom = 165.555
+margin_bottom = 155.555
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -738,29 +730,16 @@ text = "Metas:"
 
 [node name="DadosEnergeticos" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 21.3449
-margin_top = 348.759
+margin_top = 533.759
 margin_right = 427.345
-margin_bottom = 388.759
+margin_bottom = 573.759
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
-bbcode_text = "[b]Outros Dados Energéticos:[/b]"
-text = "Outros Dados Energéticos:"
-
-[node name="DadosSocioeconomicos" type="RichTextLabel" parent="ContainerPrevisoes"]
-margin_left = 21.0531
-margin_top = 693.94
-margin_right = 427.053
-margin_bottom = 733.94
-rect_pivot_offset = Vector2( 0, 21.7076 )
-custom_fonts/bold_font = ExtResource( 5 )
-custom_fonts/normal_font = ExtResource( 6 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-bbcode_enabled = true
-bbcode_text = "[b]Outros Dados Socioeconómicos:[/b]"
-text = "Outros Dados Socioeconómicos:"
+bbcode_text = "[b]Outros Dados:[/b]"
+text = "Outros Dados:"
 
 [node name="Panel" type="Panel" parent="ContainerPrevisoes"]
 editor/display_folded = true
@@ -800,10 +779,10 @@ text = "2018"
 
 [node name="HistoricoPrevisoes" type="Button" parent="ContainerPrevisoes"]
 anchor_right = 1.0
-margin_left = 78.4981
-margin_top = 844.279
-margin_right = -106.502
-margin_bottom = 946.279
+margin_left = 66.0
+margin_top = 836.0
+margin_right = -69.0
+margin_bottom = 938.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
@@ -856,27 +835,6 @@ margin_right = 266.0
 margin_bottom = 161.05
 script = ExtResource( 14 )
 
-[node name="AnoAtual" type="ItemList" parent="."]
-margin_left = 96.0
-margin_top = 862.0
-margin_right = 596.0
-margin_bottom = 1032.0
-custom_styles/bg = SubResource( 5 )
-
-[node name="Ano" type="RichTextLabel" parent="AnoAtual"]
-margin_left = 136.0
-margin_top = 26.0
-margin_right = 419.0
-margin_bottom = 276.0
-custom_fonts/normal_font = ExtResource( 15 )
-custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
-text = "2014"
-scroll_active = false
-script = ExtResource( 16 )
-
-[node name="NextYearAnimationPlayer" type="AnimationPlayer" parent="AnoAtual/Ano"]
-anims/NextYear = SubResource( 6 )
-
 [node name="PopupPanel" type="PopupPanel" parent="."]
 visible = true
 light_mask = 3
@@ -895,7 +853,7 @@ margin_left = 67.0
 margin_top = 128.0
 margin_right = 610.0
 margin_bottom = 464.0
-custom_fonts/normal_font = ExtResource( 17 )
+custom_fonts/normal_font = ExtResource( 15 )
 text = "Felicidade dos Cidadãos: 100
 Objetivo: 120
 
@@ -910,7 +868,7 @@ margin_left = 704.031
 margin_top = 233.429
 margin_right = 1091.03
 margin_bottom = 420.429
-custom_fonts/normal_font = ExtResource( 18 )
+custom_fonts/normal_font = ExtResource( 16 )
 text = "VENCEU!"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="PopupPanel/Control"]
@@ -918,7 +876,7 @@ margin_left = 229.0
 margin_top = 13.0
 margin_right = 1006.0
 margin_bottom = 107.0
-custom_fonts/normal_font = ExtResource( 19 )
+custom_fonts/normal_font = ExtResource( 17 )
 custom_colors/default_color = Color( 0.235294, 0.376471, 0.168627, 1 )
 text = "Resultados em 2050"
 
@@ -927,14 +885,12 @@ margin_left = 262.0
 margin_top = 234.0
 margin_right = 1730.0
 margin_bottom = 839.0
-custom_styles/panel = SubResource( 10 )
+custom_styles/panel = SubResource( 8 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ConfirmationPopup"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1448.0
-margin_bottom = 585.0
+margin_right = 1468.0
+margin_bottom = 605.0
 
 [node name="Titulo" type="RichTextLabel" parent="ConfirmationPopup/Control"]
 margin_left = 320.714
@@ -1183,18 +1139,17 @@ custom_fonts/font = ExtResource( 3 )
 text = "Cancelar"
 
 [node name="ModelPopup" type="PopupPanel" parent="."]
+editor/display_folded = true
 margin_left = 19.0
 margin_top = 7.0
 margin_right = 1899.0
 margin_bottom = 1064.0
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 9 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ModelPopup"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1860.0
-margin_bottom = 1037.0
+margin_right = 1880.0
+margin_bottom = 1057.0
 
 [node name="Modelo" type="RichTextLabel" parent="ModelPopup/Control"]
 margin_left = 717.0
@@ -1379,7 +1334,7 @@ margin_bottom = 998.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
-text = "Fechar"
+text = "Regressar ao jogo"
 
 [node name="Potencia" type="SpinBox" parent="ModelPopup/Control"]
 margin_left = 1361.62
@@ -1456,7 +1411,7 @@ margin_left = -21.0
 margin_top = 7.0
 margin_right = 2280.0
 margin_bottom = 1477.0
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 9 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="NewGamePopup"]
@@ -1494,21 +1449,19 @@ margin_bottom = 796.684
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
-text = "Começar Jogo"
+text = "Começar jogo"
 
 [node name="FileWritePopup" type="PopupPanel" parent="."]
 margin_left = 19.0
 margin_top = 839.0
 margin_right = 1899.0
 margin_bottom = 1064.0
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 9 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="FileWritePopup"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1860.0
-margin_bottom = 205.0
+margin_right = 1880.0
+margin_bottom = 225.0
 
 [node name="EscreverFicheiro" type="RichTextLabel" parent="FileWritePopup/Control"]
 margin_left = 720.0
@@ -1527,7 +1480,7 @@ margin_bottom = 167.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
-text = "Fechar"
+text = "Cancelar"
 
 [node name="EscreverTXT" type="Button" parent="FileWritePopup/Control"]
 margin_left = 740.347
@@ -1572,48 +1525,81 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Ficheiro de valores, compatível com Office"
 
 [node name="EstadoAtual" type="ItemList" parent="."]
-margin_left = 97.0
+margin_left = 625.0
 margin_top = 55.0
-margin_right = 597.0
-margin_bottom = 833.0
+margin_right = 1316.0
+margin_bottom = 1033.0
 custom_styles/bg = SubResource( 5 )
 
-[node name="AnoAtual" type="RichTextLabel" parent="EstadoAtual"]
-margin_left = 27.0
-margin_top = 37.0
-margin_right = 421.0
-margin_bottom = 108.0
+[node name="TextoAnoAtual" type="RichTextLabel" parent="EstadoAtual"]
+margin_left = 101.579
+margin_top = 40.0
+margin_right = 304.579
+margin_bottom = 111.0
 custom_fonts/normal_font = ExtResource( 4 )
 custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
 text = "Ano Atual"
 
 [node name="TextoDadosEnergeticos" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 38.0
-margin_top = 179.0
-margin_right = 478.0
-margin_bottom = 521.0
+margin_top = 169.0
+margin_right = 681.0
+margin_bottom = 439.0
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Nova Potência Instalada: 5 GW
+text = "Potência Total Instalada (Fração Renovável):
+	
+Eletricidade Renovável: GWh ( % do total)
 
-Potência Total Instalada: (perguntar se mostramos soma ou todos os setores)
+Emissões: MT
 
-Emissões: 70 MT
+Eficiência Agregada do País: %"
 
-Eficiência Agregada do País: 
+[node name="TextoDadosEnergeticos2" type="RichTextLabel" parent="EstadoAtual"]
+margin_left = 41.0
+margin_top = 441.0
+margin_right = 348.0
+margin_bottom = 485.0
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "Distribuição por Setor:"
 
-Fração de Eletricidade Renovável: "
+[node name="TextoDadosSharesEletrificacao" type="RichTextLabel" parent="EstadoAtual"]
+visible = false
+margin_left = 38.0
+margin_top = 402.0
+margin_right = 478.0
+margin_bottom = 697.0
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Shares (Transportes): 25%
+
+Shares (Indústria): 25%
+
+Shares (Residencial): 25%
+
+Shares (Serviços): 25%
+
+Coluna com shares e eletrificação"
+text = "Shares (Transportes): 25%
+
+Shares (Indústria): 25%
+
+Shares (Residencial): 25%
+
+Shares (Serviços): 25%
+
+Coluna com shares e eletrificação"
 
 [node name="TextoDadosSocioeconomicos" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 38.0
-margin_top = 544.0
-margin_right = 478.0
-margin_bottom = 856.0
+margin_top = 794.0
+margin_right = 678.0
+margin_bottom = 973.0
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "PIB: 197.5 mil milhões de euros
-
-Crescimento Económico: 1%
 
 Consumo: 
 
@@ -1621,9 +1607,9 @@ Felicidade dos Cidadãos: 100"
 
 [node name="DadosEnergeticos" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 16.7022
-margin_top = 123.327
+margin_top = 113.327
 margin_right = 422.702
-margin_bottom = 163.327
+margin_bottom = 153.327
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -1634,9 +1620,9 @@ text = "Dados Energéticos:"
 
 [node name="DadosSocioeconomicos" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 20.5911
-margin_top = 488.198
+margin_top = 738.198
 margin_right = 426.591
-margin_bottom = 528.198
+margin_bottom = 778.198
 rect_pivot_offset = Vector2( 0, 21.7076 )
 custom_fonts/bold_font = ExtResource( 5 )
 custom_fonts/normal_font = ExtResource( 6 )
@@ -1645,6 +1631,176 @@ bbcode_enabled = true
 bbcode_text = "[b]Dados Socioeconómicos:[/b]"
 text = "Dados Socioeconómicos:"
 
+[node name="AnoAtual" type="ItemList" parent="EstadoAtual"]
+margin_left = 317.0
+margin_top = 4.0
+margin_right = 682.0
+margin_bottom = 172.0
+custom_styles/bg = SubResource( 5 )
+
+[node name="Ano" type="RichTextLabel" parent="EstadoAtual/AnoAtual"]
+margin_left = 136.0
+margin_top = 26.0
+margin_right = 419.0
+margin_bottom = 147.0
+custom_fonts/normal_font = ExtResource( 18 )
+custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
+text = "2014"
+scroll_active = false
+script = ExtResource( 19 )
+
+[node name="NextYearAnimationPlayer" type="AnimationPlayer" parent="EstadoAtual/AnoAtual/Ano"]
+anims/NextYear = SubResource( 6 )
+
+[node name="FundoTabela" type="ItemList" parent="EstadoAtual"]
+margin_left = 35.0
+margin_top = 477.0
+margin_right = 662.0
+margin_bottom = 710.0
+custom_styles/bg = SubResource( 11 )
+
+[node name="Control" type="Control" parent="EstadoAtual/FundoTabela"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TabelaColunaTipodeEconomia" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 196.245
+margin_top = 7.64941
+margin_right = 425.245
+margin_bottom = 52.6494
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Tipo de Economia"
+text = "Tipo de Economia"
+
+[node name="TabelaLinhaTransportes" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 20.343
+margin_top = 54.8986
+margin_right = 269.343
+margin_bottom = 99.8986
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Transportes"
+text = "Transportes"
+
+[node name="SharesTransportes" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 273.245
+margin_top = 55.3904
+margin_right = 375.245
+margin_bottom = 100.39
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "0%"
+
+[node name="EletrificacaoTransportes" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 511.245
+margin_top = 55.3904
+margin_right = 655.245
+margin_bottom = 100.39
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "0%"
+
+[node name="EletrificacaoIndustria" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 511.245
+margin_top = 101.39
+margin_right = 657.245
+margin_bottom = 146.39
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "0%"
+
+[node name="EletrificacaoResidencial" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 511.245
+margin_top = 148.39
+margin_right = 652.245
+margin_bottom = 193.39
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "0%"
+
+[node name="EletrificacaoServicos" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 511.245
+margin_top = 191.39
+margin_right = 653.245
+margin_bottom = 236.39
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "0%"
+
+[node name="SharesIndustria" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 273.245
+margin_top = 101.39
+margin_right = 373.245
+margin_bottom = 146.39
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "0%"
+
+[node name="SharesResidencial" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 273.245
+margin_top = 149.39
+margin_right = 373.245
+margin_bottom = 194.39
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "0%"
+
+[node name="SharesServicos" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 273.245
+margin_top = 190.39
+margin_right = 367.245
+margin_bottom = 235.39
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "0%"
+
+[node name="TabelaLinhaIndustria" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 20.343
+margin_top = 100.899
+margin_right = 269.343
+margin_bottom = 145.899
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Indústria"
+text = "Indústria"
+
+[node name="TabelaLinhaResidencial" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 20.343
+margin_top = 147.899
+margin_right = 269.343
+margin_bottom = 192.899
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Residencial"
+text = "Residencial"
+
+[node name="TabelaLinhaServicos" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 20.343
+margin_top = 188.48
+margin_right = 269.343
+margin_bottom = 233.48
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Serviços"
+text = "Serviços"
+
+[node name="TabelaColunaEletrificacao" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
+margin_left = 461.245
+margin_top = 9.39044
+margin_right = 690.245
+margin_bottom = 54.3904
+custom_fonts/normal_font = ExtResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "Eletrificação"
+text = "Eletrificação"
+
 [node name="ModelButton" type="Button" parent="."]
 margin_left = 99.0
 margin_top = 15.0
@@ -1652,12 +1808,19 @@ margin_right = 254.0
 margin_bottom = 47.0
 text = "Modelo"
 
+[node name="ConfiguratorButton" type="Button" parent="."]
+margin_left = 283.0
+margin_top = 15.0
+margin_right = 438.0
+margin_bottom = 47.0
+text = "Configurador de Jogo"
+
 [node name="GrafHistorico" type="PopupPanel" parent="."]
 margin_left = 19.0
 margin_top = 8.0
 margin_right = 1898.0
 margin_bottom = 1076.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 10 )
 
 [node name="Control" type="Control" parent="GrafHistorico"]
 margin_right = 1879.0

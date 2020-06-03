@@ -14,7 +14,7 @@ func _ready():
 
 # 
 
-# CONSTANTES (podem ser alteradas, resultando num jogo diferente)
+# CONSTANTES (têm de ser alteradas se o modelo original em Model.gd for alterado)
 var ANO_INICIAL = 2014
 
 var POTENCIA_MAXIMA_SOLAR = 9.300 #GW
@@ -41,8 +41,6 @@ var FATOR_DE_EMISSAO_PETROLEO = 74.3
 var FATOR_DE_EMISSAO_GAS_NATURAL = 56.1
 var FATOR_DE_EMISSAO_COMB_RENOVAVEIS = 0.00
 
-
-
 var FATOR_DE_PRODUCAO_SOLAR = 0.1960
 var FATOR_DE_PRODUCAO_VENTO = 0.2690
 var FATOR_DE_PRODUCAO_BIOMASSA = 0.4920
@@ -57,65 +55,15 @@ var MAXIMO_PRODUZIDO_POR_GAS_NATURAL = 13550 #GWh
 var EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_GAS_NATURAL = 0.55
 var EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_CARVAO = 0.40
 
-
-# VALORES DO ANO ZERO (e.g. 2014)
-var POTENCIA_DO_ANO_ZERO_SOLAR = 0.493 #GW
-var POTENCIA_DO_ANO_ZERO_VENTO= 5.099
-var POTENCIA_DO_ANO_ZERO_BIOMASSA = 0.653
-
-var CUSTO_TOTAL_DO_ANO_ZERO = 0.00 #valor 2014???? #i.e. custo da potência de todas as fontes renováveis consideradas
-var CUSTO_DO_ANO_ZERO_SOLAR = 0.00
-var CUSTO_DO_ANO_ZERO_VENTO = 0.00
-var CUSTO_DO_ANO_ZERO_BIOMASSA = 0.00
-
-var PIB_DO_ANO_ZERO = 169110000000
-
-var CAPITAL_DO_ANO_ZERO = 532630000000
-
 var EFF1960 = 0.12 #Eficiência Agregada de 1960 (12%)
-var EFICIENCIA_AGREGADA_DO_ANO_ZERO = 0.1638 #16.38% #valor a ser corrigido
 
-var SHARES_EXERGIA_FINAL_TRANSPORTES_DO_ANO_ZERO = 0.3497 #percentagem decimal
-var SHARES_EXERGIA_FINAL_INDUSTRIA_DO_ANO_ZERO = 0.3748 #percentagem decimal
-var SHARES_EXERGIA_FINAL_RESIDENCIAL_DO_ANO_ZERO = 0.1608 #percentagem decimal
-var SHARES_EXERGIA_FINAL_SERVICOS_DO_ANO_ZERO = 0.1147 #percentagem decimal
-
-var SHARES_EXERGIA_FINAL_TRANSPORTES_CARVAO_DO_ANO_ZERO = 0.00 #percentagem decimal
-var SHARES_EXERGIA_FINAL_INDUSTRIA_CARVAO_DO_ANO_ZERO = 1.00 #percentagem decimal
-var SHARES_EXERGIA_FINAL_RESIDENCIAL_CARVAO_DO_ANO_ZERO = 0.00 #percentagem decimal
-var SHARES_EXERGIA_FINAL_SERVICOS_CARVAO_DO_ANO_ZERO = 0.00 #percentagem decimal
-
-var SHARES_EXERGIA_FINAL_TRANSPORTES_PETROLEO_DO_ANO_ZERO = 0.69193929 #percentagem decimal
-var SHARES_EXERGIA_FINAL_INDUSTRIA_PETROLEO_DO_ANO_ZERO = 0.2247621 #percentagem decimal
-var SHARES_EXERGIA_FINAL_RESIDENCIAL_PETROLEO_DO_ANO_ZERO = 0.06297832 #percentagem decimal
-var SHARES_EXERGIA_FINAL_SERVICOS_PETROLEO_DO_ANO_ZERO =  0.02032029 #percentagem decimal
-
-var SHARES_EXERGIA_FINAL_TRANSPORTES_ELETRICIDADE_DO_ANO_ZERO = 0.00633745 #percentagem decimal
-var SHARES_EXERGIA_FINAL_INDUSTRIA_ELETRICIDADE_DO_ANO_ZERO = 0.3920005 #percentagem decimal
-var SHARES_EXERGIA_FINAL_RESIDENCIAL_ELETRICIDADE_DO_ANO_ZERO = 0.25003673 #percentagem decimal
-var SHARES_EXERGIA_FINAL_SERVICOS_ELETRICIDADE_DO_ANO_ZERO =  0.35162532 #percentagem decimal
-
-var SHARES_EXERGIA_FINAL_TRANSPORTES_GAS_NATURAL_DO_ANO_ZERO = 0.00717314 #percentagem decimal
-var SHARES_EXERGIA_FINAL_INDUSTRIA_GAS_NATURAL_DO_ANO_ZERO = 0.71186682 #percentagem decimal
-var SHARES_EXERGIA_FINAL_RESIDENCIAL_GAS_NATURAL_DO_ANO_ZERO = 0.15300413 #percentagem decimal
-var SHARES_EXERGIA_FINAL_SERVICOS_GAS_NATURAL_DO_ANO_ZERO = 0.12795591 #percentagem decimal
-
-var SHARES_EXERGIA_FINAL_TRANSPORTES_COMB_RENOVAVEIS_DO_ANO_ZERO = 0.12144785 #percentagem decimal
-var SHARES_EXERGIA_FINAL_INDUSTRIA_COMB_RENOVAVEIS_DO_ANO_ZERO = 0.50117928 #percentagem decimal
-var SHARES_EXERGIA_FINAL_RESIDENCIAL_COMB_RENOVAVEIS_DO_ANO_ZERO = 0.35719767 #percentagem decimal
-var SHARES_EXERGIA_FINAL_SERVICOS_COMB_RENOVAVEIS_DO_ANO_ZERO = 0.0201752 #percentagem decimal
-
-var SHARES_EXERGIA_FINAL_TRANSPORTES_HEAT_DO_ANO_ZERO = 0.00 #percentagem decimal
-var SHARES_EXERGIA_FINAL_INDUSTRIA_HEAT_DO_ANO_ZERO = 0.91065034 #percentagem decimal
-var SHARES_EXERGIA_FINAL_RESIDENCIAL_HEAT_DO_ANO_ZERO = 0.03657347 #percentagem decimal
-var SHARES_EXERGIA_FINAL_SERVICOS_HEAT_DO_ANO_ZERO = 0.05277619 #percentagem decimal
 
 # VARIÁVEIS
 var ano_atual_indice = 0
 var ano_atual = ano_atual_indice + ANO_INICIAL
 
 ## VARS DECISOES 
-var input_potencia_a_instalar = 0.0 #(Atenção à divisão de inteiros em GDScript)
+var input_potencia_a_instalar = 0.0
 
 var input_percentagem_tipo_economia_transportes = 0.0
 var input_percentagem_tipo_economia_industria = 0.0
@@ -132,30 +80,30 @@ var potencia_solar_instantanea = 0.0
 var potencia_vento_instantanea = 0.0
 var potencia_biomassa_instantanea = 0.0
 
-var potencia_do_ano_solar = [POTENCIA_DO_ANO_ZERO_SOLAR] #????
-var potencia_do_ano_vento = [POTENCIA_DO_ANO_ZERO_VENTO] #????
-var potencia_do_ano_biomassa = [POTENCIA_DO_ANO_ZERO_BIOMASSA] #????
+var potencia_do_ano_solar = [0] #????
+var potencia_do_ano_vento = [0] #????
+var potencia_do_ano_biomassa = [0] #????
 
 ## VARS 2)
-var custo_total_do_ano = [CUSTO_TOTAL_DO_ANO_ZERO] #valor 2014????
-var custo_do_ano_solar = [CUSTO_DO_ANO_ZERO_SOLAR]
-var custo_do_ano_vento = [CUSTO_DO_ANO_ZERO_VENTO]
-var custo_do_ano_biomassa = [CUSTO_DO_ANO_ZERO_BIOMASSA]
+var custo_total_do_ano = [0] #valor 2014????
+var custo_do_ano_solar = [0]
+var custo_do_ano_vento = [0]
+var custo_do_ano_biomassa = [0]
 
 ## VARS 3)
-var pib_do_ano = [PIB_DO_ANO_ZERO]
+var pib_do_ano = [0]
 var investimento_total_do_ano = [0.0]
 var investimento_para_capital_do_ano = [0.0]
 
 ## VARS 4)
-var capital_do_ano = [CAPITAL_DO_ANO_ZERO]
+var capital_do_ano = [0]
 
 ## VARS 5)
 var labour_do_ano = [0] 
 
 ## VARS 6) e 15)
 var tfp_do_ano = [0.00]
-var eficiencia_agregada_do_ano = [EFICIENCIA_AGREGADA_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal #USADA NO PASSO 15)
+var eficiencia_agregada_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal #USADA NO PASSO 15)
 
 ## VARS 8)
 var exergia_util_do_ano = [0.0] #TJ
@@ -164,31 +112,31 @@ var exergia_util_do_ano = [0.0] #TJ
 var exergia_final_do_ano = [0.0] #TJ
 
 ## VARS 10)
-var shares_exergia_final_transportes_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
 
 ## VARS 11)
-var shares_exergia_final_transportes_carvao_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_CARVAO_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_carvao_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_CARVAO_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_carvao_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_CARVAO_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_carvao_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_CARVAO_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_carvao_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_carvao_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_carvao_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_carvao_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
 
-var shares_exergia_final_transportes_petroleo_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_PETROLEO_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_petroleo_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_PETROLEO_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_petroleo_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_PETROLEO_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_petroleo_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_PETROLEO_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_petroleo_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_petroleo_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_petroleo_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_petroleo_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
 
-var shares_exergia_final_transportes_eletricidade_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_ELETRICIDADE_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_eletricidade_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_ELETRICIDADE_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_eletricidade_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_ELETRICIDADE_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_eletricidade_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_ELETRICIDADE_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_eletricidade_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_eletricidade_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_eletricidade_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_eletricidade_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
 
-var shares_exergia_final_transportes_gas_natural_do_ano = [SHARES_EXERGIA_FINAL_TRANSPORTES_GAS_NATURAL_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_gas_natural_do_ano = [SHARES_EXERGIA_FINAL_INDUSTRIA_GAS_NATURAL_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_gas_natural_do_ano = [SHARES_EXERGIA_FINAL_RESIDENCIAL_GAS_NATURAL_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_gas_natural_do_ano = [SHARES_EXERGIA_FINAL_SERVICOS_GAS_NATURAL_DO_ANO_ZERO] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_gas_natural_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_industria_gas_natural_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_residencial_gas_natural_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_servicos_gas_natural_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
 
 # VARS 12)
 var exergia_final_transportes_do_ano = [0.00] #TJ
@@ -282,6 +230,178 @@ var consumo_do_ano = [0.0]
 var utilidade_do_ano = [0.0]
 
 # FUNÇÕES
+func carregar_modelo_original():
+	# VARIÁVEIS
+	ano_atual_indice = Model.ano_atual_indice
+	ano_atual = Model.ano_atual
+	
+	## VARS DECISOES 
+	input_potencia_a_instalar = Model.input_potencia_a_instalar
+	
+	input_percentagem_tipo_economia_transportes = Model.input_percentagem_tipo_economia_transportes
+	input_percentagem_tipo_economia_industria = Model.input_percentagem_tipo_economia_industria
+	input_percentagem_tipo_economia_residencial = Model.input_percentagem_tipo_economia_residencial
+	input_percentagem_tipo_economia_servicos = Model.input_percentagem_tipo_economia_servicos
+	
+	input_percentagem_eletrificacao_transportes = Model.input_percentagem_eletrificacao_transportes 
+	input_percentagem_eletrificacao_industria = Model.input_percentagem_eletrificacao_industria
+	input_percentagem_eletrificacao_residencial = Model.input_percentagem_eletrificacao_residencial 
+	input_percentagem_eletrificacao_servicos = Model.input_percentagem_eletrificacao_servicos
+	
+	## VARS 1)
+	potencia_solar_instantanea = Model.potencia_solar_instantanea 
+	potencia_vento_instantanea = Model.potencia_vento_instantanea
+	potencia_biomassa_instantanea = Model.potencia_biomassa_instantanea
+	
+	potencia_do_ano_solar = Model.potencia_do_ano_solar
+	potencia_do_ano_vento = Model.potencia_do_ano_vento
+	potencia_do_ano_biomassa = Model.potencia_do_ano_biomassa
+	
+	## VARS 2)
+	custo_total_do_ano = Model.custo_total_do_ano
+	custo_do_ano_solar = Model.custo_do_ano_solar
+	custo_do_ano_vento = Model.custo_do_ano_vento
+	custo_do_ano_biomassa = Model.custo_do_ano_biomassa 
+	
+	## VARS 3)
+	pib_do_ano = Model.pib_do_ano
+	investimento_total_do_ano = Model.investimento_total_do_ano
+	investimento_para_capital_do_ano = Model.investimento_para_capital_do_ano
+	
+	## VARS 4)
+	capital_do_ano = Model.capital_do_ano
+	
+	## VARS 5)
+	labour_do_ano = Model.labour_do_ano
+	
+	## VARS 6) e 15)
+	tfp_do_ano = Model.tfp_do_ano
+	eficiencia_agregada_do_ano = Model.eficiencia_agregada_do_ano
+	
+	## VARS 8)
+	exergia_util_do_ano = Model.exergia_util_do_ano
+	
+	## VARS 9)
+	exergia_final_do_ano = Model.exergia_final_do_ano
+	
+	## VARS 10)
+	shares_exergia_final_transportes_do_ano = Model.shares_exergia_final_transportes_do_ano
+	shares_exergia_final_industria_do_ano = Model.shares_exergia_final_industria_do_ano
+	shares_exergia_final_residencial_do_ano = Model.shares_exergia_final_residencial_do_ano
+	shares_exergia_final_servicos_do_ano = Model.shares_exergia_final_servicos_do_ano
+	
+	## VARS 11)
+	shares_exergia_final_transportes_carvao_do_ano = Model.shares_exergia_final_transportes_carvao_do_ano
+	shares_exergia_final_industria_carvao_do_ano = Model.shares_exergia_final_industria_carvao_do_ano
+	shares_exergia_final_residencial_carvao_do_ano = Model.shares_exergia_final_residencial_carvao_do_ano
+	shares_exergia_final_servicos_carvao_do_ano = Model.shares_exergia_final_servicos_carvao_do_ano
+	
+	shares_exergia_final_transportes_petroleo_do_ano = Model.shares_exergia_final_transportes_petroleo_do_ano
+	shares_exergia_final_industria_petroleo_do_ano = Model.shares_exergia_final_industria_petroleo_do_ano
+	shares_exergia_final_residencial_petroleo_do_ano = Model.shares_exergia_final_residencial_petroleo_do_ano
+	shares_exergia_final_servicos_petroleo_do_ano = Model.shares_exergia_final_servicos_petroleo_do_ano
+	
+	shares_exergia_final_transportes_eletricidade_do_ano = Model.shares_exergia_final_transportes_eletricidade_do_ano
+	shares_exergia_final_industria_eletricidade_do_ano = Model.shares_exergia_final_industria_eletricidade_do_ano
+	shares_exergia_final_residencial_eletricidade_do_ano = Model.shares_exergia_final_residencial_eletricidade_do_ano
+	shares_exergia_final_servicos_eletricidade_do_ano = Model.shares_exergia_final_servicos_eletricidade_do_ano
+	
+	shares_exergia_final_transportes_gas_natural_do_ano = Model.shares_exergia_final_transportes_gas_natural_do_ano
+	shares_exergia_final_industria_gas_natural_do_ano = Model.shares_exergia_final_industria_gas_natural_do_ano
+	shares_exergia_final_residencial_gas_natural_do_ano = Model.shares_exergia_final_residencial_gas_natural_do_ano
+	shares_exergia_final_servicos_gas_natural_do_ano = Model.shares_exergia_final_servicos_gas_natural_do_ano
+	
+	# VARS 12)
+	exergia_final_transportes_do_ano = Model.exergia_final_transportes_do_ano
+	exergia_final_industria_do_ano = Model.exergia_final_industria_do_ano
+	exergia_final_residencial_do_ano = Model.exergia_final_residencial_do_ano
+	exergia_final_servicos_do_ano = Model.exergia_final_servicos_do_ano
+	
+	# VARS 13)
+	exergia_final_transportes_carvao_do_ano = Model.exergia_final_transportes_carvao_do_ano
+	exergia_final_industria_carvao_do_ano = Model.exergia_final_industria_carvao_do_ano
+	exergia_final_residencial_carvao_do_ano = Model.exergia_final_residencial_carvao_do_ano
+	exergia_final_servicos_carvao_do_ano = Model.exergia_final_servicos_carvao_do_ano
+	
+	exergia_final_transportes_petroleo_do_ano = Model.exergia_final_transportes_petroleo_do_ano
+	exergia_final_industria_petroleo_do_ano = Model.exergia_final_industria_petroleo_do_ano
+	exergia_final_residencial_petroleo_do_ano = Model.exergia_final_residencial_petroleo_do_ano
+	exergia_final_servicos_petroleo_do_ano = Model.exergia_final_servicos_petroleo_do_ano
+	
+	exergia_final_transportes_eletricidade_do_ano = Model.exergia_final_transportes_eletricidade_do_ano
+	exergia_final_industria_eletricidade_do_ano = Model.exergia_final_industria_eletricidade_do_ano
+	exergia_final_residencial_eletricidade_do_ano = Model.exergia_final_residencial_eletricidade_do_ano
+	exergia_final_servicos_eletricidade_do_ano = Model.exergia_final_servicos_eletricidade_do_ano
+	
+	exergia_final_transportes_gas_natural_do_ano = Model.exergia_final_transportes_gas_natural_do_ano
+	exergia_final_industria_gas_natural_do_ano = Model.exergia_final_industria_gas_natural_do_ano
+	exergia_final_residencial_gas_natural_do_ano = Model.exergia_final_residencial_gas_natural_do_ano
+	exergia_final_servicos_gas_natural_do_ano = Model.exergia_final_servicos_gas_natural_do_ano
+	
+	# VARS 14
+	exergia_util_transportes_carvao_do_ano = Model.exergia_util_transportes_carvao_do_ano
+	exergia_util_industria_carvao_do_ano = Model.exergia_util_industria_carvao_do_ano
+	exergia_util_residencial_carvao_do_ano = Model.exergia_util_residencial_carvao_do_ano
+	exergia_util_servicos_carvao_do_ano = Model.exergia_util_servicos_carvao_do_ano
+	
+	exergia_util_transportes_petroleo_do_ano = Model.exergia_util_transportes_petroleo_do_ano
+	exergia_util_industria_petroleo_do_ano = Model.exergia_util_industria_petroleo_do_ano
+	exergia_util_residencial_petroleo_do_ano = Model.exergia_util_residencial_petroleo_do_ano
+	exergia_util_servicos_petroleo_do_ano = Model.exergia_util_servicos_petroleo_do_ano
+	
+	exergia_util_transportes_eletricidade_do_ano = Model.exergia_util_transportes_eletricidade_do_ano
+	exergia_util_industria_eletricidade_do_ano = Model.exergia_util_industria_eletricidade_do_ano
+	exergia_util_residencial_eletricidade_do_ano = Model.exergia_util_residencial_eletricidade_do_ano
+	exergia_util_servicos_eletricidade_do_ano = Model.exergia_util_servicos_eletricidade_do_ano
+	
+	exergia_util_transportes_gas_natural_do_ano = Model.exergia_util_transportes_gas_natural_do_ano
+	exergia_util_industria_gas_natural_do_ano = Model.exergia_util_industria_gas_natural_do_ano
+	exergia_util_residencial_gas_natural_do_ano = Model.exergia_util_residencial_gas_natural_do_ano
+	exergia_util_servicos_gas_natural_do_ano = Model.exergia_util_servicos_gas_natural_do_ano
+	
+	
+	exergia_util_transportes_do_ano = Model.exergia_util_transportes_do_ano
+	exergia_util_industria_do_ano = Model.exergia_util_industria_do_ano
+	exergia_util_residencial_do_ano = Model.exergia_util_residencial_do_ano
+	exergia_util_servicos_do_ano = Model.exergia_util_servicos_do_ano
+	
+	
+	eficiencia_transportes_do_ano = Model.eficiencia_transportes_do_ano
+	eficiencia_industria_do_ano = Model.eficiencia_industria_do_ano
+	eficiencia_residencial_do_ano = Model.eficiencia_residencial_do_ano
+	eficiencia_servicos_do_ano = Model.eficiencia_servicos_do_ano
+	
+	# VARS 16
+	exergia_final_carvao_do_ano = Model.exergia_final_carvao_do_ano
+	exergia_final_petroleo_do_ano = Model.exergia_final_petroleo_do_ano
+	exergia_final_eletricidade_do_ano = Model.exergia_final_eletricidade_do_ano
+	exergia_final_gas_natural_do_ano = Model.exergia_final_gas_natural_do_ano
+	
+	# VARS 17
+	emissoes_CO2_carvao_do_ano = Model.emissoes_CO2_carvao_do_ano
+	emissoes_CO2_petroleo_do_ano = Model.emissoes_CO2_petroleo_do_ano
+	emissoes_CO2_gas_natural_do_ano = Model.emissoes_CO2_gas_natural_do_ano
+	
+	emissoes_totais_sem_eletricidade = Model.emissoes_totais_sem_eletricidade
+	
+	# VARS 19
+	eletricidade_renovavel_do_ano = Model.eletricidade_renovavel_do_ano
+	
+	# VARS 20
+	eletricidade_nao_renovavel_do_ano = Model.eletricidade_nao_renovavel_do_ano
+	
+	# VARS 21 e 22)
+	emissoes_nao_renovaveis_do_ano = Model.emissoes_nao_renovaveis_do_ano
+	
+	# VARS 23)
+	emissoes_totais_do_ano = Model.emissoes_totais_do_ano
+	
+	# VARS 24)
+	consumo_do_ano = Model.consumo_do_ano
+	
+	# VARS 25)
+	utilidade_do_ano = Model.utilidade_do_ano
+
 func indice_do_ano(ano):
 	return ano - ANO_INICIAL
 	
