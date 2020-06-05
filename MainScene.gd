@@ -89,6 +89,7 @@ func update_model():
 	Model.calcular_exergia_util()
 	Model.calcular_exergia_final()
 	Model.calcular_shares_de_exergia_final_por_setor()
+	Model.calcular_eletrificacao_etc_de_setores()
 	Model.calcular_shares_de_exergia_final_por_setor_por_carrier()
 	Model.calcular_valores_absolutos_de_exergia_final_por_setor()
 	Model.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
@@ -144,6 +145,7 @@ func update_predictions():
 		PredictionsModel.calcular_exergia_util()
 		PredictionsModel.calcular_exergia_final()
 		PredictionsModel.calcular_shares_de_exergia_final_por_setor()
+		PredictionsModel.calcular_eletrificacao_etc_de_setores()
 		PredictionsModel.calcular_shares_de_exergia_final_por_setor_por_carrier()
 		PredictionsModel.calcular_valores_absolutos_de_exergia_final_por_setor()
 		PredictionsModel.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
@@ -851,6 +853,7 @@ func _on_Simular_pressed():
 	Model.calcular_exergia_util()
 	Model.calcular_exergia_final()
 	Model.calcular_shares_de_exergia_final_por_setor()
+	Model.calcular_eletrificacao_etc_de_setores()
 	Model.calcular_shares_de_exergia_final_por_setor_por_carrier()
 	Model.calcular_valores_absolutos_de_exergia_final_por_setor()
 	Model.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
@@ -886,17 +889,22 @@ func update_simulator_text():
 			+ "\nCusto vento: " + str(Model.custo_do_ano_vento[n]) + " euros" \
 			+ "\nCusto biomassa: " + str(Model.custo_do_ano_biomassa[n]) + " euros" \
 			+ "\nCusto total: " + str(Model.custo_total_do_ano[n]) + " euros" \
-			+ "\nPIB: " + str(Model.pib_do_ano[n]) + " euros" \
+			+ "\nPIB: " + str(Model.pib_do_ano[n]) + " milhares de milhões euros" \
 			+ "\nInvestimento para capital: " + str(Model.investimento_para_capital_do_ano[n]) + " euros" \
 			+ "\nCapital: " + str(Model.capital_do_ano[n]) + " euros" \
 			+ "\nLabour: " + str(Model.labour_do_ano[n]) + " horas de trabalho" \
 			+ "\nTFP: " + str(Model.tfp_do_ano[n]) \
+			+ "\neficiencia_agregada_do_ano.back(): " + str(Model.eficiencia_agregada_do_ano[n-1]) \
 			+ "\nExergia Útil: " + str(Model.exergia_util_do_ano[n]) + " TJ" \
 			+ "\nExergia Final: " + str(Model.exergia_final_do_ano[n]) + " TJ" \
 			+ "\nShares Exergia Final Transportes: " + str(Model.shares_exergia_final_transportes_do_ano[n]) \
 			+ "\nShares Exergia Final Indústria: " + str(Model.shares_exergia_final_industria_do_ano[n]) \
 			+ "\nShares Exergia Final Residencial: " + str(Model.shares_exergia_final_residencial_do_ano[n]) \
 			+ "\nShares Exergia Final Serviços: " + str(Model.shares_exergia_final_servicos_do_ano[n]) \
+			+ "\nEletrificação Transportes: " + str(Model.eletrificacao_transportes[n]) \
+			+ "\nEletrificação Industria: " + str(Model.eletrificacao_industria[n]) \
+			+ "\nEletrificação Residencial: " + str(Model.eletrificacao_residencial[n]) \
+			+ "\nEletrificação Serviços: " + str(Model.eletrificacao_servicos[n]) \
 			+ "\nShares Exergia Final Transportes Eletricidade: " + str(Model.shares_exergia_final_transportes_eletricidade_do_ano[n]) \
 			+ "\nShares Exergia Final Indústria Eletricidade: " + str(Model.shares_exergia_final_industria_eletricidade_do_ano[n]) \
 			+ "\nShares Exergia Final Residencial Eletricidade: " + str(Model.shares_exergia_final_residencial_eletricidade_do_ano[n]) \
@@ -913,10 +921,14 @@ func update_simulator_text():
 			+ "\nShares Exergia Final Indústria Gás Natural: " + str(Model.shares_exergia_final_industria_gas_natural_do_ano[n]) \
 			+ "\nShares Exergia Final Residencial Gás Natural: " + str(Model.shares_exergia_final_residencial_gas_natural_do_ano[n]) \
 			+ "\nShares Exergia Final Serviços Gás Natural: " + str(Model.shares_exergia_final_servicos_gas_natural_do_ano[n]) \
-			+ "\nExergia Final Transportes Gás Natural: " + str(Model.exergia_final_transportes_do_ano[n]) + " TJ"  \
-			+ "\nExergia Final Indústria Gás Natural: " + str(Model.exergia_final_industria_do_ano[n]) + " TJ"  \
-			+ "\nExergia Final Residencial Gás Natural: " + str(Model.exergia_final_residencial_do_ano[n]) + " TJ"  \
-			+ "\nExergia Final Serviços Gás Natural: " + str(Model.exergia_final_servicos_do_ano[n]) + " TJ"  \
+			+ "\nExergia Final Transportes: " + str(Model.exergia_final_transportes_do_ano[n]) + " TJ"  \
+			+ "\nExergia Final Indústria: " + str(Model.exergia_final_industria_do_ano[n]) + " TJ"  \
+			+ "\nExergia Final Residencial: " + str(Model.exergia_final_residencial_do_ano[n]) + " TJ"  \
+			+ "\nExergia Final Serviços: " + str(Model.exergia_final_servicos_do_ano[n]) + " TJ"  \
+			+ "\nExergia Útil Transportes: " + str(Model.exergia_util_transportes_do_ano[n]) + " TJ"  \
+			+ "\nExergia Útil Indústria: " + str(Model.exergia_util_industria_do_ano[n]) + " TJ"  \
+			+ "\nExergia Útil Residencial: " + str(Model.exergia_util_residencial_do_ano[n]) + " TJ"  \
+			+ "\nExergia Útil Serviços: " + str(Model.exergia_util_servicos_do_ano[n]) + " TJ"  \
 			+ "\n..." \
 			+ "\nEficiência Agregada: " + str(Model.eficiencia_agregada_do_ano[n])  \
 			+ "\n..." \

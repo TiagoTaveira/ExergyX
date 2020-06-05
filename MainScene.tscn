@@ -48,7 +48,7 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.54902, 0.6, 0.294118, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -58,7 +58,7 @@ corner_detail = 9
 shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
 shadow_size = 5
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.988235, 0.952941, 0.913725, 1 )
 border_color = Color( 1, 1, 1, 1 )
 border_blend = true
@@ -68,21 +68,20 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 anti_aliasing_size = 3
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 1, 1, 1, 1 )
 border_color = Color( 1, 1, 1, 1 )
 border_blend = true
 anti_aliasing_size = 3
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.886275, 0.886275, 0.866667, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="Animation" id=6]
-resource_name = "NextYear"
+[sub_resource type="Animation" id=9]
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_position")
@@ -114,14 +113,14 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.819608, 0.819608, 0.819608, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.941176, 0.960784, 0.941176, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -842,7 +841,7 @@ margin_left = 2038.0
 margin_top = 50.0
 margin_right = 3226.0
 margin_bottom = 543.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 5 )
 
 [node name="Control" type="Control" parent="PopupPanel"]
 margin_right = 1188.0
@@ -885,7 +884,7 @@ margin_left = 262.0
 margin_top = 234.0
 margin_right = 1730.0
 margin_bottom = 839.0
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 6 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ConfirmationPopup"]
@@ -1144,7 +1143,7 @@ margin_left = 19.0
 margin_top = 7.0
 margin_right = 1899.0
 margin_bottom = 1064.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 7 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ModelPopup"]
@@ -1411,7 +1410,7 @@ margin_left = -21.0
 margin_top = 7.0
 margin_right = 2280.0
 margin_bottom = 1477.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 7 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="NewGamePopup"]
@@ -1456,7 +1455,7 @@ margin_left = 19.0
 margin_top = 839.0
 margin_right = 1899.0
 margin_bottom = 1064.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 7 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="FileWritePopup"]
@@ -1529,7 +1528,7 @@ margin_left = 625.0
 margin_top = 55.0
 margin_right = 1316.0
 margin_bottom = 1033.0
-custom_styles/bg = SubResource( 5 )
+custom_styles/bg = SubResource( 8 )
 
 [node name="TextoAnoAtual" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 101.579
@@ -1636,7 +1635,7 @@ margin_left = 317.0
 margin_top = 4.0
 margin_right = 682.0
 margin_bottom = 172.0
-custom_styles/bg = SubResource( 5 )
+custom_styles/bg = SubResource( 8 )
 
 [node name="Ano" type="RichTextLabel" parent="EstadoAtual/AnoAtual"]
 margin_left = 136.0
@@ -1650,14 +1649,14 @@ scroll_active = false
 script = ExtResource( 19 )
 
 [node name="NextYearAnimationPlayer" type="AnimationPlayer" parent="EstadoAtual/AnoAtual/Ano"]
-anims/NextYear = SubResource( 6 )
+anims/NextYear = SubResource( 9 )
 
 [node name="FundoTabela" type="ItemList" parent="EstadoAtual"]
 margin_left = 35.0
 margin_top = 477.0
 margin_right = 662.0
 margin_bottom = 710.0
-custom_styles/bg = SubResource( 11 )
+custom_styles/bg = SubResource( 10 )
 
 [node name="Control" type="Control" parent="EstadoAtual/FundoTabela"]
 margin_right = 40.0
@@ -1820,7 +1819,7 @@ margin_left = 19.0
 margin_top = 8.0
 margin_right = 1898.0
 margin_bottom = 1076.0
-custom_styles/panel = SubResource( 10 )
+custom_styles/panel = SubResource( 11 )
 
 [node name="Control" type="Control" parent="GrafHistorico"]
 margin_right = 1879.0

@@ -1,4 +1,6 @@
 #TODO:
+URGENTE: O modelo está bem, exceto quando jogado pelo jogo. Descobrir PORQUÊ!
+	
 Tabela de registo de pontuações (estatísticas para o jogador saber como se vai saindo de jogo para jogo)
 -> Guardar: nº de vezes jogado, score, etc. (e possivelmente uma tabela high score top 10)
 
@@ -18,6 +20,8 @@ Painel das previsões usa o modelo fazendo fast-forward
 No ecrã de resultados final, permitir analisar o histórico para o jogador poder refletir sobre as ações
 BUG: Cálculo da percentagem do PIB no primeiro ano
 BUG: Animação de mudança de ano (baixa prioridade)
+
+-> Modelo: sempre que tiver carriers, acrescentar Comb.Ren e Heat (exceto a partir do passo 17 inclusive)
 
 
 #IMPROVE:
