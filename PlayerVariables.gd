@@ -57,24 +57,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-
-#DEPRECATED
-var yearly_decisions = [YearlyDecision.new(2016, 30, 100, 71)]  #TODO: Update #DEPRECATED
-
-
-func new_yearly_decision(y, i, u, e):
-    return YearlyDecision.new(y, i, u, e)
-
-class YearlyDecision:
-	
-	var year
-	var investment_renewables_percentage
-	var utility
-	var co2_emissions
-	
-	func _init(y, i, u, e):
-		year = y
-		investment_renewables_percentage = i
-		utility = u
-		co2_emissions = e

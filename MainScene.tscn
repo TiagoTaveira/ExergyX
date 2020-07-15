@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://RoundButtonst.theme" type="Theme" id=2]
@@ -12,13 +12,14 @@
 [ext_resource path="res://plus_red.png" type="Texture" id=10]
 [ext_resource path="res://middle0.png" type="Texture" id=11]
 [ext_resource path="res://ChartHeaders.tres" type="DynamicFont" id=12]
-[ext_resource path="res://ObjText.gd" type="Script" id=13]
-[ext_resource path="res://HistText.gd" type="Script" id=14]
-[ext_resource path="res://FONT_WorkSans-Black.tres" type="DynamicFont" id=15]
-[ext_resource path="res://FONT_RobotoCondensed-BoldItalic.tres" type="DynamicFont" id=16]
-[ext_resource path="res://FONT_WorkSans-SemiBold72.tres" type="DynamicFont" id=17]
-[ext_resource path="res://FONT_RobotoCondensed-Bold.tres" type="DynamicFont" id=18]
-[ext_resource path="res://Ano.gd" type="Script" id=19]
+[ext_resource path="res://FONT_WorkSans-Black.tres" type="DynamicFont" id=13]
+[ext_resource path="res://FONT_RobotoCondensed-BoldItalic.tres" type="DynamicFont" id=14]
+[ext_resource path="res://FONT_WorkSans-SemiBold72.tres" type="DynamicFont" id=15]
+[ext_resource path="res://FONT_RobotoCondensed-Bold.tres" type="DynamicFont" id=16]
+[ext_resource path="res://Ano.gd" type="Script" id=17]
+[ext_resource path="res://WorkSans-Bold.ttf" type="DynamicFontData" id=18]
+[ext_resource path="res://WorkSans-Regular.ttf" type="DynamicFontData" id=19]
+[ext_resource path="res://FONT_RobotoCondensed-Italic.tres" type="DynamicFont" id=20]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
@@ -126,6 +127,117 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFont" id=12]
+size = 24
+font_data = ExtResource( 18 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 24
+font_data = ExtResource( 19 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.466667, 0.486275, 0.462745, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.380392, 0.372549, 0.396078, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.156863, 0.188235, 0.207843, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.0784314, 0.0745098, 0.0823529, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 0.698039, 0.466667, 0.380392, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.419608, 0.647059, 0.4, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0.376471, 0.333333, 0.321569, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0.643137, 0.239216, 0.172549, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Theme" id=22]
+Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = ExtResource( 20 )
+Button/styles/disabled = SubResource( 14 )
+Button/styles/focus = null
+Button/styles/hover = SubResource( 15 )
+Button/styles/normal = SubResource( 16 )
+Button/styles/pressed = SubResource( 17 )
+CheckBox/colors/font_color = Color( 1, 1, 1, 1 )
+CheckBox/colors/font_color_disabled = Color( 1, 1, 1, 0.2 )
+CheckBox/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
+CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckBox/constants/check_vadjust = 0
+CheckBox/constants/hseparation = 4
+CheckBox/fonts/font = null
+CheckBox/icons/checked = null
+CheckBox/icons/radio_checked = null
+CheckBox/icons/radio_unchecked = null
+CheckBox/icons/unchecked = null
+CheckBox/styles/disabled = SubResource( 18 )
+CheckBox/styles/focus = null
+CheckBox/styles/hover = null
+CheckBox/styles/hover_pressed = SubResource( 19 )
+CheckBox/styles/normal = SubResource( 20 )
+CheckBox/styles/pressed = SubResource( 21 )
+CheckButton/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckButton/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckButton/constants/check_vadjust = 0
+CheckButton/constants/hseparation = 4
+CheckButton/fonts/font = null
+CheckButton/icons/off = null
+CheckButton/icons/on = null
+CheckButton/styles/disabled = null
+CheckButton/styles/focus = null
+CheckButton/styles/hover = null
+CheckButton/styles/hover_pressed = null
+CheckButton/styles/normal = null
+CheckButton/styles/pressed = null
 
 [node name="Panel" type="Panel"]
 margin_left = 1.94475
@@ -788,52 +900,6 @@ custom_fonts/font = ExtResource( 3 )
 disabled = true
 text = "Histórico e Previsões"
 
-[node name="GridContainer3" type="ItemList" parent="."]
-editor/display_folded = true
-visible = false
-margin_left = 954.0
-margin_top = 503.0
-margin_right = 1236.0
-margin_bottom = 654.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GridContainer3"]
-margin_left = 14.6312
-margin_top = 8.75414
-margin_right = 212.631
-margin_bottom = 38.7541
-rect_scale = Vector2( 1.56456, 1.56456 )
-text = "Objetivos para 2050"
-
-[node name="ObjText" type="RichTextLabel" parent="GridContainer3"]
-margin_left = 18.0
-margin_top = 46.0
-margin_right = 267.0
-margin_bottom = 148.0
-script = ExtResource( 13 )
-
-[node name="Historico" type="ItemList" parent="."]
-editor/display_folded = true
-visible = false
-margin_left = 523.646
-margin_top = 491.369
-margin_right = 805.646
-margin_bottom = 665.369
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Historico"]
-margin_left = 15.6312
-margin_top = 8.75414
-margin_right = 213.631
-margin_bottom = 38.7541
-rect_scale = Vector2( 1.56456, 1.56456 )
-text = "Histórico"
-
-[node name="HistText" type="RichTextLabel" parent="Historico"]
-margin_left = 17.0
-margin_top = 46.05
-margin_right = 266.0
-margin_bottom = 161.05
-script = ExtResource( 14 )
-
 [node name="PopupPanel" type="PopupPanel" parent="."]
 visible = true
 light_mask = 3
@@ -852,7 +918,7 @@ margin_left = 67.0
 margin_top = 128.0
 margin_right = 610.0
 margin_bottom = 464.0
-custom_fonts/normal_font = ExtResource( 15 )
+custom_fonts/normal_font = ExtResource( 13 )
 text = "Felicidade dos Cidadãos: 100
 Objetivo: 120
 
@@ -867,7 +933,7 @@ margin_left = 704.031
 margin_top = 233.429
 margin_right = 1091.03
 margin_bottom = 420.429
-custom_fonts/normal_font = ExtResource( 16 )
+custom_fonts/normal_font = ExtResource( 14 )
 text = "VENCEU!"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="PopupPanel/Control"]
@@ -875,7 +941,7 @@ margin_left = 229.0
 margin_top = 13.0
 margin_right = 1006.0
 margin_bottom = 107.0
-custom_fonts/normal_font = ExtResource( 17 )
+custom_fonts/normal_font = ExtResource( 15 )
 custom_colors/default_color = Color( 0.235294, 0.376471, 0.168627, 1 )
 text = "Resultados em 2050"
 
@@ -1642,11 +1708,11 @@ margin_left = 136.0
 margin_top = 26.0
 margin_right = 419.0
 margin_bottom = 147.0
-custom_fonts/normal_font = ExtResource( 18 )
+custom_fonts/normal_font = ExtResource( 16 )
 custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
 text = "2014"
 scroll_active = false
-script = ExtResource( 19 )
+script = ExtResource( 17 )
 
 [node name="NextYearAnimationPlayer" type="AnimationPlayer" parent="EstadoAtual/AnoAtual/Ano"]
 anims/NextYear = SubResource( 9 )
@@ -1686,9 +1752,9 @@ text = "Transportes"
 
 [node name="SharesTransportes" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
 margin_left = 273.245
-margin_top = 55.3904
+margin_top = 53.8192
 margin_right = 375.245
-margin_bottom = 100.39
+margin_bottom = 98.8188
 custom_fonts/normal_font = ExtResource( 6 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "0%"
@@ -1815,6 +1881,7 @@ margin_bottom = 47.0
 text = "Configurador de Jogo"
 
 [node name="GrafHistorico" type="PopupPanel" parent="."]
+visible = true
 margin_left = 19.0
 margin_top = 8.0
 margin_right = 1898.0
@@ -1824,12 +1891,6 @@ custom_styles/panel = SubResource( 11 )
 [node name="Control" type="Control" parent="GrafHistorico"]
 margin_right = 1879.0
 margin_bottom = 1068.0
-
-[node name="TestLine2D" type="Line2D" parent="GrafHistorico/Control"]
-position = Vector2( -1076.06, -3024.42 )
-scale = Vector2( 40.7362, 19.5509 )
-points = PoolVector2Array( 41.5083, 167.879 )
-texture_mode = -1088421888
 
 [node name="X-axis" type="Line2D" parent="GrafHistorico/Control"]
 points = PoolVector2Array( 200, 740, 1700, 740 )
@@ -1848,6 +1909,53 @@ points = PoolVector2Array( 950, 740, 950, 40 )
 width = 5.0
 default_color = Color( 0, 0, 0, 1 )
 texture_mode = -1088421888
+
+[node name="TestLine2D" type="Line2D" parent="GrafHistorico/Control"]
+visible = false
+position = Vector2( 200.339, 739.191 )
+points = PoolVector2Array( 0, 0, 750, -700 )
+width = 5.0
+texture_mode = -1088421888
+joint_mode = 2
+end_cap_mode = 2
+
+[node name="EmissionsLine" type="Line2D" parent="GrafHistorico/Control"]
+position = Vector2( 200, 739 )
+width = 5.0
+default_color = Color( 0.643137, 0.239216, 0.172549, 1 )
+texture_mode = -1088421888
+joint_mode = 2
+end_cap_mode = 2
+
+[node name="EmissionsValueStart" type="RichTextLabel" parent="GrafHistorico/Control"]
+margin_left = 4.0
+margin_top = 418.0
+margin_right = 186.0
+margin_bottom = 458.0
+rect_pivot_offset = Vector2( 0, 21.7076 )
+rect_clip_content = false
+custom_fonts/bold_font = SubResource( 12 )
+custom_fonts/normal_font = SubResource( 13 )
+custom_colors/default_color = Color( 0.643137, 0.239216, 0.172549, 1 )
+bbcode_enabled = true
+bbcode_text = "[right]2050 MT[/right]"
+text = "2050 MT"
+scroll_active = false
+
+[node name="EmissionsValueCurrent" type="RichTextLabel" parent="GrafHistorico/Control"]
+margin_left = 958.0
+margin_top = 408.0
+margin_right = 1226.0
+margin_bottom = 448.0
+rect_pivot_offset = Vector2( 0, 21.7076 )
+rect_clip_content = false
+custom_fonts/bold_font = SubResource( 12 )
+custom_fonts/normal_font = SubResource( 13 )
+custom_colors/default_color = Color( 0.643137, 0.239216, 0.172549, 1 )
+bbcode_enabled = true
+bbcode_text = "2050 MT"
+text = "2050 MT"
+scroll_active = false
 
 [node name="TextoAviso" type="RichTextLabel" parent="GrafHistorico/Control"]
 margin_left = 195.231
@@ -1903,6 +2011,7 @@ margin_left = 1352.52
 margin_top = 953.645
 margin_right = 1766.52
 margin_bottom = 1049.64
+hint_tooltip = "Fechar o ecrã de previsões"
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
@@ -1913,7 +2022,8 @@ margin_left = 208.691
 margin_top = 848.563
 margin_right = 579.691
 margin_bottom = 923.563
-theme = ExtResource( 2 )
+mouse_default_cursor_shape = 2
+theme = SubResource( 22 )
 pressed = true
 text = " Emissões CO2"
 
@@ -1922,6 +2032,7 @@ margin_left = 618.691
 margin_top = 848.563
 margin_right = 989.691
 margin_bottom = 923.563
+mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 pressed = true
 text = " Felicidade"
@@ -1933,3 +2044,4 @@ text = " Felicidade"
 [connection signal="pressed" from="FileWritePopup/Control/Fechar" to="." method="_on_FecharEscreverFicheiro_pressed"]
 [connection signal="pressed" from="ModelButton" to="." method="_on_Model_Button_pressed"]
 [connection signal="pressed" from="GrafHistorico/Control/FecharHistorico" to="." method="_on_FecharHistorico_pressed"]
+[connection signal="toggled" from="GrafHistorico/Control/ShowEmissions" to="." method="_on_ShowEmissions_toggled"]

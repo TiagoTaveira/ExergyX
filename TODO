@@ -1,5 +1,7 @@
 #TODO:
-URGENTE: O modelo está bem, exceto quando jogado pelo jogo. Descobrir PORQUÊ!
+URGENTE: O modelo está bem (tirando alguns cálculos), exceto quando jogado pelo jogo. Descobrir PORQUÊ!
+-> UPDATE: O jogo está a ser jogado 36 vezes (i.e. de 2015 a 2050) na primeira decisão! Muito provavelmente este é o bug.
+-> Isto explica porque só a primeira decisão é guardada, e o porquê de as previsões nunca mudarem.
 	
 Tabela de registo de pontuações (estatísticas para o jogador saber como se vai saindo de jogo para jogo)
 -> Guardar: nº de vezes jogado, score, etc. (e possivelmente uma tabela high score top 10)
@@ -7,17 +9,13 @@ Tabela de registo de pontuações (estatísticas para o jogador saber como se va
 Fazer um configurador para o ano zero
 Acabar simulador
 
-(No ano atual, colocar a diferença ganha em anos (NOVA POTENCIA INSTALADA sai)
+No ano atual, colocar a diferença ganha em anos (NOVA POTÊNCIA INSTALADA sai)
 Corrigir funcionamento das setas na parte do modelo (i.e. o peso das percentagens)
-Gráfico de histórico (Possivelmente usar o "for" do simulador)
--> PIB, Consumo
--> Histórico dos valores anuais
 
-
--> Usar uma checkbox para decidir que valores mostrar
-Apresentação de casas decimais 
-Painel das previsões usa o modelo fazendo fast-forward
+-> Usar uma checkbox para decidir que valores mostrar (falta adicionar mais checkboxes)
 No ecrã de resultados final, permitir analisar o histórico para o jogador poder refletir sobre as ações
+-> Possivelmente colocar um painel novo no jogo a substituir o de decisões com informação do jogo acabado
+-> Para analisar o histórico bastaria então aos jogadores entrarem nesse painel
 BUG: Cálculo da percentagem do PIB no primeiro ano
 BUG: Animação de mudança de ano (baixa prioridade)
 
@@ -26,6 +24,10 @@ BUG: Animação de mudança de ano (baixa prioridade)
 
 #IMPROVE:
 Ecrã de novo jogo (com explicação) e créditos
+Painel das previsões usa o modelo fazendo fast-forward (falta validar com o modelo corrigido)
+Gráfico de histórico (Possivelmente usar o "for" do simulador)
+-> PIB, Consumo
+-> Histórico dos valores anuais
 
 
 #DONE:
@@ -36,6 +38,7 @@ Corrigir passos 19 e 19.5 e 20 e 21 e 22
 Adicionar funções TODO
 No ecrã das decisões apenas colocar uma confirmação do ecrã à direita. Organização horizontal.
 Aplicar o funcionamento dos shares (setas) à eletrificação na parte do jogo
+Apresentação de casas decimais
 
 
 #TESTES:

@@ -76,7 +76,7 @@ var MAXIMO_PRODUZIDO_POR_GAS_NATURAL = 13550 #GWh
 var EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_GAS_NATURAL = 0.55
 var EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_CARVAO = 0.40
 
-var EFF1960 = 0.145747725 #Eficiência Agregada de 1960 (12%)
+var EFF1960 = 0.142140933352638 #Eficiência Agregada de 1960 (12%)
 
 
 # VARIÁVEIS
@@ -563,14 +563,16 @@ func calcular_labour():
 	
 # FUNCS 6) - TOTAL FACTOR PRODUTIVITY (TFP)
 func calcular_tfp():
-	tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.87) * 0.00000105 + 0.00000025)
+	#tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.87) * 0.00000105 + 0.00000025)
 	#tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.87))
+	tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.93) * 0.00000102 + 0.00000039)
 	
 # FUNCS 7) - PIB (euros)
 func calcular_pib():
 	#PIB=TFP*(K^0.3)*(L^0.7)
 	pib_do_ano.push_back(tfp_do_ano[ano_atual_indice]*(pow((capital_do_ano[ano_atual_indice]*pow(10,-9)),0.3))*(pow(labour_do_ano[ano_atual_indice],0.7)))
 	
+
 # FUNCS 8) - EXERGIA ÚTIL ANUAL (1 terajoule = 1 euro)
 func calcular_exergia_util():
 	exergia_util_do_ano.push_back(pib_do_ano[ano_atual_indice])
@@ -809,7 +811,7 @@ func calcular_emissoes_nao_renovaveis():
 	var eletricidade_nao_renovavel_TJ
 	var maximo_produzido_por_gas_natural_TJ
 	if(eletricidade_nao_renovavel_do_ano[ano_atual_indice] <= 0.00):
-		print("Eletricidade 100% renovável!")
+		#print("Eletricidade 100% renovável!")
 		emissoes_nao_renovaveis_do_ano.push_back(0)
 	elif(eletricidade_nao_renovavel_do_ano[ano_atual_indice] <= MAXIMO_PRODUZIDO_POR_GAS_NATURAL):
 		eletricidade_nao_renovavel_TJ = eletricidade_nao_renovavel_do_ano[ano_atual_indice] * 3.6

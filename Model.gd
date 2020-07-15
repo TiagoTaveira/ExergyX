@@ -93,8 +93,8 @@ var PIB_DO_ANO_ZERO = 169.11
 
 var CAPITAL_DO_ANO_ZERO = 532630000000
 
-var EFF1960 = 0.145747725 #Eficiência Agregada de 1960 (~14%)
-var EFICIENCIA_AGREGADA_DO_ANO_ZERO = 0.2252 #22.52% #valor a ser corrigido
+var EFF1960 = 0.142140933352638 #Eficiência Agregada de 1960 (~14%)
+var EFICIENCIA_AGREGADA_DO_ANO_ZERO = 0.227 #22.52% #valor a ser corrigido
 
 var EXERGIA_FINAL_DO_ANO_ZERO = 688470.92 #TJ
 
@@ -349,9 +349,9 @@ func mudar_de_ano():
 	ano_atual_indice += 1
 
 	#após execução desta função, acede-se aos valores do ano anterior presentes em vetores com um .back(),
-	#desde que não tenha sido já colocado o valor do ano atual. Neste último caso, tem de ser procurar
+	#desde que não tenha sido já colocado o valor do ano atual. Neste último caso, tem de se procurar
 	#pelo índice [ano_atual_indice - 1]
-	
+
 
 # FUNCS 1) - POTÊNCIA ELETRICA ACUMULADA POR FONTE RENOVÁVEL (gigawatts)
 # TODO: Evitar
@@ -432,13 +432,27 @@ func calcular_labour():
 	
 # FUNCS 6) - TOTAL FACTOR PRODUTIVITY (TFP)
 func calcular_tfp():
-	tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.87) * 0.00000105 + 0.00000025)
+	#tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.87) * 0.00000105 + 0.00000025)
 	#tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.87))
+	tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.93) * 0.00000102 + 0.00000039)
 	
+	print("Eficiência Agregada: " + str(eficiencia_agregada_do_ano.back()))
 # FUNCS 7) - PIB (euros)
 func calcular_pib():
 	#PIB=TFP*(K^0.3)*(L^0.7)
 	pib_do_ano.push_back(tfp_do_ano[ano_atual_indice]*(pow((capital_do_ano[ano_atual_indice]*pow(10,-9)),0.3))*(pow(labour_do_ano[ano_atual_indice],0.7)))
+	
+	
+	#print("TFP: " + str(tfp_do_ano[ano_atual_indice]) + "\nCapital: " + str(capital_do_ano[ano_atual_indice]*pow(10,-9))
+	#+ "\nLabour: " + str(labour_do_ano[ano_atual_indice]) + "\nPIB: " + str(pib_do_ano[ano_atual_indice]))
+	print("\nCapital ^ 0.3: " + str(pow(capital_do_ano[ano_atual_indice],0.3)))
+	print("Capital * 10^-9: " + str((capital_do_ano[ano_atual_indice]*pow(10,-9))))
+	print("Labour^0.7: " + str(pow(labour_do_ano[ano_atual_indice],0.7)))
+	print("capital^0.3 * labour^0.7: " + str(pow((capital_do_ano[ano_atual_indice]*pow(10,-9)),0.3) * (pow(labour_do_ano[ano_atual_indice],0.7))))
+	print("PIB: " + str((pow((capital_do_ano[ano_atual_indice]*pow(10,-9)),0.3) * (pow(labour_do_ano[ano_atual_indice],0.7)) * 0.000003 )))
+	print("TFP: " + str(tfp_do_ano[ano_atual_indice]))
+	print("PIB (com TFP do código): " + str((pow((capital_do_ano[ano_atual_indice]*pow(10,-9)),0.3) * (pow(labour_do_ano[ano_atual_indice],0.7)) * tfp_do_ano[ano_atual_indice] )))
+
 	
 # FUNCS 8) - EXERGIA ÚTIL ANUAL (1 terajoule = 1 euro)
 func calcular_exergia_util():
