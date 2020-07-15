@@ -297,176 +297,176 @@ func carregar_modelo_original():
 	potencia_vento_instantanea = Model.potencia_vento_instantanea
 	potencia_biomassa_instantanea = Model.potencia_biomassa_instantanea
 	
-	potencia_do_ano_solar = Model.potencia_do_ano_solar
-	potencia_do_ano_vento = Model.potencia_do_ano_vento
-	potencia_do_ano_biomassa = Model.potencia_do_ano_biomassa
+	potencia_do_ano_solar = Model.potencia_do_ano_solar.duplicate(true)
+	potencia_do_ano_vento = Model.potencia_do_ano_vento.duplicate(true)
+	potencia_do_ano_biomassa = Model.potencia_do_ano_biomassa.duplicate(true)
 	
 	## VARS 2)
-	custo_total_do_ano = Model.custo_total_do_ano
-	custo_do_ano_solar = Model.custo_do_ano_solar
-	custo_do_ano_vento = Model.custo_do_ano_vento
-	custo_do_ano_biomassa = Model.custo_do_ano_biomassa 
+	custo_total_do_ano = Model.custo_total_do_ano.duplicate(true)
+	custo_do_ano_solar = Model.custo_do_ano_solar.duplicate(true)
+	custo_do_ano_vento = Model.custo_do_ano_vento.duplicate(true)
+	custo_do_ano_biomassa = Model.custo_do_ano_biomassa.duplicate(true)
 	
 	## VARS 3)
 	pib_do_ano = Model.pib_do_ano
-	investimento_total_do_ano = Model.investimento_total_do_ano
-	investimento_para_capital_do_ano = Model.investimento_para_capital_do_ano
+	investimento_total_do_ano = Model.investimento_total_do_ano.duplicate(true)
+	investimento_para_capital_do_ano = Model.investimento_para_capital_do_ano.duplicate(true)
 	
 	## VARS 4)
-	capital_do_ano = Model.capital_do_ano
+	capital_do_ano = Model.capital_do_ano.duplicate(true)
 	
 	## VARS 5)
-	labour_do_ano = Model.labour_do_ano
+	labour_do_ano = Model.labour_do_ano.duplicate(true)
 	
 	## VARS 6) e 15)
-	tfp_do_ano = Model.tfp_do_ano
-	eficiencia_agregada_do_ano = Model.eficiencia_agregada_do_ano
+	tfp_do_ano = Model.tfp_do_ano.duplicate(true)
+	eficiencia_agregada_do_ano = Model.eficiencia_agregada_do_ano.duplicate(true)
 	
 	## VARS 8)
-	exergia_util_do_ano = Model.exergia_util_do_ano
+	exergia_util_do_ano = Model.exergia_util_do_ano.duplicate(true)
 	
 	## VARS 9)
-	exergia_final_do_ano = Model.exergia_final_do_ano
+	exergia_final_do_ano = Model.exergia_final_do_ano.duplicate(true)
 	
 	## VARS 10)
-	shares_exergia_final_transportes_do_ano = Model.shares_exergia_final_transportes_do_ano
-	shares_exergia_final_industria_do_ano = Model.shares_exergia_final_industria_do_ano
-	shares_exergia_final_residencial_do_ano = Model.shares_exergia_final_residencial_do_ano
-	shares_exergia_final_servicos_do_ano = Model.shares_exergia_final_servicos_do_ano
+	shares_exergia_final_transportes_do_ano = Model.shares_exergia_final_transportes_do_ano.duplicate(true)
+	shares_exergia_final_industria_do_ano = Model.shares_exergia_final_industria_do_ano.duplicate(true)
+	shares_exergia_final_residencial_do_ano = Model.shares_exergia_final_residencial_do_ano.duplicate(true)
+	shares_exergia_final_servicos_do_ano = Model.shares_exergia_final_servicos_do_ano.duplicate(true)
 	
 	## VARS 11)
-	shares_exergia_final_transportes_carvao_do_ano = Model.shares_exergia_final_transportes_carvao_do_ano
-	shares_exergia_final_industria_carvao_do_ano = Model.shares_exergia_final_industria_carvao_do_ano
-	shares_exergia_final_residencial_carvao_do_ano = Model.shares_exergia_final_residencial_carvao_do_ano
-	shares_exergia_final_servicos_carvao_do_ano = Model.shares_exergia_final_servicos_carvao_do_ano
+	shares_exergia_final_transportes_carvao_do_ano = Model.shares_exergia_final_transportes_carvao_do_ano.duplicate(true)
+	shares_exergia_final_industria_carvao_do_ano = Model.shares_exergia_final_industria_carvao_do_ano.duplicate(true)
+	shares_exergia_final_residencial_carvao_do_ano = Model.shares_exergia_final_residencial_carvao_do_ano.duplicate(true)
+	shares_exergia_final_servicos_carvao_do_ano = Model.shares_exergia_final_servicos_carvao_do_ano.duplicate(true)
 	
-	shares_exergia_final_transportes_petroleo_do_ano = Model.shares_exergia_final_transportes_petroleo_do_ano
-	shares_exergia_final_industria_petroleo_do_ano = Model.shares_exergia_final_industria_petroleo_do_ano
-	shares_exergia_final_residencial_petroleo_do_ano = Model.shares_exergia_final_residencial_petroleo_do_ano
-	shares_exergia_final_servicos_petroleo_do_ano = Model.shares_exergia_final_servicos_petroleo_do_ano
+	shares_exergia_final_transportes_petroleo_do_ano = Model.shares_exergia_final_transportes_petroleo_do_ano.duplicate(true)
+	shares_exergia_final_industria_petroleo_do_ano = Model.shares_exergia_final_industria_petroleo_do_ano.duplicate(true)
+	shares_exergia_final_residencial_petroleo_do_ano = Model.shares_exergia_final_residencial_petroleo_do_ano.duplicate(true)
+	shares_exergia_final_servicos_petroleo_do_ano = Model.shares_exergia_final_servicos_petroleo_do_ano.duplicate(true)
 	
-	shares_exergia_final_transportes_eletricidade_do_ano = Model.shares_exergia_final_transportes_eletricidade_do_ano
-	shares_exergia_final_industria_eletricidade_do_ano = Model.shares_exergia_final_industria_eletricidade_do_ano
-	shares_exergia_final_residencial_eletricidade_do_ano = Model.shares_exergia_final_residencial_eletricidade_do_ano
-	shares_exergia_final_servicos_eletricidade_do_ano = Model.shares_exergia_final_servicos_eletricidade_do_ano
+	shares_exergia_final_transportes_eletricidade_do_ano = Model.shares_exergia_final_transportes_eletricidade_do_ano.duplicate(true)
+	shares_exergia_final_industria_eletricidade_do_ano = Model.shares_exergia_final_industria_eletricidade_do_ano.duplicate(true)
+	shares_exergia_final_residencial_eletricidade_do_ano = Model.shares_exergia_final_residencial_eletricidade_do_ano.duplicate(true)
+	shares_exergia_final_servicos_eletricidade_do_ano = Model.shares_exergia_final_servicos_eletricidade_do_ano.duplicate(true)
 	
-	shares_exergia_final_transportes_gas_natural_do_ano = Model.shares_exergia_final_transportes_gas_natural_do_ano
-	shares_exergia_final_industria_gas_natural_do_ano = Model.shares_exergia_final_industria_gas_natural_do_ano
-	shares_exergia_final_residencial_gas_natural_do_ano = Model.shares_exergia_final_residencial_gas_natural_do_ano
-	shares_exergia_final_servicos_gas_natural_do_ano = Model.shares_exergia_final_servicos_gas_natural_do_ano
+	shares_exergia_final_transportes_gas_natural_do_ano = Model.shares_exergia_final_transportes_gas_natural_do_ano.duplicate(true)
+	shares_exergia_final_industria_gas_natural_do_ano = Model.shares_exergia_final_industria_gas_natural_do_ano.duplicate(true)
+	shares_exergia_final_residencial_gas_natural_do_ano = Model.shares_exergia_final_residencial_gas_natural_do_ano.duplicate(true)
+	shares_exergia_final_servicos_gas_natural_do_ano = Model.shares_exergia_final_servicos_gas_natural_do_ano.duplicate(true)
 	
 	# VARS 12)
-	exergia_final_transportes_do_ano = Model.exergia_final_transportes_do_ano
-	exergia_final_industria_do_ano = Model.exergia_final_industria_do_ano
-	exergia_final_residencial_do_ano = Model.exergia_final_residencial_do_ano
-	exergia_final_servicos_do_ano = Model.exergia_final_servicos_do_ano
+	exergia_final_transportes_do_ano = Model.exergia_final_transportes_do_ano.duplicate(true)
+	exergia_final_industria_do_ano = Model.exergia_final_industria_do_ano.duplicate(true)
+	exergia_final_residencial_do_ano = Model.exergia_final_residencial_do_ano.duplicate(true)
+	exergia_final_servicos_do_ano = Model.exergia_final_servicos_do_ano.duplicate(true)
 	
 	# VARS 13)
-	exergia_final_transportes_carvao_do_ano = Model.exergia_final_transportes_carvao_do_ano
-	exergia_final_industria_carvao_do_ano = Model.exergia_final_industria_carvao_do_ano
-	exergia_final_residencial_carvao_do_ano = Model.exergia_final_residencial_carvao_do_ano
-	exergia_final_servicos_carvao_do_ano = Model.exergia_final_servicos_carvao_do_ano
+	exergia_final_transportes_carvao_do_ano = Model.exergia_final_transportes_carvao_do_ano.duplicate(true)
+	exergia_final_industria_carvao_do_ano = Model.exergia_final_industria_carvao_do_ano.duplicate(true)
+	exergia_final_residencial_carvao_do_ano = Model.exergia_final_residencial_carvao_do_ano.duplicate(true)
+	exergia_final_servicos_carvao_do_ano = Model.exergia_final_servicos_carvao_do_ano.duplicate(true)
 	
-	exergia_final_transportes_petroleo_do_ano = Model.exergia_final_transportes_petroleo_do_ano
-	exergia_final_industria_petroleo_do_ano = Model.exergia_final_industria_petroleo_do_ano
-	exergia_final_residencial_petroleo_do_ano = Model.exergia_final_residencial_petroleo_do_ano
-	exergia_final_servicos_petroleo_do_ano = Model.exergia_final_servicos_petroleo_do_ano
+	exergia_final_transportes_petroleo_do_ano = Model.exergia_final_transportes_petroleo_do_ano.duplicate(true)
+	exergia_final_industria_petroleo_do_ano = Model.exergia_final_industria_petroleo_do_ano.duplicate(true)
+	exergia_final_residencial_petroleo_do_ano = Model.exergia_final_residencial_petroleo_do_ano.duplicate(true)
+	exergia_final_servicos_petroleo_do_ano = Model.exergia_final_servicos_petroleo_do_ano.duplicate(true)
 	
-	exergia_final_transportes_eletricidade_do_ano = Model.exergia_final_transportes_eletricidade_do_ano
-	exergia_final_industria_eletricidade_do_ano = Model.exergia_final_industria_eletricidade_do_ano
-	exergia_final_residencial_eletricidade_do_ano = Model.exergia_final_residencial_eletricidade_do_ano
-	exergia_final_servicos_eletricidade_do_ano = Model.exergia_final_servicos_eletricidade_do_ano
+	exergia_final_transportes_eletricidade_do_ano = Model.exergia_final_transportes_eletricidade_do_ano.duplicate(true)
+	exergia_final_industria_eletricidade_do_ano = Model.exergia_final_industria_eletricidade_do_ano.duplicate(true)
+	exergia_final_residencial_eletricidade_do_ano = Model.exergia_final_residencial_eletricidade_do_ano.duplicate(true)
+	exergia_final_servicos_eletricidade_do_ano = Model.exergia_final_servicos_eletricidade_do_ano.duplicate(true)
 	
-	exergia_final_transportes_gas_natural_do_ano = Model.exergia_final_transportes_gas_natural_do_ano
-	exergia_final_industria_gas_natural_do_ano = Model.exergia_final_industria_gas_natural_do_ano
-	exergia_final_residencial_gas_natural_do_ano = Model.exergia_final_residencial_gas_natural_do_ano
-	exergia_final_servicos_gas_natural_do_ano = Model.exergia_final_servicos_gas_natural_do_ano
+	exergia_final_transportes_gas_natural_do_ano = Model.exergia_final_transportes_gas_natural_do_ano.duplicate(true)
+	exergia_final_industria_gas_natural_do_ano = Model.exergia_final_industria_gas_natural_do_ano.duplicate(true)
+	exergia_final_residencial_gas_natural_do_ano = Model.exergia_final_residencial_gas_natural_do_ano.duplicate(true)
+	exergia_final_servicos_gas_natural_do_ano = Model.exergia_final_servicos_gas_natural_do_ano.duplicate(true)
 	
-	eletrificacao_transportes = Model.eletrificacao_transportes
-	eletrificacao_industria = Model.eletrificacao_industria
-	eletrificacao_residencial = Model.eletrificacao_residencial
-	eletrificacao_servicos = Model.eletrificacao_servicos
+	eletrificacao_transportes = Model.eletrificacao_transportes.duplicate(true)
+	eletrificacao_industria = Model.eletrificacao_industria.duplicate(true)
+	eletrificacao_residencial = Model.eletrificacao_residencial.duplicate(true)
+	eletrificacao_servicos = Model.eletrificacao_servicos.duplicate(true)
 	
-	carvao_transportes = Model.carvao_transportes
-	carvao_industria = Model.carvao_industria
-	carvao_residencial = Model.carvao_residencial
-	carvao_servicos = Model.carvao_servicos
+	carvao_transportes = Model.carvao_transportes.duplicate(true)
+	carvao_industria = Model.carvao_industria.duplicate(true)
+	carvao_residencial = Model.carvao_residencial.duplicate(true)
+	carvao_servicos = Model.carvao_servicos.duplicate(true)
 	
-	petroleo_transportes = Model.petroleo_transportes
-	petroleo_industria = Model.petroleo_industria
-	petroleo_residencial = Model.petroleo_residencial
-	petroleo_servicos = Model.petroleo_servicos
+	petroleo_transportes = Model.petroleo_transportes.duplicate(true)
+	petroleo_industria = Model.petroleo_industria.duplicate(true)
+	petroleo_residencial = Model.petroleo_residencial.duplicate(true)
+	petroleo_servicos = Model.petroleo_servicos.duplicate(true)
 	
-	gas_natural_transportes = Model.gas_natural_transportes
-	gas_natural_industria = Model.gas_natural_industria
-	gas_natural_residencial = Model.gas_natural_residencial
-	gas_natural_servicos = Model.gas_natural_servicos
+	gas_natural_transportes = Model.gas_natural_transportes.duplicate(true)
+	gas_natural_industria = Model.gas_natural_industria.duplicate(true)
+	gas_natural_residencial = Model.gas_natural_residencial.duplicate(true)
+	gas_natural_servicos = Model.gas_natural_servicos.duplicate(true)
 
 	
 	
 	# VARS 14
-	exergia_util_transportes_carvao_do_ano = Model.exergia_util_transportes_carvao_do_ano
-	exergia_util_industria_carvao_do_ano = Model.exergia_util_industria_carvao_do_ano
-	exergia_util_residencial_carvao_do_ano = Model.exergia_util_residencial_carvao_do_ano
-	exergia_util_servicos_carvao_do_ano = Model.exergia_util_servicos_carvao_do_ano
+	exergia_util_transportes_carvao_do_ano = Model.exergia_util_transportes_carvao_do_ano.duplicate(true)
+	exergia_util_industria_carvao_do_ano = Model.exergia_util_industria_carvao_do_ano.duplicate(true)
+	exergia_util_residencial_carvao_do_ano = Model.exergia_util_residencial_carvao_do_ano.duplicate(true)
+	exergia_util_servicos_carvao_do_ano = Model.exergia_util_servicos_carvao_do_ano.duplicate(true)
 	
-	exergia_util_transportes_petroleo_do_ano = Model.exergia_util_transportes_petroleo_do_ano
-	exergia_util_industria_petroleo_do_ano = Model.exergia_util_industria_petroleo_do_ano
-	exergia_util_residencial_petroleo_do_ano = Model.exergia_util_residencial_petroleo_do_ano
-	exergia_util_servicos_petroleo_do_ano = Model.exergia_util_servicos_petroleo_do_ano
+	exergia_util_transportes_petroleo_do_ano = Model.exergia_util_transportes_petroleo_do_ano.duplicate(true)
+	exergia_util_industria_petroleo_do_ano = Model.exergia_util_industria_petroleo_do_ano.duplicate(true)
+	exergia_util_residencial_petroleo_do_ano = Model.exergia_util_residencial_petroleo_do_ano.duplicate(true)
+	exergia_util_servicos_petroleo_do_ano = Model.exergia_util_servicos_petroleo_do_ano.duplicate(true)
 	
-	exergia_util_transportes_eletricidade_do_ano = Model.exergia_util_transportes_eletricidade_do_ano
-	exergia_util_industria_eletricidade_do_ano = Model.exergia_util_industria_eletricidade_do_ano
-	exergia_util_residencial_eletricidade_do_ano = Model.exergia_util_residencial_eletricidade_do_ano
-	exergia_util_servicos_eletricidade_do_ano = Model.exergia_util_servicos_eletricidade_do_ano
+	exergia_util_transportes_eletricidade_do_ano = Model.exergia_util_transportes_eletricidade_do_ano.duplicate(true)
+	exergia_util_industria_eletricidade_do_ano = Model.exergia_util_industria_eletricidade_do_ano.duplicate(true)
+	exergia_util_residencial_eletricidade_do_ano = Model.exergia_util_residencial_eletricidade_do_ano.duplicate(true)
+	exergia_util_servicos_eletricidade_do_ano = Model.exergia_util_servicos_eletricidade_do_ano.duplicate(true)
 	
-	exergia_util_transportes_gas_natural_do_ano = Model.exergia_util_transportes_gas_natural_do_ano
-	exergia_util_industria_gas_natural_do_ano = Model.exergia_util_industria_gas_natural_do_ano
-	exergia_util_residencial_gas_natural_do_ano = Model.exergia_util_residencial_gas_natural_do_ano
-	exergia_util_servicos_gas_natural_do_ano = Model.exergia_util_servicos_gas_natural_do_ano
-	
-	
-	exergia_util_transportes_do_ano = Model.exergia_util_transportes_do_ano
-	exergia_util_industria_do_ano = Model.exergia_util_industria_do_ano
-	exergia_util_residencial_do_ano = Model.exergia_util_residencial_do_ano
-	exergia_util_servicos_do_ano = Model.exergia_util_servicos_do_ano
+	exergia_util_transportes_gas_natural_do_ano = Model.exergia_util_transportes_gas_natural_do_ano.duplicate(true)
+	exergia_util_industria_gas_natural_do_ano = Model.exergia_util_industria_gas_natural_do_ano.duplicate(true)
+	exergia_util_residencial_gas_natural_do_ano = Model.exergia_util_residencial_gas_natural_do_ano.duplicate(true)
+	exergia_util_servicos_gas_natural_do_ano = Model.exergia_util_servicos_gas_natural_do_ano.duplicate(true)
 	
 	
-	eficiencia_transportes_do_ano = Model.eficiencia_transportes_do_ano
-	eficiencia_industria_do_ano = Model.eficiencia_industria_do_ano
-	eficiencia_residencial_do_ano = Model.eficiencia_residencial_do_ano
-	eficiencia_servicos_do_ano = Model.eficiencia_servicos_do_ano
+	exergia_util_transportes_do_ano = Model.exergia_util_transportes_do_ano.duplicate(true)
+	exergia_util_industria_do_ano = Model.exergia_util_industria_do_ano.duplicate(true)
+	exergia_util_residencial_do_ano = Model.exergia_util_residencial_do_ano.duplicate(true)
+	exergia_util_servicos_do_ano = Model.exergia_util_servicos_do_ano.duplicate(true)
+	
+	
+	eficiencia_transportes_do_ano = Model.eficiencia_transportes_do_ano.duplicate(true)
+	eficiencia_industria_do_ano = Model.eficiencia_industria_do_ano.duplicate(true)
+	eficiencia_residencial_do_ano = Model.eficiencia_residencial_do_ano.duplicate(true)
+	eficiencia_servicos_do_ano = Model.eficiencia_servicos_do_ano.duplicate(true)
 	
 	# VARS 16
-	exergia_final_carvao_do_ano = Model.exergia_final_carvao_do_ano
-	exergia_final_petroleo_do_ano = Model.exergia_final_petroleo_do_ano
-	exergia_final_eletricidade_do_ano = Model.exergia_final_eletricidade_do_ano
-	exergia_final_gas_natural_do_ano = Model.exergia_final_gas_natural_do_ano
+	exergia_final_carvao_do_ano = Model.exergia_final_carvao_do_ano.duplicate(true)
+	exergia_final_petroleo_do_ano = Model.exergia_final_petroleo_do_ano.duplicate(true)
+	exergia_final_eletricidade_do_ano = Model.exergia_final_eletricidade_do_ano.duplicate(true)
+	exergia_final_gas_natural_do_ano = Model.exergia_final_gas_natural_do_ano.duplicate(true)
 	
 	# VARS 17
-	emissoes_CO2_carvao_do_ano = Model.emissoes_CO2_carvao_do_ano
-	emissoes_CO2_petroleo_do_ano = Model.emissoes_CO2_petroleo_do_ano
-	emissoes_CO2_gas_natural_do_ano = Model.emissoes_CO2_gas_natural_do_ano
+	emissoes_CO2_carvao_do_ano = Model.emissoes_CO2_carvao_do_ano.duplicate(true)
+	emissoes_CO2_petroleo_do_ano = Model.emissoes_CO2_petroleo_do_ano.duplicate(true)
+	emissoes_CO2_gas_natural_do_ano = Model.emissoes_CO2_gas_natural_do_ano.duplicate(true)
 	
-	emissoes_totais_sem_eletricidade = Model.emissoes_totais_sem_eletricidade
+	emissoes_totais_sem_eletricidade = Model.emissoes_totais_sem_eletricidade.duplicate(true)
 	
 	# VARS 19
-	eletricidade_renovavel_do_ano = Model.eletricidade_renovavel_do_ano
+	eletricidade_renovavel_do_ano = Model.eletricidade_renovavel_do_ano.duplicate(true)
 	
 	# VARS 20
-	eletricidade_nao_renovavel_do_ano = Model.eletricidade_nao_renovavel_do_ano
+	eletricidade_nao_renovavel_do_ano = Model.eletricidade_nao_renovavel_do_ano.duplicate(true)
 	
 	# VARS 21 e 22)
-	emissoes_nao_renovaveis_do_ano = Model.emissoes_nao_renovaveis_do_ano
+	emissoes_nao_renovaveis_do_ano = Model.emissoes_nao_renovaveis_do_ano.duplicate(true)
 	
 	# VARS 23)
-	emissoes_totais_do_ano = Model.emissoes_totais_do_ano
+	emissoes_totais_do_ano = Model.emissoes_totais_do_ano.duplicate(true)
 	
 	# VARS 24)
-	consumo_do_ano = Model.consumo_do_ano
+	consumo_do_ano = Model.consumo_do_ano.duplicate(true)
 	
 	# VARS 25)
-	utilidade_do_ano = Model.utilidade_do_ano
+	utilidade_do_ano = Model.utilidade_do_ano.duplicate(true)
 
 func indice_do_ano(ano):
 	return ano - ANO_INICIAL

@@ -1,8 +1,6 @@
 #TODO:
-URGENTE: O modelo está bem (tirando alguns cálculos), exceto quando jogado pelo jogo. Descobrir PORQUÊ!
--> UPDATE: O jogo está a ser jogado 36 vezes (i.e. de 2015 a 2050) na primeira decisão! Muito provavelmente este é o bug.
--> Isto explica porque só a primeira decisão é guardada, e o porquê de as previsões nunca mudarem.
-	
+Corrigir as funções do gráfico, que quebraram depois da resolução do bug dos inputs
+
 Tabela de registo de pontuações (estatísticas para o jogador saber como se vai saindo de jogo para jogo)
 -> Guardar: nº de vezes jogado, score, etc. (e possivelmente uma tabela high score top 10)
 
@@ -39,6 +37,10 @@ Adicionar funções TODO
 No ecrã das decisões apenas colocar uma confirmação do ecrã à direita. Organização horizontal.
 Aplicar o funcionamento dos shares (setas) à eletrificação na parte do jogo
 Apresentação de casas decimais
+O modelo está bem (tirando alguns cálculos), exceto quando jogado pelo jogo. Descobrir PORQUÊ!
+-> UPDATE: O jogo está a ser jogado 36 vezes (i.e. de 2015 a 2050) na primeira decisão! Muito provavelmente este é o bug.
+-> Isto explica porque só a primeira decisão é guardada, e o porquê de as previsões nunca mudarem.
+-> RESOLVIDO: Os arrays estavam a ser passados por referência e não por valor para as previsões. Quirk do GDscript.
 
 
 #TESTES:

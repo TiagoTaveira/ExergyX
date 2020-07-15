@@ -825,6 +825,7 @@ margin_bottom = 169.0
 custom_fonts/normal_font = ExtResource( 4 )
 custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
 text = "2050 - Previsões"
+scroll_active = false
 
 [node name="Metas" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 22.4422
@@ -1881,7 +1882,6 @@ margin_bottom = 47.0
 text = "Configurador de Jogo"
 
 [node name="GrafHistorico" type="PopupPanel" parent="."]
-visible = true
 margin_left = 19.0
 margin_top = 8.0
 margin_right = 1898.0

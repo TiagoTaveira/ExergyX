@@ -394,7 +394,7 @@ func on_Confirm_Button_pressed():
 	yield(get_tree().create_timer(1.0), "timeout") #wait() in GDscript
 	enable_all_buttons()
 	process_next_year()
-	update_graph()
+	#update_graph()
 	update_text()
 	
 	
