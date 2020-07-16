@@ -1,5 +1,4 @@
 #TODO:
-Corrigir as funções do gráfico, que quebraram depois da resolução do bug dos inputs
 
 Tabela de registo de pontuações (estatísticas para o jogador saber como se vai saindo de jogo para jogo)
 -> Guardar: nº de vezes jogado, score, etc. (e possivelmente uma tabela high score top 10)
@@ -11,10 +10,12 @@ No ano atual, colocar a diferença ganha em anos (NOVA POTÊNCIA INSTALADA sai)
 Corrigir funcionamento das setas na parte do modelo (i.e. o peso das percentagens)
 
 -> Usar uma checkbox para decidir que valores mostrar (falta adicionar mais checkboxes)
+Colocar um botão extra no gráfico com "Mais detalhes" com uma versão condensada do texto do simulador para anos jogados
 No ecrã de resultados final, permitir analisar o histórico para o jogador poder refletir sobre as ações
 -> Possivelmente colocar um painel novo no jogo a substituir o de decisões com informação do jogo acabado
 -> Para analisar o histórico bastaria então aos jogadores entrarem nesse painel
 BUG: Cálculo da percentagem do PIB no primeiro ano
+-> Porque o custo no jogo está em euros, e o PIB no modelo está numa medida maior
 BUG: Animação de mudança de ano (baixa prioridade)
 
 -> Modelo: sempre que tiver carriers, acrescentar Comb.Ren e Heat (exceto a partir do passo 17 inclusive)
@@ -41,6 +42,7 @@ O modelo está bem (tirando alguns cálculos), exceto quando jogado pelo jogo. D
 -> UPDATE: O jogo está a ser jogado 36 vezes (i.e. de 2015 a 2050) na primeira decisão! Muito provavelmente este é o bug.
 -> Isto explica porque só a primeira decisão é guardada, e o porquê de as previsões nunca mudarem.
 -> RESOLVIDO: Os arrays estavam a ser passados por referência e não por valor para as previsões. Quirk do GDscript.
+Corrigir as funções do gráfico, que quebraram depois da resolução do bug dos inputs
 
 
 #TESTES:

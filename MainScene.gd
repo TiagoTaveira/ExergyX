@@ -312,7 +312,7 @@ func _on_FecharHistorico_pressed():
 func update_graph():
 	
 	var years_passed = PlayerVariables.current_year - PlayerVariables.starting_year
-	var point_x_distance = 750 / years_passed
+	var point_x_distance = 0 if years_passed == 1 else 750 / (years_passed - 1)
 	var max_y = 700
 	var values_text_offset = 739 - 15
 	
@@ -321,6 +321,7 @@ func update_graph():
 	get_node("GrafHistorico/Control/FinalYear").bbcode_text = str(PlayerVariables.final_year)
 	
 	$GrafHistorico/Control/EmissionsLine.clear_points()
+	$GrafHistorico/Control/UtilityLine.clear_points()
 	
 	#Get points y-values
 	var emissions_values = []
@@ -328,11 +329,21 @@ func update_graph():
 		if e != 0:
 			emissions_values.push_back(Model.emissoes_totais_do_ano[e])
 	
+	var utility_values = []
+	for u in range(Model.utilidade_do_ano.size()):
+		if u != 0:
+			utility_values.push_back(Model.utilidade_do_ano[u])
+	
 	#Normalize values for chart y-boundaries
 	var emissions_max = emissions_values.max()
 	var emissions_y_values = []
 	for e in range(emissions_values.size()):
 		emissions_y_values.push_back((emissions_values[e] * max_y) / emissions_max)
+	
+	var utility_max = utility_values.max()
+	var utility_y_values = []
+	for u in range(utility_values.size()):
+		utility_y_values.push_back((utility_values[u] * max_y) / utility_max)
 		
 	#test
 	#for v in range(emissions_values.size()):
@@ -340,19 +351,27 @@ func update_graph():
 	
 	#Test values (run up to 2 years)
 	#emissions_y_values = [100, 0, 650]
-	for v in range(emissions_y_values.size()):
-		pass
+	#for v in range(emissions_y_values.size()):
+		#pass
 		#print("Value " + str(v) + ": " + str(emissions_y_values[v]))
 	
-	#Draw lines and Update values' text
-	for y in range(years_passed + 1):
+	#Draw lines and update values' text
+	for y in range(years_passed):
 		$GrafHistorico/Control/EmissionsLine.add_point((Vector2(point_x_distance * y, emissions_y_values[y] * -1)))
 		if y == 0:
 			$GrafHistorico/Control/EmissionsValueStart.rect_position = Vector2($GrafHistorico/Control/EmissionsValueStart.rect_position.x, values_text_offset - emissions_y_values[y])
-			$GrafHistorico/Control/EmissionsValueStart.bbcode_text = "[right]" + str(stepify(Model.emissoes_totais_do_ano[y + 1], 0.1))+ " MT[/right]"
-		if y == years_passed:
+			$GrafHistorico/Control/EmissionsValueStart.bbcode_text = "[right]" + str(stepify(Model.emissoes_totais_do_ano[y + 1], 0.1)) + " MT[/right]"
+		if y == years_passed - 1:
 			$GrafHistorico/Control/EmissionsValueCurrent.rect_position = Vector2($GrafHistorico/Control/EmissionsValueCurrent.rect_position.x, values_text_offset - emissions_y_values[y])
-			$GrafHistorico/Control/EmissionsValueCurrent.bbcode_text = str(stepify(Model.emissoes_totais_do_ano[y], 0.1))+ " MT"
+			$GrafHistorico/Control/EmissionsValueCurrent.bbcode_text = str(stepify(Model.emissoes_totais_do_ano[y + 1], 0.1)) + " MT"
+	
+		$GrafHistorico/Control/UtilityLine.add_point((Vector2(point_x_distance * y, utility_y_values[y] * -1)))
+		if y == 0:
+			$GrafHistorico/Control/UtilityValueStart.rect_position = Vector2($GrafHistorico/Control/UtilityValueStart.rect_position.x, values_text_offset - utility_y_values[y])
+			$GrafHistorico/Control/UtilityValueStart.bbcode_text = "[right]" + str(stepify(Model.utilidade_do_ano[y + 1], 0.1)) + "[/right]"
+		if y == years_passed - 1:
+			$GrafHistorico/Control/UtilityValueCurrent.rect_position = Vector2($GrafHistorico/Control/UtilityValueCurrent.rect_position.x, values_text_offset - utility_y_values[y])
+			$GrafHistorico/Control/UtilityValueCurrent.bbcode_text = str(stepify(Model.utilidade_do_ano[y + 1], 0.1))
 	
 	#####EXPERIMENTAL#####
 	#get_node("GrafHistorico/Control/TestLine2D").add_point(Vector2(400, 400))
@@ -370,6 +389,16 @@ func _on_ShowEmissions_toggled(button_pressed):
 		$GrafHistorico/Control/EmissionsValueStart.visible = false
 		$GrafHistorico/Control/EmissionsValueCurrent.visible = false
 
+func _on_ShowUtility_toggled(button_pressed):
+	if $GrafHistorico/Control/ShowUtility.is_pressed():
+		$GrafHistorico/Control/UtilityLine.visible = true
+		$GrafHistorico/Control/UtilityValueStart.visible = true
+		$GrafHistorico/Control/UtilityValueCurrent.visible = true
+	else:
+		$GrafHistorico/Control/UtilityLine.visible = false
+		$GrafHistorico/Control/UtilityValueStart.visible = false
+		$GrafHistorico/Control/UtilityValueCurrent.visible = false
+
 
 func _on_Button_pressed(): #Submit Decisions Button
 	#get_node("AcceptDialog").popup_centered_ratio(0.20)
@@ -382,7 +411,7 @@ func _on_Button_pressed(): #Submit Decisions Button
 	#get_tree().change_scene("res://DecisionsScene.tscn")
 	
 	
-#move this function under the next one after done, and delete this comment
+#move this function below the next one after done, and delete this comment
 func next_year_animation():
 	get_node("EstadoAtual/AnoAtual/Ano/NextYearAnimationPlayer").play("NextYear")
 	pass
@@ -394,7 +423,7 @@ func on_Confirm_Button_pressed():
 	yield(get_tree().create_timer(1.0), "timeout") #wait() in GDscript
 	enable_all_buttons()
 	process_next_year()
-	#update_graph()
+	update_graph()
 	update_text()
 	
 	
@@ -492,7 +521,7 @@ func enable_all_buttons():
 	
 func update_confirmation_popup():
 	get_node("ConfirmationPopup/Control/ConfirmarDecisoes").text = "Confirmar e ir para " + str(PlayerVariables.current_year + 1)
-	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(PlayerVariables.investment_cost) + " € (" + str(stepify(((PlayerVariables.investment_cost / PlayerVariables.money)) * 100, 0.1)) + "% do PIB)"
+	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(PlayerVariables.investment_cost) + " € (" + str(stepify(((PlayerVariables.investment_cost / PlayerVariables.money)) * 100, 0.001)) + "% do PIB)"
 
 	
 
@@ -911,4 +940,5 @@ func update_simulator_text():
 
 func _on_FecharEscreverFicheiro_pressed():
 	get_node("FileWritePopup").hide()
+
 
