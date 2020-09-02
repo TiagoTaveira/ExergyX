@@ -1,33 +1,22 @@
-#TODO:
+#TODO (essencial):
+Corrigir funcionamento das setas na parte do modelo (i.e. o peso das percentagens)
+Acrescentar previsões ao gráfico, após corrigido o modelo
 
+#TODO (no futuro do projeto):
 Tabela de registo de pontuações (estatísticas para o jogador saber como se vai saindo de jogo para jogo)
 -> Guardar: nº de vezes jogado, score, etc. (e possivelmente uma tabela high score top 10)
-
-Fazer um configurador para o ano zero
-Acabar simulador
-
 No ano atual, colocar a diferença ganha em anos (NOVA POTÊNCIA INSTALADA sai)
-Corrigir funcionamento das setas na parte do modelo (i.e. o peso das percentagens)
-
--> Usar uma checkbox para decidir que valores mostrar (falta adicionar mais checkboxes)
-Colocar um botão extra no gráfico com "Mais detalhes" com uma versão condensada do texto do simulador para anos jogados
+Fazer um configurador para o ano zero
 No ecrã de resultados final, permitir analisar o histórico para o jogador poder refletir sobre as ações
 -> Possivelmente colocar um painel novo no jogo a substituir o de decisões com informação do jogo acabado
 -> Para analisar o histórico bastaria então aos jogadores entrarem nesse painel
-BUG: Cálculo da percentagem do PIB no primeiro ano
--> Porque o custo no jogo está em euros, e o PIB no modelo está numa medida maior
-BUG: Animação de mudança de ano (baixa prioridade)
-
--> Modelo: sempre que tiver carriers, acrescentar Comb.Ren e Heat (exceto a partir do passo 17 inclusive)
-
+Modelo: sempre que tiver carriers, acrescentar Comb.Ren e Heat (exceto a partir do passo 17 inclusive)
 
 #IMPROVE:
+Acabar simulador
 Ecrã de novo jogo (com explicação) e créditos
 Painel das previsões usa o modelo fazendo fast-forward (falta validar com o modelo corrigido)
-Gráfico de histórico (Possivelmente usar o "for" do simulador)
--> PIB, Consumo
--> Histórico dos valores anuais
-
+Animação de mudança de ano (baixa prioridade)
 
 #DONE:
 Enviar código do jogo
@@ -43,6 +32,10 @@ O modelo está bem (tirando alguns cálculos), exceto quando jogado pelo jogo. D
 -> Isto explica porque só a primeira decisão é guardada, e o porquê de as previsões nunca mudarem.
 -> RESOLVIDO: Os arrays estavam a ser passados por referência e não por valor para as previsões. Quirk do GDscript.
 Corrigir as funções do gráfico, que quebraram depois da resolução do bug dos inputs
+Usar uma checkbox para decidir que valores mostrar (falta adicionar mais checkboxes). Mas prefiro:
+-> Colocar um botão extra no gráfico com "Mais detalhes" com uma versão condensada do texto do simulador para anos jogados
+BUG: Cálculo da percentagem do PIB no primeiro ano
+-> Porque o custo no jogo está em euros, e o PIB no modelo está numa medida maior
 
 
 #TESTES:

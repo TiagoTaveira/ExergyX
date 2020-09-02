@@ -1,0 +1,36 @@
+Testes duraram em média 20 minutos
+
+TEST #1 (Female, 28yo):
+	Não é óbvio identificar quais dos botões são clicáveis
+	Consegue perceber o significado dos valores nas previsões
+	Não é claro ao que "distribuição por setor" se refere
+	É preciso reforçar que os números das metas entre parêntesis se referem aos objetivos
+	Consegue perceber a que se refere o resto dos dados no ecrã
+	Em termos estéticos está bom
+	Sugestão: Colocar o ano "2050" no mesmo tamanho que o ano atual
+	O ecrã de resultados desaparece com um clique fora, não devia
+	Corrigir "2050 - Resultados (Objetivos)"
+	
+TEST 2 (Male, 26yo):
+	Fração Renovável não está apresentada
+	Foi relativamente fácil achar os botões
+	Gráfico está bom
+	Percebeu a distribuição por setor
+	Achou que era relativamente óbvio onde estavam os botões
+	Achou que não havia máximo na potência a instalar, mas não atingiu limites
+	Adoptou uma estratégia de tentativa e erro ao analisar os resultados
+	Achou que há tempo suficiente para corrigir erros cometidos antes de 2050
+	"A animação do ano está gira"
+	Arredondar ecrã de resultados (corrigir o ecrã no geral, retirar crescimento)
+	Sugriu dar mais contexto ao número da felicidade
+	Em termos estéticos gostou
+	
+TEST 3 (Male, 23yo):
+	Falta shading aos botões para indicar que são clicáveis
+	Apreciou as checkboxes no gráfico para poder ver melhor os valores sobrepostos
+	Sugeriu melhor espaçamento de texto no ecrã principal
+	Como não tem conhecimentos sobre o assunto do jogo achou difícil compreender o que estava a decidir
+	-> Isto não deverá ser um problema para alunos do curso
+	Nada a apontar em termos estéticos
+	Demorou 2 anos de jogo a perceber que tinha de jogar até 2050
+	
