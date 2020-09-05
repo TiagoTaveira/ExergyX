@@ -672,13 +672,13 @@ func calcular_shares_de_exergia_final_por_setor():
 		shares_exergia_final_servicos_do_ano.push_back(shares_exergia_final_servicos_do_ano.back())
 		return
 		
-	if(shares_transportes < 0.01):
+	if(shares_transportes <= 0.01):
 		shares_transportes = 0.01
-	if(shares_industria < 0.01):
+	if(shares_industria <= 0.01):
 		shares_industria = 0.01
-	if(shares_residencial < 0.01):
+	if(shares_residencial <= 0.01):
 		shares_residencial = 0.01
-	if(shares_servicos < 0.01):
+	if(shares_servicos <= 0.01):
 		shares_servicos = 0.01
 			
 	var soma = shares_transportes + shares_industria + shares_residencial + shares_servicos
@@ -712,23 +712,23 @@ func calcular_eletrificacao_etc_de_setores():
 	var eletrificacao_residencial_temp = eletrificacao_residencial[ano_atual_indice - 1] + input_percentagem_eletrificacao_residencial * PERCENTAGEM_INPUT_SETAS
 	var eletrificacao_servicos_temp = eletrificacao_servicos[ano_atual_indice - 1] + input_percentagem_eletrificacao_servicos * PERCENTAGEM_INPUT_SETAS
 	
-	if(eletrificacao_transportes_temp < 0.00):
-		eletrificacao_transportes_temp = 0.00
-	if(eletrificacao_industria_temp < 0.00):
-		eletrificacao_industria_temp = 0.00
-	if(eletrificacao_residencial_temp < 0.00):
-		eletrificacao_residencial_temp = 0.00
-	if(eletrificacao_servicos_temp < 0.00):
-		eletrificacao_servicos_temp = 0.00
+	if(eletrificacao_transportes_temp <= 0.01):
+		eletrificacao_transportes_temp = 0.01
+	if(eletrificacao_industria_temp <= 0.01):
+		eletrificacao_industria_temp = 0.01
+	if(eletrificacao_residencial_temp <= 0.01):
+		eletrificacao_residencial_temp = 0.01
+	if(eletrificacao_servicos_temp <= 0.01):
+		eletrificacao_servicos_temp = 0.01
 		
-	if(eletrificacao_transportes_temp > 1.00):
-		eletrificacao_transportes_temp = 1.00
-	if(eletrificacao_industria_temp > 1.00):
-		eletrificacao_industria_temp = 1.00
-	if(eletrificacao_residencial_temp > 1.00):
-		eletrificacao_residencial_temp = 1.00
-	if(eletrificacao_servicos_temp > 1.00):
-		eletrificacao_servicos_temp = 1.00
+	if(eletrificacao_transportes_temp >= 0.99):
+		eletrificacao_transportes_temp = 0.99
+	if(eletrificacao_industria_temp >= 0.99):
+		eletrificacao_industria_temp = 0.99
+	if(eletrificacao_residencial_temp >= 0.99):
+		eletrificacao_residencial_temp = 0.99
+	if(eletrificacao_servicos_temp >= 0.99):
+		eletrificacao_servicos_temp = 0.99
 	
 	eletrificacao_transportes.push_back(eletrificacao_transportes_temp)
 	eletrificacao_industria.push_back(eletrificacao_industria_temp)
@@ -919,5 +919,5 @@ func calcular_consumo():
 # FUNCS 25) - UTILIDADE (Felicidade dos cidadãos; um dos objetivos do jogo)
 func calcular_utilidade():
 	#UTILIDADE = ((CONSUMO^b)*(EXP(CO2 / a))) / POPULAÇÃO, a = 10000000000 e b = 2
-	utilidade_do_ano.push_back(((pow(consumo_do_ano[ano_atual_indice],2))*exp(emissoes_totais_do_ano[ano_atual_indice]/10000000000))/POPULACAO)
+	utilidade_do_ano.push_back(((pow(consumo_do_ano[ano_atual_indice],2))*exp(emissoes_totais_do_ano[ano_atual_indice]/10000000000000))/POPULACAO)
 	
