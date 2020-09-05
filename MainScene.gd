@@ -94,9 +94,9 @@ func update_model():
 	Model.calcular_exergia_util()
 	Model.calcular_exergia_final()
 	Model.calcular_shares_de_exergia_final_por_setor()
-	Model.calcular_eletrificacao_etc_de_setores()
-	Model.calcular_shares_de_exergia_final_por_setor_por_carrier()
 	Model.calcular_valores_absolutos_de_exergia_final_por_setor()
+	Model.calcular_eletrificacao_etc_de_setores()
+	Model.calcular_shares_de_exergia_final_por_setor_por_carrier()	
 	Model.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
 	Model.calcular_eficiencia_por_setor()
 	Model.calcular_eficiencia_agregada()
@@ -150,9 +150,9 @@ func update_predictions():
 		PredictionsModel.calcular_exergia_util()
 		PredictionsModel.calcular_exergia_final()
 		PredictionsModel.calcular_shares_de_exergia_final_por_setor()
-		PredictionsModel.calcular_eletrificacao_etc_de_setores()
-		PredictionsModel.calcular_shares_de_exergia_final_por_setor_por_carrier()
 		PredictionsModel.calcular_valores_absolutos_de_exergia_final_por_setor()
+		PredictionsModel.calcular_eletrificacao_etc_de_setores()
+		PredictionsModel.calcular_shares_de_exergia_final_por_setor_por_carrier()		
 		PredictionsModel.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
 		PredictionsModel.calcular_eficiencia_por_setor()
 		PredictionsModel.calcular_eficiencia_agregada()
@@ -211,7 +211,7 @@ func on_Investment_Minus_Button_pressed():
 			PlayerVariables.investment_renewables_percentage = 0.00
 		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
 		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
-		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(PlayerVariables.investment_cost) + "[/right]"
+		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(stepify(PlayerVariables.investment_cost,1)) + "[/right]"
 
 func on_Investment_Plus_Button_pressed():
 	if(PlayerVariables.investment_renewables_percentage < 10.00):
@@ -220,7 +220,7 @@ func on_Investment_Plus_Button_pressed():
 			PlayerVariables.investment_renewables_percentage = 10.00
 		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
 		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
-		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(PlayerVariables.investment_cost) + "[/right]"
+		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(stepify(PlayerVariables.investment_cost,1)) + "[/right]"
 
 func on_Transport_Minus_Button_pressed():
 	if(PlayerVariables.economy_type_level_transportation > 1):
@@ -525,7 +525,7 @@ func enable_all_buttons():
 	
 func update_confirmation_popup():
 	get_node("ConfirmationPopup/Control/ConfirmarDecisoes").text = "Confirmar e ir para " + str(PlayerVariables.current_year + 1)
-	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(PlayerVariables.investment_cost) + " € (" + str(stepify(((PlayerVariables.investment_cost / PlayerVariables.money)) * 100, 0.000001)) + "% do PIB)"
+	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(stepify(PlayerVariables.investment_cost,1)) + " € (" + str(stepify(((PlayerVariables.investment_cost / PlayerVariables.money)) * 100, 0.000001)) + "% do PIB)"
 
 	
 

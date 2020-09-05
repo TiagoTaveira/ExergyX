@@ -572,7 +572,7 @@ visible_characters = 5
 text = "0"
 
 [node name="ValorCusto" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
-margin_left = 131.0
+margin_left = 128.0
 margin_top = 82.0
 margin_right = 271.0
 margin_bottom = 135.0
