@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=3 format=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://WorkSans-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = SubResource( 1 )
+
+[resource]
+TooltipLabel/colors/font_color = Color( 0, 0, 0, 1 )
+TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
+TooltipLabel/constants/shadow_offset_x = 1
+TooltipLabel/constants/shadow_offset_y = 1
+TooltipLabel/fonts/font = SubResource( 2 )

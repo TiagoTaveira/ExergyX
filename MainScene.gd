@@ -5,6 +5,7 @@ var FINAL_YEAR = 2050
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	set_intro_text()
 	$NewGamePopup.popup()
 	randomize()
 	initial_model_loading()
@@ -198,6 +199,11 @@ func update_text():
 	get_node("ContainerPrevisoes/Panel/CurrentYear").text = str(PlayerVariables.current_year)
 	get_node("ContainerPrevisoes/Panel/NextYear").text = str(PlayerVariables.current_year + 1)
 
+func set_intro_text():
+	get_node("NewGamePopup/Control/Text").text = "Parabéns! Devido aos teus conhecimentos, foste escolhido como assessor do governo português. A tua missão é assegurar que Portugal usa os seus recursos económicos e energéticos de forma a que o país possa alcançar as suas metas futuras para o ano de " + str(FINAL_YEAR) + "." \
+		+ "\n\nCom a tua influência, poderás fazer com que o governo tome as ações necessárias para garantir o sucesso da tua missão." \
+		+ "\n\nSe tiveres alguma dúvida, coloca o cursor do rato sobre qualquer elemento para obteres ajuda." \
+		+ "\n\nBoa sorte!"
 	
 # Button presses
 func _on_StartGame_pressed():
