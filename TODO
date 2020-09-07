@@ -1,5 +1,4 @@
 #TODO (essencial):
-Corrigir funcionamento das setas na parte do modelo (i.e. o peso das percentagens)
 Acrescentar previsões ao gráfico, após corrigido o modelo
 
 #TODO (no futuro do projeto):
@@ -12,10 +11,9 @@ No ecrã de resultados final, permitir analisar o histórico para o jogador pode
 -> Para analisar o histórico bastaria então aos jogadores entrarem nesse painel
 Modelo: sempre que tiver carriers, acrescentar Comb.Ren e Heat (exceto a partir do passo 17 inclusive)
 
-#IMPROVE:
-Acabar simulador
+#IMPROVE (no futuro do projeto):
+Melhorar simulador
 Ecrã de novo jogo (com explicação) e créditos
-Painel das previsões usa o modelo fazendo fast-forward (falta validar com o modelo corrigido)
 Animação de mudança de ano (baixa prioridade)
 
 #DONE:
@@ -36,6 +34,7 @@ Usar uma checkbox para decidir que valores mostrar (falta adicionar mais checkbo
 -> Colocar um botão extra no gráfico com "Mais detalhes" com uma versão condensada do texto do simulador para anos jogados
 BUG: Cálculo da percentagem do PIB no primeiro ano
 -> Porque o custo no jogo está em euros, e o PIB no modelo está numa medida maior
+Corrigir funcionamento das setas na parte do modelo (i.e. o peso das percentagens)
 
 
 #TESTES:

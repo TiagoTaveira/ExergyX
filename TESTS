@@ -1,3 +1,4 @@
+Testes de usabilidade:
 Testes duraram em média 20 minutos (Tese: Colocar na implementação)
 
 TEST #1 (Female, 28yo):
@@ -33,24 +34,30 @@ TEST 3 (Male, 23yo):
 	-> Isto não deverá ser um problema para alunos do curso
 	Nada a apontar em termos estéticos
 	Demorou 2 anos de jogo a perceber que tinha de jogar até 2050
+
+
+
+
+Questionários finais (Stakeholders: Potênciais utilizadores (4 ou 5) e Peritos):
 	
-Stakeholders: Potênciais utilizadores (4 ou 5) e Peritos
-Game engagement questionaire
-Questões abertas sobre se o tema está a ser bem tratado no jogo
--> Perguntas que avaliem os objetivos da tese
--> Opiniao que tem do jogo
--> Coisas que gostarm + e -
--> Onde tiveram mais ou menos dificuldades
--> Opinião subjetiva
+Potênciais utilizadores:
+	Game engagement questionaire
+	Questões abertas sobre se o tema está a ser bem tratado no jogo
+	-> Perguntas que avaliem os objetivos da tese
+	-> Opiniao que tem do jogo
+	-> Coisas que gostaram + e -
+	-> Onde tiveram mais ou menos dificuldades
+	-> Opinião subjetiva
 
-Peritos querem usar isto para ensinar:
-Dizer que os peritos (Laura e João) concordam com o que está feito (colocar validação)
-Argumentar que o jogo está validado pelos peritos
-> Tinha um problema 
-Falar das iterações e das partes do modelo que eles validaram
-
--> Perguntar em termos de ferramentas de ensino
--> Como usariam em aula
--> Imaginar essencialmente
+Peritos:
+	Querem usar isto para ensinar.
+	Dizer que os peritos (Laura e João) concordam com o que está feito (colocar validação)
+	Argumentar que o jogo está validado pelos peritos
+	-> Tinha um problema (como o jogo resolveu os problemas descritos na tese)
+	Falar das iterações e das partes do modelo que eles validaram
+	
+	-> Perguntar em termos de ferramentas de ensino
+	-> Como usariam em aula
+	-> Imaginar essencialmente
 
 >>>>>>>>>>>>>>>>>><<Começar pela parte do joão

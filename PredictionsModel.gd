@@ -42,7 +42,7 @@ var EFICIENCIA_RESIDENCIAL = 0.1209
 var EFICIENCIA_SERVICOS = 0.1529
 
 var EFICIENCIA_TRANSPORTES_ELETRICIDADE = 0.88 #na passagem de exergia final para útil
-var EFICIENCIA_TRANSPORTES_CARVAO = 0.00 #na passagem de exergia final para útil #Nota tese: ASSUMIMOS QUE HÁ SETORES QUE NAO VOLTARÃO A UTILIZAR CARVAO
+var EFICIENCIA_TRANSPORTES_CARVAO = 0.00 #na passagem de exergia final para útil #Nota tese: ASSUMIMOS QUE HÁ SETORES QUE NÃO VOLTARÃO A UTILIZAR CARVAO
 var EFICIENCIA_TRANSPORTES_PETROLEO = 0.13 #na passagem de exergia final para útil
 var EFICIENCIA_TRANSPORTES_GAS_NATURAL = 0.08 #na passagem de exergia final para útil
 var EFICIENCIA_TRANSPORTES_COMB_RENOVAVEIS = 0.13 #na passagem de exergia final para útil
@@ -114,12 +114,12 @@ var potencia_solar_instantanea = 0.0
 var potencia_vento_instantanea = 0.0
 var potencia_biomassa_instantanea = 0.0
 
-var potencia_do_ano_solar = [0] #????
-var potencia_do_ano_vento = [0] #????
-var potencia_do_ano_biomassa = [0] #????
+var potencia_do_ano_solar = [0]
+var potencia_do_ano_vento = [0]
+var potencia_do_ano_biomassa = [0]
 
 ## VARS 2)
-var custo_total_do_ano = [0] #valor 2014????
+var custo_total_do_ano = [0]
 var custo_do_ano_solar = [0]
 var custo_do_ano_vento = [0]
 var custo_do_ano_biomassa = [0]
@@ -146,31 +146,31 @@ var exergia_util_do_ano = [0.0] #TJ
 var exergia_final_do_ano = [0.0] #TJ
 
 ## VARS 10)
-var shares_exergia_final_transportes_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_do_ano = [0] #percentagem decimal
+var shares_exergia_final_industria_do_ano = [0] #percentagem decimal
+var shares_exergia_final_residencial_do_ano = [0] #percentagem decimal
+var shares_exergia_final_servicos_do_ano = [0] #percentagem decimal
 
 ## VARS 11)
-var shares_exergia_final_transportes_carvao_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_carvao_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_carvao_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_carvao_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_carvao_do_ano = [0] #percentagem decimal
+var shares_exergia_final_industria_carvao_do_ano = [0] #percentagem decimal
+var shares_exergia_final_residencial_carvao_do_ano = [0] #percentagem decimal
+var shares_exergia_final_servicos_carvao_do_ano = [0] #percentagem decimal
 
-var shares_exergia_final_transportes_petroleo_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_petroleo_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_petroleo_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_petroleo_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_petroleo_do_ano = [0] #percentagem decimal
+var shares_exergia_final_industria_petroleo_do_ano = [0] #percentagem decimal
+var shares_exergia_final_residencial_petroleo_do_ano = [0] #percentagem decimal
+var shares_exergia_final_servicos_petroleo_do_ano = [0] #percentagem decimal
 
-var shares_exergia_final_transportes_eletricidade_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_eletricidade_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_eletricidade_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_eletricidade_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_eletricidade_do_ano = [0] #percentagem decimal
+var shares_exergia_final_industria_eletricidade_do_ano = [0] #percentagem decimal
+var shares_exergia_final_residencial_eletricidade_do_ano = [0] #percentagem decimal
+var shares_exergia_final_servicos_eletricidade_do_ano = [0] #percentagem decimal
 
-var shares_exergia_final_transportes_gas_natural_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_industria_gas_natural_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_residencial_gas_natural_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
-var shares_exergia_final_servicos_gas_natural_do_ano = [0] #valor 2014 necessario! ???? percentagem decimal
+var shares_exergia_final_transportes_gas_natural_do_ano = [0] #percentagem decimal
+var shares_exergia_final_industria_gas_natural_do_ano = [0] #percentagem decimal
+var shares_exergia_final_residencial_gas_natural_do_ano = [0] #percentagem decimal
+var shares_exergia_final_servicos_gas_natural_do_ano = [0] #percentagem decimal
 
 var shares_exergia_final_transportes_comb_renovaveis_do_ano = [0] #percentagem decimal
 var shares_exergia_final_industria_comb_renovaveis_do_ano = [0] #percentagem decimal

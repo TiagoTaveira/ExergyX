@@ -41,7 +41,7 @@ var EFICIENCIA_RESIDENCIAL = 0.1209
 var EFICIENCIA_SERVICOS = 0.1529
 
 var EFICIENCIA_TRANSPORTES_ELETRICIDADE = 0.88 #na passagem de exergia final para útil
-var EFICIENCIA_TRANSPORTES_CARVAO = 0.00 #na passagem de exergia final para útil #Nota tese: ASSUMIMOS QUE HÁ SETORES QUE NAO VOLTARÃO A UTILIZAR CARVAO
+var EFICIENCIA_TRANSPORTES_CARVAO = 0.00 #na passagem de exergia final para útil #Nota tese: ASSUMIMOS QUE HÁ SETORES QUE NAO VOLTARÃO A UTILIZAR CARVÃO
 var EFICIENCIA_TRANSPORTES_PETROLEO = 0.13 #na passagem de exergia final para útil
 var EFICIENCIA_TRANSPORTES_GAS_NATURAL = 0.08 #na passagem de exergia final para útil
 var EFICIENCIA_TRANSPORTES_COMB_RENOVAVEIS = 0.13 #na passagem de exergia final para útil
@@ -161,7 +161,7 @@ var EXERGIA_FINAL_GAS_NATURAL_DO_ANO_ZERO = 73443.77 #TJ
 var ano_atual_indice = 0
 var ano_atual = ano_atual_indice + ANO_INICIAL
 
-## VARS DECISOES 
+## VARS DECISOES
 var input_potencia_a_instalar = 0.0 #(Atenção à divisão de inteiros em GDScript)
 
 var input_percentagem_tipo_economia_transportes = 0.0
@@ -487,7 +487,7 @@ func calcular_tfp():
 	#tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.87))
 	tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960), 1.93) * 0.00000102 + 0.00000039)
 	
-		
+	
 # FUNCS 7) - PIB (milhares de milhões de euros)
 func calcular_pib():
 	pib_do_ano.push_back(tfp_do_ano[ano_atual_indice]*(pow((capital_do_ano[ano_atual_indice]),0.3))*(pow(labour_do_ano[ano_atual_indice],0.7)))
