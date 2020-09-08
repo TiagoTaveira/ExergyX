@@ -405,7 +405,6 @@ func mudar_de_ano():
 
 
 # FUNCS 1) - POTÊNCIA ELETRICA ACUMULADA POR FONTE RENOVÁVEL (gigawatts)
-# TODO: Evitar
 func calcular_distribuicao_por_fonte():
 	
 	var potencia_maxima_solar_alcancada = (potencia_do_ano_solar.back() >= POTENCIA_MAXIMA_SOLAR)

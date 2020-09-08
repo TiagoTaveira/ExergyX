@@ -1,3 +1,6 @@
+# Developed by:
+# - André Fidalgo Silva
+
 extends Panel
 
 # Declare member variables here.
@@ -11,7 +14,7 @@ func _ready():
 	initial_model_loading()
 	#function that initializes text from variables () goes here
 	update_text()
-	#first_year_text()
+	first_year_text()
 	update_simulator_text()
 	update_past_data_text()
 	get_node("ContainerDecisoes/EnviarDecisoes").connect("pressed", self, "_on_Button_pressed")
@@ -177,7 +180,7 @@ func update_text():
 	get_node("EstadoAtual/AnoAtual/Ano").text = str(PlayerVariables.current_year)
 	get_node("EstadoAtual/TextoAnoAtual").text = "Ano Atual"
 
-	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Potência Total Instalada (Fração Renovável): " + str(stepify(PlayerVariables.total_installed_power, 0.1)) + " GW" + "\n\nFração de Eletricidade Renovável: " + str(stepify(PlayerVariables.renewable_energy, 0.1)) + " GWh" + "\n\nEmissões: " + str(stepify(PlayerVariables.co2_emissions, 0.1)) + " kg CO2" + "\n\nEficiência Agregada do País: " + str(stepify(PlayerVariables.efficiency * 100, 0.1)) + "%"
+	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Potência Total Instalada (Fração Renovável): " + str(stepify(PlayerVariables.total_installed_power, 0.1)) + " GW" + "\n\nEletricidade Renovável: " + str(stepify(PlayerVariables.renewable_energy, 0.1)) + " GWh" + "\n\nEmissões: " + str(stepify(PlayerVariables.co2_emissions, 0.1)) + " kg CO2" + "\n\nEficiência Agregada do País: " + str(stepify(PlayerVariables.efficiency * 100, 0.1)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/SharesTransportes").text = str(stepify(PlayerVariables.economy_type_percentage_transportation, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/SharesIndustria").text = str(stepify(PlayerVariables.economy_type_percentage_industry, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/SharesResidencial").text = str(stepify(PlayerVariables.economy_type_percentage_residential, 0.01)) + "%"
@@ -187,7 +190,7 @@ func update_text():
 	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoResidencial").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_residential, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoServicos").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_services, 0.01)) + "%"
 	get_node("EstadoAtual/TextoDadosSocioeconomicos").text = "PIB: " + str(stepify(PlayerVariables.money, 1)) + " milhares de milhões €" + "\n\nConsumo: " + str(stepify(PlayerVariables.expenditure, 1)) + " milhares de milhões €" + "\n\nFelicidade dos Cidadãos: " + str(stepify(PlayerVariables.utility, 1))
-	get_node("ContainerPrevisoes/TextoOutrosDados").text = "Eficiência Agregada do País: " + str(stepify(PlayerVariables.final_year_efficiency * 100, 0.1)) + "\n\nPIB: " + str(stepify(PlayerVariables.final_year_money, 1)) +" milhares de milhões €" + "\n\nConsumo: " + str(stepify(PlayerVariables.final_year_expenditure, 1)) + " milhares de milhões €"
+	get_node("ContainerPrevisoes/TextoOutrosDados").text = "Eficiência Agregada do País: " + str(stepify(PlayerVariables.final_year_efficiency * 100, 0.1)) + "%" + "\n\nPIB: " + str(stepify(PlayerVariables.final_year_money, 1)) +" milhares de milhões €" + "\n\nConsumo: " + str(stepify(PlayerVariables.final_year_expenditure, 1)) + " milhares de milhões €"
 	#get_node("ContainerDecisoes/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
 	get_node("ContainerDecisoes/ProximoAno").text = "Decisões"
 	get_node("ContainerPrevisoes/RichTextLabel").text = str(PlayerVariables.final_year) + " - Previsões"
@@ -199,10 +202,17 @@ func update_text():
 	get_node("ContainerPrevisoes/Panel/CurrentYear").text = str(PlayerVariables.current_year)
 	get_node("ContainerPrevisoes/Panel/NextYear").text = str(PlayerVariables.current_year + 1)
 
+func first_year_text():
+	get_node("ContainerPrevisoes/TextoPrevisoes").bbcode_text = "Felicidade dos Cidadãos: n/d\n\n"    +   "Emissões CO2: n/d"
+	get_node("ContainerPrevisoes/TextoOutrosDados").text = "Eficiência Agregada do País: " + "n/d" + "\n\nPIB: " + "n/d" + "\n\nConsumo: " + "n/d"
+	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Potência Total Instalada (Fração Renovável): " + str(stepify(PlayerVariables.total_installed_power, 0.1)) + " GW" + "\n\nEletricidade Renovável: " + "n/d" + "\n\nEmissões: " + "n/d" + "\n\nEficiência Agregada do País: " + str(stepify(PlayerVariables.efficiency * 100, 0.1)) + "%"
+	get_node("EstadoAtual/TextoDadosSocioeconomicos").text = "PIB: " + str(stepify(PlayerVariables.money, 1)) + " milhares de milhões €" + "\n\nConsumo: " + "n/d" + "\n\nFelicidade dos Cidadãos: " + "n/d"
+	
 func set_intro_text():
 	get_node("NewGamePopup/Control/Text").text = "Parabéns! Devido aos teus conhecimentos, foste escolhido como assessor do governo português. A tua missão é assegurar que Portugal usa os seus recursos económicos e energéticos de forma a que o país possa alcançar as suas metas futuras para o ano de " + str(FINAL_YEAR) + "." \
 		+ "\n\nCom a tua influência, poderás fazer com que o governo tome as ações necessárias para garantir o sucesso da tua missão." \
-		+ "\n\nSe tiveres alguma dúvida, coloca o cursor do rato sobre qualquer elemento para obteres ajuda." \
+		+ "\n\nApós o teu primeiro ano irás receber informações detalhadas sobre as tuas ações e dados de previsão que te ajudarão a fazer decisões,  pelo que recomendamos que não faças grandes mudanças até receberes estes dados." \
+		+ "\n\nSe tiveres alguma dúvida, coloca o cursor do rato sobre qualquer elemento do jogo para obteres ajuda." \
 		+ "\n\nBoa sorte!"
 	
 # Button presses
@@ -899,11 +909,11 @@ func _on_Simular_pressed():
 	update_past_data_text()
 	
 func update_past_data_text():
-	$PastDataPopup/Control/Texto.text = ""
+	$PastDataPopup/Control/Texto.bbcode_text = ""
 	
 	# loop for n = 0 to ano_atual_indice
 	for n in range(1, Model.ano_atual_indice + 1):
-		$PastDataPopup/Control/Texto.text += "> Ano: " + str(Model.ano_do_indice(n)) \
+		$PastDataPopup/Control/Texto.bbcode_text += "[b]> Ano: " + str(Model.ano_do_indice(n)) + "[/b]" \
 			+ "\nPotência Instalada (Solar): " + str(Model.potencia_do_ano_solar[n]) + " GW" \
 			+ "\nPotência Instalada (Vento): " + str(Model.potencia_do_ano_vento[n]) + " GW" \
 			+ "\nPotência Instalada (Biomassa): " + str(Model.potencia_do_ano_biomassa[n]) + " GW" \
