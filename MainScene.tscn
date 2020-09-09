@@ -39,35 +39,35 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=43]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.737255, 0.929412, 0.658824, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.886275, 0.886275, 0.866667, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 1, 1, 1, 1 )
 corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.886275, 0.886275, 0.866667, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=7]
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_position")
@@ -99,14 +99,14 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.819608, 0.819608, 0.819608, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.32549, 0.0941176, 0.0784314, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -116,7 +116,7 @@ corner_detail = 9
 shadow_color = Color( 0.388235, 0.458824, 0.278431, 0.6 )
 shadow_size = 5
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.988235, 0.952941, 0.913725, 1 )
 border_color = Color( 1, 1, 1, 1 )
 border_blend = true
@@ -126,103 +126,103 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 anti_aliasing_size = 3
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 1, 1, 1, 1 )
 border_color = Color( 1, 1, 1, 1 )
 border_blend = true
 anti_aliasing_size = 3
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=12]
 size = 114
 font_data = ExtResource( 20 )
 
-[sub_resource type="DynamicFont" id=44]
+[sub_resource type="DynamicFont" id=13]
 size = 28
 font_data = ExtResource( 21 )
 
-[sub_resource type="StyleBoxFlat" id=12]
+[sub_resource type="StyleBoxFlat" id=14]
 bg_color = Color( 0.941176, 0.960784, 0.941176, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=15]
 size = 24
 font_data = ExtResource( 22 )
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=16]
 size = 24
 font_data = ExtResource( 21 )
 
-[sub_resource type="DynamicFont" id=15]
+[sub_resource type="DynamicFont" id=17]
 size = 42
 font_data = ExtResource( 23 )
 
-[sub_resource type="StyleBoxFlat" id=16]
+[sub_resource type="StyleBoxFlat" id=18]
 bg_color = Color( 0.466667, 0.486275, 0.462745, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=17]
+[sub_resource type="StyleBoxFlat" id=19]
 bg_color = Color( 0.380392, 0.372549, 0.396078, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=18]
+[sub_resource type="StyleBoxFlat" id=20]
 bg_color = Color( 0.290196, 0.34902, 0.388235, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=19]
+[sub_resource type="StyleBoxFlat" id=21]
 bg_color = Color( 0.0784314, 0.0745098, 0.0823529, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=20]
+[sub_resource type="StyleBoxFlat" id=22]
 bg_color = Color( 0.698039, 0.466667, 0.380392, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=21]
+[sub_resource type="StyleBoxFlat" id=23]
 bg_color = Color( 0.419608, 0.647059, 0.4, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=22]
+[sub_resource type="StyleBoxFlat" id=24]
 bg_color = Color( 0.376471, 0.333333, 0.321569, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=23]
+[sub_resource type="StyleBoxFlat" id=25]
 bg_color = Color( 0.32549, 0.501961, 0.309804, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="DynamicFontData" id=45]
+[sub_resource type="DynamicFontData" id=26]
 font_path = "res://WorkSans-Regular.ttf"
 
-[sub_resource type="DynamicFont" id=46]
+[sub_resource type="DynamicFont" id=27]
 size = 26
-font_data = SubResource( 45 )
+font_data = SubResource( 26 )
 
-[sub_resource type="StyleBoxFlat" id=47]
+[sub_resource type="StyleBoxFlat" id=28]
 bg_color = Color( 0.839216, 0.839216, 0.839216, 1 )
 border_width_left = 10
 border_width_top = 10
@@ -234,19 +234,19 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="Theme" id=24]
-default_font = SubResource( 15 )
+[sub_resource type="Theme" id=29]
+default_font = SubResource( 17 )
 Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
 Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 Button/constants/hseparation = 2
-Button/fonts/font = SubResource( 15 )
-Button/styles/disabled = SubResource( 16 )
+Button/fonts/font = SubResource( 17 )
+Button/styles/disabled = SubResource( 18 )
 Button/styles/focus = null
-Button/styles/hover = SubResource( 17 )
-Button/styles/normal = SubResource( 18 )
-Button/styles/pressed = SubResource( 19 )
+Button/styles/hover = SubResource( 19 )
+Button/styles/normal = SubResource( 20 )
+Button/styles/pressed = SubResource( 21 )
 CheckBox/colors/font_color = Color( 1, 1, 1, 1 )
 CheckBox/colors/font_color_disabled = Color( 1, 1, 1, 0.2 )
 CheckBox/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -259,12 +259,12 @@ CheckBox/icons/checked = null
 CheckBox/icons/radio_checked = null
 CheckBox/icons/radio_unchecked = null
 CheckBox/icons/unchecked = null
-CheckBox/styles/disabled = SubResource( 20 )
+CheckBox/styles/disabled = SubResource( 22 )
 CheckBox/styles/focus = null
 CheckBox/styles/hover = null
-CheckBox/styles/hover_pressed = SubResource( 21 )
-CheckBox/styles/normal = SubResource( 22 )
-CheckBox/styles/pressed = SubResource( 23 )
+CheckBox/styles/hover_pressed = SubResource( 23 )
+CheckBox/styles/normal = SubResource( 24 )
+CheckBox/styles/pressed = SubResource( 25 )
 CheckButton/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 CheckButton/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -285,186 +285,77 @@ TooltipLabel/colors/font_color = Color( 0, 0, 0, 1 )
 TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
 TooltipLabel/constants/shadow_offset_x = 1
 TooltipLabel/constants/shadow_offset_y = 1
-TooltipLabel/fonts/font = SubResource( 46 )
-TooltipPanel/styles/panel = SubResource( 47 )
-
-[sub_resource type="StyleBoxFlat" id=25]
-bg_color = Color( 0.466667, 0.486275, 0.462745, 1 )
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id=26]
-bg_color = Color( 0.380392, 0.372549, 0.396078, 1 )
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id=27]
-bg_color = Color( 0.156863, 0.188235, 0.207843, 1 )
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id=28]
-bg_color = Color( 0.0784314, 0.0745098, 0.0823529, 1 )
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id=29]
-bg_color = Color( 0.698039, 0.466667, 0.380392, 1 )
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+TooltipLabel/fonts/font = SubResource( 27 )
+TooltipPanel/styles/panel = SubResource( 28 )
 
 [sub_resource type="StyleBoxFlat" id=30]
-bg_color = Color( 0.419608, 0.647059, 0.4, 1 )
+bg_color = Color( 0.466667, 0.486275, 0.462745, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=31]
-bg_color = Color( 0.376471, 0.333333, 0.321569, 1 )
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id=32]
-bg_color = Color( 0.643137, 0.239216, 0.172549, 1 )
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="Theme" id=33]
-Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
-Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
-Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
-Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-Button/constants/hseparation = 2
-Button/fonts/font = ExtResource( 24 )
-Button/styles/disabled = SubResource( 25 )
-Button/styles/focus = null
-Button/styles/hover = SubResource( 26 )
-Button/styles/normal = SubResource( 27 )
-Button/styles/pressed = SubResource( 28 )
-CheckBox/colors/font_color = Color( 1, 1, 1, 1 )
-CheckBox/colors/font_color_disabled = Color( 1, 1, 1, 0.2 )
-CheckBox/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
-CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-CheckBox/constants/check_vadjust = 0
-CheckBox/constants/hseparation = 4
-CheckBox/fonts/font = null
-CheckBox/icons/checked = null
-CheckBox/icons/radio_checked = null
-CheckBox/icons/radio_unchecked = null
-CheckBox/icons/unchecked = null
-CheckBox/styles/disabled = SubResource( 29 )
-CheckBox/styles/focus = null
-CheckBox/styles/hover = null
-CheckBox/styles/hover_pressed = SubResource( 30 )
-CheckBox/styles/normal = SubResource( 31 )
-CheckBox/styles/pressed = SubResource( 32 )
-CheckButton/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
-CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
-CheckButton/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
-CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-CheckButton/constants/check_vadjust = 0
-CheckButton/constants/hseparation = 4
-CheckButton/fonts/font = null
-CheckButton/icons/off = null
-CheckButton/icons/on = null
-CheckButton/styles/disabled = null
-CheckButton/styles/focus = null
-CheckButton/styles/hover = null
-CheckButton/styles/hover_pressed = null
-CheckButton/styles/normal = null
-CheckButton/styles/pressed = null
-TooltipLabel/colors/font_color = Color( 0, 0, 0, 1 )
-TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
-TooltipLabel/constants/shadow_offset_x = 1
-TooltipLabel/constants/shadow_offset_y = 1
-TooltipLabel/fonts/font = SubResource( 46 )
-TooltipPanel/styles/panel = SubResource( 47 )
-
-[sub_resource type="StyleBoxFlat" id=34]
-bg_color = Color( 0.466667, 0.486275, 0.462745, 1 )
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id=35]
 bg_color = Color( 0.380392, 0.372549, 0.396078, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=36]
+[sub_resource type="StyleBoxFlat" id=32]
 bg_color = Color( 0.156863, 0.188235, 0.207843, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=37]
+[sub_resource type="StyleBoxFlat" id=33]
 bg_color = Color( 0.0784314, 0.0745098, 0.0823529, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=38]
+[sub_resource type="StyleBoxFlat" id=34]
 bg_color = Color( 0.698039, 0.466667, 0.380392, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=39]
+[sub_resource type="StyleBoxFlat" id=35]
 bg_color = Color( 0.419608, 0.647059, 0.4, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=40]
+[sub_resource type="StyleBoxFlat" id=36]
 bg_color = Color( 0.376471, 0.333333, 0.321569, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id=41]
-bg_color = Color( 0.32549, 0.501961, 0.309804, 1 )
+[sub_resource type="StyleBoxFlat" id=37]
+bg_color = Color( 0.643137, 0.239216, 0.172549, 1 )
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="Theme" id=42]
+[sub_resource type="Theme" id=38]
 Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
 Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = ExtResource( 24 )
-Button/styles/disabled = SubResource( 34 )
+Button/styles/disabled = SubResource( 30 )
 Button/styles/focus = null
-Button/styles/hover = SubResource( 35 )
-Button/styles/normal = SubResource( 36 )
-Button/styles/pressed = SubResource( 37 )
+Button/styles/hover = SubResource( 31 )
+Button/styles/normal = SubResource( 32 )
+Button/styles/pressed = SubResource( 33 )
 CheckBox/colors/font_color = Color( 1, 1, 1, 1 )
 CheckBox/colors/font_color_disabled = Color( 1, 1, 1, 0.2 )
 CheckBox/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -477,12 +368,12 @@ CheckBox/icons/checked = null
 CheckBox/icons/radio_checked = null
 CheckBox/icons/radio_unchecked = null
 CheckBox/icons/unchecked = null
-CheckBox/styles/disabled = SubResource( 38 )
+CheckBox/styles/disabled = SubResource( 34 )
 CheckBox/styles/focus = null
 CheckBox/styles/hover = null
-CheckBox/styles/hover_pressed = SubResource( 39 )
-CheckBox/styles/normal = SubResource( 40 )
-CheckBox/styles/pressed = SubResource( 41 )
+CheckBox/styles/hover_pressed = SubResource( 35 )
+CheckBox/styles/normal = SubResource( 36 )
+CheckBox/styles/pressed = SubResource( 37 )
 CheckButton/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 CheckButton/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -503,8 +394,117 @@ TooltipLabel/colors/font_color = Color( 0, 0, 0, 1 )
 TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
 TooltipLabel/constants/shadow_offset_x = 1
 TooltipLabel/constants/shadow_offset_y = 1
-TooltipLabel/fonts/font = SubResource( 46 )
-TooltipPanel/styles/panel = SubResource( 47 )
+TooltipLabel/fonts/font = SubResource( 27 )
+TooltipPanel/styles/panel = SubResource( 28 )
+
+[sub_resource type="StyleBoxFlat" id=39]
+bg_color = Color( 0.466667, 0.486275, 0.462745, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=40]
+bg_color = Color( 0.380392, 0.372549, 0.396078, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=41]
+bg_color = Color( 0.156863, 0.188235, 0.207843, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=42]
+bg_color = Color( 0.0784314, 0.0745098, 0.0823529, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=43]
+bg_color = Color( 0.698039, 0.466667, 0.380392, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=44]
+bg_color = Color( 0.419608, 0.647059, 0.4, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=45]
+bg_color = Color( 0.376471, 0.333333, 0.321569, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=46]
+bg_color = Color( 0.32549, 0.501961, 0.309804, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Theme" id=47]
+Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = ExtResource( 24 )
+Button/styles/disabled = SubResource( 39 )
+Button/styles/focus = null
+Button/styles/hover = SubResource( 40 )
+Button/styles/normal = SubResource( 41 )
+Button/styles/pressed = SubResource( 42 )
+CheckBox/colors/font_color = Color( 1, 1, 1, 1 )
+CheckBox/colors/font_color_disabled = Color( 1, 1, 1, 0.2 )
+CheckBox/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
+CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckBox/constants/check_vadjust = 0
+CheckBox/constants/hseparation = 4
+CheckBox/fonts/font = null
+CheckBox/icons/checked = null
+CheckBox/icons/radio_checked = null
+CheckBox/icons/radio_unchecked = null
+CheckBox/icons/unchecked = null
+CheckBox/styles/disabled = SubResource( 43 )
+CheckBox/styles/focus = null
+CheckBox/styles/hover = null
+CheckBox/styles/hover_pressed = SubResource( 44 )
+CheckBox/styles/normal = SubResource( 45 )
+CheckBox/styles/pressed = SubResource( 46 )
+CheckButton/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
+CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckButton/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckButton/constants/check_vadjust = 0
+CheckButton/constants/hseparation = 4
+CheckButton/fonts/font = null
+CheckButton/icons/off = null
+CheckButton/icons/on = null
+CheckButton/styles/disabled = null
+CheckButton/styles/focus = null
+CheckButton/styles/hover = null
+CheckButton/styles/hover_pressed = null
+CheckButton/styles/normal = null
+CheckButton/styles/pressed = null
+TooltipLabel/colors/font_color = Color( 0, 0, 0, 1 )
+TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
+TooltipLabel/constants/shadow_offset_x = 1
+TooltipLabel/constants/shadow_offset_y = 1
+TooltipLabel/fonts/font = SubResource( 27 )
+TooltipPanel/styles/panel = SubResource( 28 )
 
 [node name="Panel" type="Panel"]
 margin_left = 1.94475
@@ -787,7 +787,7 @@ margin_bottom = 197.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição (\"shares\") da exergia final produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -808,7 +808,7 @@ margin_bottom = 251.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição (\"shares\") da exergia final produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -865,7 +865,7 @@ margin_bottom = 291.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição (\"shares\") da exergia final produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -922,7 +922,7 @@ margin_bottom = 338.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição (\"shares\") da exergia final produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -979,7 +979,7 @@ margin_bottom = 383.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição (\"shares\") da exergia final produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1036,7 +1036,7 @@ margin_bottom = 450.958
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -1057,7 +1057,7 @@ margin_bottom = 499.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1114,7 +1114,7 @@ margin_bottom = 546.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1171,7 +1171,7 @@ margin_bottom = 593.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1228,7 +1228,7 @@ margin_bottom = 637.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
 
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes."
+Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1285,7 +1285,7 @@ margin_top = 54.0
 margin_right = 1859.0
 margin_bottom = 1032.0
 rect_pivot_offset = Vector2( -126.604, 50.5367 )
-custom_styles/bg = SubResource( 43 )
+custom_styles/bg = SubResource( 3 )
 max_text_lines = 3
 
 [node name="Resultados" type="RichTextLabel" parent="ContainerResultados"]
@@ -1402,7 +1402,7 @@ margin_top = 55.0
 margin_right = 595.0
 margin_bottom = 1033.0
 rect_pivot_offset = Vector2( 96.828, 113.046 )
-custom_styles/bg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 71.0
@@ -1424,10 +1424,13 @@ margin_top = 327.555
 margin_right = 428.442
 margin_bottom = 367.555
 rect_pivot_offset = Vector2( 0, 21.7076 )
-hint_tooltip = "Estas são as previsões estatísticas dos resultados que vais obter em 2050 tendo em conta as ações que tens tomado.
+hint_tooltip = "Estas são as previsões estatísticas dos resultados que vais obter no ano meta tendo
+em conta as ações que tens tomado.
 
 São calculadas com base no teu histórico, por isso, se não gostas das previsões,
-talvez esteja na altura de experimentares uma nova estratégia!"
+talvez esteja na altura de experimentares uma nova estratégia!
+
+Podes obter mais informação sobre os dados deste painel no painel \"Ano Atual\"."
 theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -1442,10 +1445,13 @@ margin_top = 378.0
 margin_right = 492.0
 margin_bottom = 539.0
 rect_clip_content = false
-hint_tooltip = "Estas são as previsões estatísticas dos resultados que vais obter em 2050 tendo em conta as ações que tens tomado.
+hint_tooltip = "Estas são as previsões estatísticas dos resultados que vais obter no ano meta tendo
+em conta as ações que tens tomado.
 
 São calculadas com base no teu histórico, por isso, se não gostas das previsões,
-talvez esteja na altura de experimentares uma nova estratégia!"
+talvez esteja na altura de experimentares uma nova estratégia!
+
+Podes obter mais informação sobre os dados deste painel no painel \"Ano Atual\"."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1537,7 +1543,7 @@ margin_left = 22.0
 margin_top = 552.0
 margin_right = 403.0
 margin_bottom = 792.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 
 [node name="PreviousYear" type="RichTextLabel" parent="ContainerPrevisoes/Panel"]
 margin_left = 28.0
@@ -1586,7 +1592,7 @@ margin_left = 625.0
 margin_top = 55.0
 margin_right = 1316.0
 margin_bottom = 1033.0
-custom_styles/bg = SubResource( 9 )
+custom_styles/bg = SubResource( 6 )
 
 [node name="TextoAnoAtual" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 101.579
@@ -1616,7 +1622,7 @@ Emissões:
 Quantidade em peso das emissões de dióxido de carbono (CO2) emitidas pelo país para a atmosfera.
 
 Eficiência Agregada do País:
-A eficiência na transição de exergia útil para exergia final de todos os setores."
+A eficiência na transição de exergia final para exergia útil de todos os setores."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1630,9 +1636,9 @@ Eficiência Agregada do País: %"
 
 [node name="TextoDadosEnergeticos2" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 41.0
-margin_top = 441.0
+margin_top = 427.0
 margin_right = 348.0
-margin_bottom = 485.0
+margin_bottom = 471.0
 hint_tooltip = "O tipo de economia é determinado pela exergia usada pelos diferentes setores representados.
 A distribuição (\"shares de exergia\") pelos diversos setores aqui representada tem sempre a soma de 100%.
 
@@ -1682,8 +1688,9 @@ O produto interno bruto do país neste ano.
 Consumo:
 Atividade económica de todos os agentes económicos do país neste ano.
 
-Felicidade dos Cidadãos:
-Um índice que indica a felicidade dos cidadãos do país. Quanto maior for o número, mais felizes eles estão!"
+Felicidade do Cidadão:
+Um índice que indica a felicidade média do cidadão do país em relação ao ano inicial do jogo.
+Um número maior do que 1 indica que houve um aumento na felicidade (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1709,7 +1716,7 @@ Emissões:
 Quantidade em peso das emissões de dióxido de carbono (CO2) emitidas pelo país para a atmosfera.
 
 Eficiência Agregada do País:
-A eficiência na transição de exergia útil para exergia final de todos os setores."
+A eficiência na transição de exergia final para exergia útil de todos os setores."
 theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -1730,8 +1737,9 @@ O produto interno bruto do país neste ano.
 Consumo:
 Atividade económica de todos os agentes económicos do país neste ano.
 
-Felicidade dos Cidadãos:
-Um índice que indica a felicidade dos cidadãos do país. Quanto maior for o número, mais felizes eles estão!"
+Felicidade do Cidadão:
+Um índice que indica a felicidade média do cidadão do país em relação ao ano inicial do jogo.
+Um número maior do que 1 indica que houve um aumento na felicidade (e vice-versa)."
 theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -1745,7 +1753,7 @@ margin_left = 317.0
 margin_top = 4.0
 margin_right = 682.0
 margin_bottom = 172.0
-custom_styles/bg = SubResource( 9 )
+custom_styles/bg = SubResource( 6 )
 
 [node name="Ano" type="RichTextLabel" parent="EstadoAtual/AnoAtual"]
 margin_left = 136.0
@@ -1763,20 +1771,20 @@ scroll_active = false
 script = ExtResource( 17 )
 
 [node name="NextYearAnimationPlayer" type="AnimationPlayer" parent="EstadoAtual/AnoAtual/Ano"]
-anims/NextYear = SubResource( 10 )
+anims/NextYear = SubResource( 7 )
 
 [node name="FundoTabela" type="ItemList" parent="EstadoAtual"]
 margin_left = 35.0
-margin_top = 477.0
+margin_top = 461.0
 margin_right = 662.0
-margin_bottom = 710.0
+margin_bottom = 694.0
 hint_tooltip = "O tipo de economia é determinado pela exergia usada pelos diferentes setores representados.
 A distribuição (\"shares de exergia\") pelos diversos setores aqui representada tem sempre a soma de 100%.
 
 A eletrificação representa a percentagem de energia de cada setor que é obtida através de eletricidade.
 As percentagens são independentes entre setores."
 theme = ExtResource( 4 )
-custom_styles/bg = SubResource( 11 )
+custom_styles/bg = SubResource( 8 )
 
 [node name="Control" type="Control" parent="EstadoAtual/FundoTabela"]
 margin_right = 40.0
@@ -2011,7 +2019,7 @@ margin_left = 2038.0
 margin_top = 50.0
 margin_right = 3226.0
 margin_bottom = 543.0
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 9 )
 
 [node name="Control" type="Control" parent="PopupPanel"]
 margin_right = 1188.0
@@ -2054,7 +2062,7 @@ margin_left = 262.0
 margin_top = 234.0
 margin_right = 1730.0
 margin_bottom = 839.0
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 10 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ConfirmationPopup"]
@@ -2313,7 +2321,7 @@ margin_left = 19.0
 margin_top = 7.0
 margin_right = 1899.0
 margin_bottom = 1064.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 11 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="ModelPopup"]
@@ -2476,9 +2484,9 @@ text = "Eletrificação Serviços
 (Input setas -5 a 5)"
 
 [node name="Texto11" type="RichTextLabel" parent="ModelPopup/Control"]
-margin_left = 69.0
+margin_left = 45.0
 margin_top = 1000.0
-margin_right = 787.0
+margin_right = 763.0
 margin_bottom = 1107.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 rect_clip_content = false
@@ -2486,6 +2494,18 @@ custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Pode ser necessário avançar um ano no jogo para que quaisquer alterações aqui feitas apareçam no ecrã de jogo"
+
+[node name="Texto12" type="RichTextLabel" parent="ModelPopup/Control"]
+margin_left = 925.0
+margin_top = 1000.0
+margin_right = 1643.0
+margin_bottom = 1107.0
+rect_pivot_offset = Vector2( 0, 21.7076 )
+rect_clip_content = false
+custom_fonts/bold_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 7 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "Simular um ano irá fazer com que o botão \"Mais detalhes\" na secção \"Histórico e Previsões\" fique desativado"
 
 [node name="EscreverFicheiro" type="Button" parent="ModelPopup/Control"]
 visible = false
@@ -2499,9 +2519,9 @@ custom_fonts/font = ExtResource( 3 )
 text = "Escrever para ficheiro"
 
 [node name="Simular" type="Button" parent="ModelPopup/Control"]
-margin_left = 697.0
+margin_left = 1067.0
 margin_top = 902.0
-margin_right = 1111.0
+margin_right = 1481.0
 margin_bottom = 998.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
@@ -2593,7 +2613,7 @@ margin_left = -21.0
 margin_top = 7.0
 margin_right = 2280.0
 margin_bottom = 1477.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 11 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="NewGamePopup"]
@@ -2605,27 +2625,29 @@ margin_left = 663.0
 margin_top = 35.0
 margin_right = 1283.0
 margin_bottom = 308.0
-custom_fonts/normal_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 12 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 tab_size = 3
 text = "			   	exergyX"
 scroll_active = false
 
 [node name="Text" type="RichTextLabel" parent="NewGamePopup/Control"]
-margin_left = 290.741
-margin_top = 350.0
-margin_right = 1803.74
-margin_bottom = 871.0
+margin_left = 291.0
+margin_top = 339.0
+margin_right = 1804.0
+margin_bottom = 898.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
-custom_fonts/normal_font = SubResource( 44 )
+custom_fonts/normal_font = SubResource( 13 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Parabéns! Devido aos teus conhecimentos, foste escolhido como assessor do governo português. A tua missão é assegurar que Portugal usa os seus recursos económicos e energéticos de forma a que o país possa alcançar as suas metas futuras para o ano de 
+text = "Parabéns! Devido aos teus conhecimentos, foste escolhido como assessor do governo português. A tua missão é assegurar que Portugal usa os seus recursos económicos e energéticos de forma a que o país possa alcançar as suas metas futuras em termos de emissões de CO2 garantindo a felicidade da população para o ano de 
 
 Com a tua influência, poderás fazer com que o governo tome as ações necessárias para garantir o sucesso da tua missão.
 
-Após o teu primeiro ano irás receber informações detalhadas sobre as tuas ações e dados de previsão que te ajudarão a fazer decisões,  pelo que recomendamos que não faças grandes mudanças até receberes estes dados.
+Após o teu primeiro ano irás receber informações detalhadas sobre as tuas ações e dados de previsão que te ajudarão a tomar decisões,  pelo que recomendamos que não faças grandes mudanças até receberes estes dados.
+
+>Parágrafo sobre tipo de decisões que pode tomar
 
 Se tiveres alguma dúvida, coloca o cursor do rato sobre qualquer elemento do jogo para obteres ajuda.
 
@@ -2647,7 +2669,7 @@ margin_left = 19.0
 margin_top = 839.0
 margin_right = 1899.0
 margin_bottom = 1064.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 11 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="FileWritePopup"]
@@ -2718,6 +2740,7 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Ficheiro de valores, compatível com Office"
 
 [node name="ModelButton" type="Button" parent="."]
+visible = false
 margin_left = 99.0
 margin_top = 14.0
 margin_right = 254.0
@@ -2738,7 +2761,7 @@ margin_left = 19.0
 margin_top = 8.0
 margin_right = 1898.0
 margin_bottom = 1076.0
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 14 )
 
 [node name="Control" type="Control" parent="GrafHistorico"]
 margin_right = 1879.0
@@ -2794,8 +2817,8 @@ margin_right = 186.0
 margin_bottom = 458.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 rect_clip_content = false
-custom_fonts/bold_font = SubResource( 13 )
-custom_fonts/normal_font = SubResource( 14 )
+custom_fonts/bold_font = SubResource( 15 )
+custom_fonts/normal_font = SubResource( 16 )
 custom_colors/default_color = Color( 0.643137, 0.239216, 0.172549, 1 )
 bbcode_enabled = true
 bbcode_text = "[right]2050 MT[/right]"
@@ -2809,8 +2832,8 @@ margin_right = 1357.0
 margin_bottom = 448.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 rect_clip_content = false
-custom_fonts/bold_font = SubResource( 13 )
-custom_fonts/normal_font = SubResource( 14 )
+custom_fonts/bold_font = SubResource( 15 )
+custom_fonts/normal_font = SubResource( 16 )
 custom_colors/default_color = Color( 0.643137, 0.239216, 0.172549, 1 )
 bbcode_enabled = true
 bbcode_text = "2050 MT"
@@ -2824,8 +2847,8 @@ margin_right = 186.0
 margin_bottom = 490.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 rect_clip_content = false
-custom_fonts/bold_font = SubResource( 13 )
-custom_fonts/normal_font = SubResource( 14 )
+custom_fonts/bold_font = SubResource( 15 )
+custom_fonts/normal_font = SubResource( 16 )
 custom_colors/default_color = Color( 0.32549, 0.501961, 0.309804, 1 )
 bbcode_enabled = true
 bbcode_text = "[right]100[/right]"
@@ -2839,8 +2862,8 @@ margin_right = 1320.0
 margin_bottom = 510.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
 rect_clip_content = false
-custom_fonts/bold_font = SubResource( 13 )
-custom_fonts/normal_font = SubResource( 14 )
+custom_fonts/bold_font = SubResource( 15 )
+custom_fonts/normal_font = SubResource( 16 )
 custom_colors/default_color = Color( 0.32549, 0.501961, 0.309804, 1 )
 bbcode_enabled = true
 bbcode_text = "100"
@@ -2913,7 +2936,7 @@ margin_right = 1394.83
 margin_bottom = 922.592
 hint_tooltip = "Podes ver o histórico anual dos dados aqui."
 mouse_default_cursor_shape = 2
-theme = SubResource( 24 )
+theme = SubResource( 29 )
 custom_fonts/font = ExtResource( 3 )
 text = "Mais detalhes"
 
@@ -2924,7 +2947,7 @@ margin_right = 579.691
 margin_bottom = 923.563
 hint_tooltip = "Podes usar esta \"checkbox\" para desativar o gráfico correspondente, caso este esteja a obstruir o outro gráfico."
 mouse_default_cursor_shape = 2
-theme = SubResource( 33 )
+theme = SubResource( 38 )
 pressed = true
 text = " Emissões CO2"
 
@@ -2935,7 +2958,7 @@ margin_right = 988.75
 margin_bottom = 925.217
 hint_tooltip = "Podes usar esta \"checkbox\" para desativar o gráfico correspondente, caso este esteja a obstruir o outro gráfico."
 mouse_default_cursor_shape = 2
-theme = SubResource( 42 )
+theme = SubResource( 47 )
 pressed = true
 text = " Felicidade"
 
@@ -2944,7 +2967,7 @@ margin_left = 19.0
 margin_top = 7.0
 margin_right = 1899.0
 margin_bottom = 1064.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 11 )
 popup_exclusive = true
 
 [node name="Control" type="Control" parent="PastDataPopup"]

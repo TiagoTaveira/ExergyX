@@ -1,20 +1,22 @@
 #TODO (essencial):
 Acrescentar previsões ao gráfico, após corrigido o modelo
+Enviar um email a perguntar targets realistas de emissões para 2050
+Confirmar tooltip text
+Exportar uma versão com o simulador de modelo para http://exergyx.tecnico.ulisboa.pt/model
 
 #TODO (no futuro do projeto):
 Tabela de registo de pontuações (estatísticas para o jogador saber como se vai saindo de jogo para jogo)
 -> Guardar: nº de vezes jogado, score, etc. (e possivelmente uma tabela high score top 10)
-No ano atual, colocar a diferença ganha em anos (NOVA POTÊNCIA INSTALADA sai)
-Fazer um configurador para o ano zero
-No ecrã de resultados final, permitir analisar o histórico para o jogador poder refletir sobre as ações
--> Possivelmente colocar um painel novo no jogo a substituir o de decisões com informação do jogo acabado
--> Para analisar o histórico bastaria então aos jogadores entrarem nesse painel
-Modelo: sempre que tiver carriers, acrescentar Comb.Ren e Heat (exceto a partir do passo 17 inclusive)
+-> Adicionar botão de reiniciar jogo
+Fazer um configurador para o ano zero (permitindo mudar os valores do jogo sem ser preciso alterar o Model.gd)
+Fazer com que o simulador funcione com o update_past_data_text()
 
 #IMPROVE (no futuro do projeto):
 Melhorar simulador
-Ecrã de novo jogo (com explicação) e créditos
-Animação de mudança de ano (baixa prioridade)
+-> Colocar ainda mais dados
+-> Implementar exportação para CSV
+Melhorar ecrã de novo jogo (com explicação) e créditos
+Melhorar animação de mudança de ano (baixa prioridade)
 
 #DONE:
 Enviar código do jogo
@@ -35,7 +37,11 @@ Usar uma checkbox para decidir que valores mostrar (falta adicionar mais checkbo
 BUG: Cálculo da percentagem do PIB no primeiro ano
 -> Porque o custo no jogo está em euros, e o PIB no modelo está numa medida maior
 Corrigir funcionamento das setas na parte do modelo (i.e. o peso das percentagens)
-
+No ecrã de resultados final, permitir analisar o histórico para o jogador poder refletir sobre as ações
+-> Possivelmente colocar um painel novo no jogo a substituir o de decisões com informação do jogo acabado
+-> Para analisar o histórico bastaria então aos jogadores entrarem nesse painel
+Modelo: sempre que tiver carriers, acrescentar Comb.Ren e Heat (exceto a partir do passo 17 inclusive)
+Correr o modelo automaticamente uma vez para se começar o jogo no ano 2015
 
 #TESTES:
 Enviar para testes com um questionário simples aberto

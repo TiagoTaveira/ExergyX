@@ -1,3 +1,6 @@
+# This file is unfinished. It is meant to be used in the development of an in-tool game configurator
+# (see TODO file)
+
 extends Node
 
 # CONSTANTES (podem ser alteradas, resultando num jogo diferente)

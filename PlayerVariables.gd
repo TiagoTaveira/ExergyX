@@ -1,3 +1,5 @@
+# Global player variables, used by the game (MainScene.gd)
+
 extends Node
 
 var starting_year = 2014
@@ -33,8 +35,8 @@ var final_year_money = 0
 var final_year_economic_growth = 1
 
 # Final year goals
-var utility_goals = 120
-var emission_goals = 35
+var utility_goals = 1.50
+var emission_goals = 13000000
 var economic_growth_goals = 1
 # Player decisions here
 var investment_renewables_percentage = 0.00

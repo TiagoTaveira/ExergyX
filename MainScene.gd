@@ -1,10 +1,30 @@
+# The game implementation, uses Model.gd as its backend
 # Developed by:
 # - André Fidalgo Silva
+# Assisted by:
+# - Prof. Rui Prada
+# - Prof. Tânia Sousa
+# - Bárbara Caracol
+# - João Santos
+# - Laura Felício
 
 extends Panel
 
-# Declare member variables here.
+# Final year constant. Change here to have the game end at a different year (default = 2050)
 var FINAL_YEAR = 2050
+
+# Storage of the history of the player's decisions
+var decisions_investment_renewables = [PlayerVariables.investment_renewables_percentage]
+var decisions_shares_transportation = [PlayerVariables.economy_type_level_transportation]
+var decisions_shares_industry = [PlayerVariables.economy_type_level_industry]
+var decisions_shares_residential = [PlayerVariables.economy_type_level_residential]
+var decisions_shares_services = [PlayerVariables.economy_type_level_services]
+var decisions_eletrification_transportation  = [PlayerVariables.electrification_by_sector_level_transportation]
+var decisions_eletrification_industry = [PlayerVariables.electrification_by_sector_level_industry]
+var decisions_eletrification_residential = [PlayerVariables.electrification_by_sector_level_residential]
+var decisions_eletrification_services = [PlayerVariables.electrification_by_sector_level_services]
+
+var simulator_used = false #true when the model debug simulator is used
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,7 +34,7 @@ func _ready():
 	initial_model_loading()
 	#function that initializes text from variables () goes here
 	update_text()
-	first_year_text()
+	#first_year_text()
 	update_simulator_text()
 	update_past_data_text()
 	get_node("ContainerDecisoes/EnviarDecisoes").connect("pressed", self, "_on_Button_pressed")
@@ -39,6 +59,12 @@ func _ready():
 	get_node("ContainerDecisoes/ScrollContainer/Control11/Plus").connect("pressed", self, "on_Services_Electrification_Plus_Button_pressed")
 	get_node("ConfirmationPopup/Control/ConfirmarDecisoes").connect("pressed", self, "on_Confirm_Button_pressed") 
 	get_node("ConfirmationPopup/Control/CancelarDecisoes").connect("pressed", self, "on_Cancel_Button_pressed")
+	#Run one year of the game, in order to start with all data filled:
+	process_next_year()
+	update_graph()
+	update_text()
+	update_simulator_text()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -156,7 +182,7 @@ func update_predictions():
 		PredictionsModel.calcular_shares_de_exergia_final_por_setor()
 		PredictionsModel.calcular_valores_absolutos_de_exergia_final_por_setor()
 		PredictionsModel.calcular_eletrificacao_etc_de_setores()
-		PredictionsModel.calcular_shares_de_exergia_final_por_setor_por_carrier()		
+		PredictionsModel.calcular_shares_de_exergia_final_por_setor_por_carrier()
 		PredictionsModel.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
 		PredictionsModel.calcular_eficiencia_por_setor()
 		PredictionsModel.calcular_eficiencia_agregada()
@@ -173,14 +199,14 @@ func update_predictions():
 	PlayerVariables.final_year_emissions = PredictionsModel.emissoes_totais_do_ano[PredictionsModel.indice_do_ano(final_year)]
 	PlayerVariables.final_year_efficiency = PredictionsModel.eficiencia_agregada_do_ano[PredictionsModel.indice_do_ano(final_year)]
 	PlayerVariables.final_year_expenditure = PredictionsModel.consumo_do_ano[PredictionsModel.indice_do_ano(final_year)]
-	PlayerVariables.final_year_money = PredictionsModel.pib_do_ano[PredictionsModel.indice_do_ano(final_year)] * pow(10,9)
+	PlayerVariables.final_year_money = PredictionsModel.pib_do_ano[PredictionsModel.indice_do_ano(final_year)]
 	
 # Handle game text
 func update_text():
 	get_node("EstadoAtual/AnoAtual/Ano").text = str(PlayerVariables.current_year)
 	get_node("EstadoAtual/TextoAnoAtual").text = "Ano Atual"
 
-	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Potência Total Instalada (Fração Renovável): " + str(stepify(PlayerVariables.total_installed_power, 0.1)) + " GW" + "\n\nEletricidade Renovável: " + str(stepify(PlayerVariables.renewable_energy, 0.1)) + " GWh" + "\n\nEmissões: " + str(stepify(PlayerVariables.co2_emissions, 0.1)) + " kg CO2" + "\n\nEficiência Agregada do País: " + str(stepify(PlayerVariables.efficiency * 100, 0.1)) + "%"
+	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Potência Total Instalada (Fração Renovável): " + str(stepify(PlayerVariables.total_installed_power, 0.1)) + " GW" + "\n\nEletricidade Renovável: " + str(stepify(PlayerVariables.renewable_energy, 0.1)) + " GWh" + "\n\nEmissões: " + str(stepify(PlayerVariables.co2_emissions, 1)) + " kg CO2" + "\n\nEficiência Agregada do País: " + str(stepify(PlayerVariables.efficiency * 100, 0.1)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/SharesTransportes").text = str(stepify(PlayerVariables.economy_type_percentage_transportation, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/SharesIndustria").text = str(stepify(PlayerVariables.economy_type_percentage_industry, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/SharesResidencial").text = str(stepify(PlayerVariables.economy_type_percentage_residential, 0.01)) + "%"
@@ -189,32 +215,35 @@ func update_text():
 	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoIndustria").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_industry, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoResidencial").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_residential, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoServicos").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_services, 0.01)) + "%"
-	get_node("EstadoAtual/TextoDadosSocioeconomicos").text = "PIB: " + str(stepify(PlayerVariables.money, 1)) + " milhares de milhões €" + "\n\nConsumo: " + str(stepify(PlayerVariables.expenditure, 1)) + " milhares de milhões €" + "\n\nFelicidade dos Cidadãos: " + str(stepify(PlayerVariables.utility, 1))
+	get_node("EstadoAtual/TextoDadosSocioeconomicos").text = "PIB: " + str(stepify(PlayerVariables.money, 1)) + " milhares de milhões €" + "\n\nConsumo: " + str(stepify(PlayerVariables.expenditure, 1)) + " milhares de milhões €" + "\n\nFelicidade do Cidadão: " + str(stepify(PlayerVariables.utility, 0.01))
 	get_node("ContainerPrevisoes/TextoOutrosDados").text = "Eficiência Agregada do País: " + str(stepify(PlayerVariables.final_year_efficiency * 100, 0.1)) + "%" + "\n\nPIB: " + str(stepify(PlayerVariables.final_year_money, 1)) +" milhares de milhões €" + "\n\nConsumo: " + str(stepify(PlayerVariables.final_year_expenditure, 1)) + " milhares de milhões €"
 	#get_node("ContainerDecisoes/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
 	get_node("ContainerDecisoes/ProximoAno").text = "Decisões"
 	get_node("ContainerPrevisoes/RichTextLabel").text = str(PlayerVariables.final_year) + " - Previsões"
-	get_node("ContainerPrevisoes/TextoPrevisoes").bbcode_text = "Felicidade dos Cidadãos: " + str(stepify(PlayerVariables.final_year_utility, 1)) + "\n\n" + "Emissões CO2: " + str(stepify(PlayerVariables.final_year_emissions, 0.01)) + " MT" + "\n\n" + "Crescimento Económico: [color=green]1%[/color] (1%)"  #exemplo de texto
+	get_node("ContainerPrevisoes/TextoPrevisoes").bbcode_text = "Felicidade do Cidadãos: " + str(PlayerVariables.final_year_utility, 0.01) + "\n\n" + "Emissões CO2: " + str(stepify(PlayerVariables.final_year_emissions, 0.01)) + " MT" + "\n\n" + "Crescimento Económico: [color=green]1%[/color] (1%)"  #exemplo de texto
 	##Actual bbcode text setting (with conditions)
-	get_node("ContainerPrevisoes/TextoPrevisoes").bbcode_text = "Felicidade dos Cidadãos: " + ("[color=red]" if PlayerVariables.final_year_utility < PlayerVariables.utility_goals else "[color=green]") + str(stepify(PlayerVariables.final_year_utility, 1)) + "[/color]\n\n"    +   "Emissões CO2: " + ("[color=red]" if PlayerVariables.final_year_emissions > PlayerVariables.emission_goals else "[color=green]") + str(stepify(PlayerVariables.final_year_emissions, 0.01)) + " kg CO2[/color]"
-	get_node("ContainerPrevisoes/TextoMetas").bbcode_text = "Felicidade dos Cidadãos: ≥ " + str(PlayerVariables.utility_goals) + "\n\nEmissões CO2: ≤ " + str(PlayerVariables.emission_goals) + " kg CO2"
+	get_node("ContainerPrevisoes/TextoPrevisoes").bbcode_text = "Felicidade do Cidadão: " + ("[color=red]" if PlayerVariables.final_year_utility < PlayerVariables.utility_goals else "[color=green]") + str(stepify(PlayerVariables.final_year_utility, 0.01)) + "[/color]\n\n"    +   "Emissões CO2: " + ("[color=red]" if PlayerVariables.final_year_emissions > PlayerVariables.emission_goals else "[color=green]") + str(stepify(PlayerVariables.final_year_emissions, 1)) + " kg CO2[/color]"
+	get_node("ContainerPrevisoes/TextoMetas").bbcode_text = "Felicidade do Cidadão: ≥ " + str(PlayerVariables.utility_goals) + "\n\nEmissões CO2: ≤ " + str(PlayerVariables.emission_goals) + " kg CO2"
 	get_node("ContainerPrevisoes/Panel/PreviousYear").text = str(PlayerVariables.current_year  - 1)
 	get_node("ContainerPrevisoes/Panel/CurrentYear").text = str(PlayerVariables.current_year)
 	get_node("ContainerPrevisoes/Panel/NextYear").text = str(PlayerVariables.current_year + 1)
 
 func first_year_text():
-	get_node("ContainerPrevisoes/TextoPrevisoes").bbcode_text = "Felicidade dos Cidadãos: n/d\n\n"    +   "Emissões CO2: n/d"
+	get_node("ContainerPrevisoes/TextoPrevisoes").bbcode_text = "Felicidade do Cidadão: n/d\n\n"    +   "Emissões CO2: n/d"
 	get_node("ContainerPrevisoes/TextoOutrosDados").text = "Eficiência Agregada do País: " + "n/d" + "\n\nPIB: " + "n/d" + "\n\nConsumo: " + "n/d"
 	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Potência Total Instalada (Fração Renovável): " + str(stepify(PlayerVariables.total_installed_power, 0.1)) + " GW" + "\n\nEletricidade Renovável: " + "n/d" + "\n\nEmissões: " + "n/d" + "\n\nEficiência Agregada do País: " + str(stepify(PlayerVariables.efficiency * 100, 0.1)) + "%"
-	get_node("EstadoAtual/TextoDadosSocioeconomicos").text = "PIB: " + str(stepify(PlayerVariables.money, 1)) + " milhares de milhões €" + "\n\nConsumo: " + "n/d" + "\n\nFelicidade dos Cidadãos: " + "n/d"
+	get_node("EstadoAtual/TextoDadosSocioeconomicos").text = "PIB: " + str(stepify(PlayerVariables.money, 1)) + " milhares de milhões €" + "\n\nConsumo: " + "n/d" + "\n\nFelicidade do Cidadão: " + "n/d"
 	
 func set_intro_text():
-	get_node("NewGamePopup/Control/Text").text = "Parabéns! Devido aos teus conhecimentos, foste escolhido como assessor do governo português. A tua missão é assegurar que Portugal usa os seus recursos económicos e energéticos de forma a que o país possa alcançar as suas metas futuras para o ano de " + str(FINAL_YEAR) + "." \
-		+ "\n\nCom a tua influência, poderás fazer com que o governo tome as ações necessárias para garantir o sucesso da tua missão." \
-		+ "\n\nApós o teu primeiro ano irás receber informações detalhadas sobre as tuas ações e dados de previsão que te ajudarão a fazer decisões,  pelo que recomendamos que não faças grandes mudanças até receberes estes dados." \
+	get_node("NewGamePopup/Control/Text").text = "Parabéns! Devido aos teus conhecimentos, foste escolhido como assessor do governo português. A tua missão é assegurar que Portugal usa os seus recursos económicos e energéticos de forma a que o país possa alcançar as suas metas futuras (em termos de emissões de CO2 enquanto garantes a felicidade da população) para o ano de " + str(FINAL_YEAR) + "." \
+		+ "\n\n������������������Com a tua influência, poderás fazer com que o governo tome as ações necessárias para garantir o sucesso da tua missão." \
+		+ "\n\nPoderás tomar vários tipos de decisões, incluindo a instalação de infraestruturas que aumentem a produção da potência elétrica renovável do país, e a distribuição dos nossos recursos energéticos por diferentes setores." \
 		+ "\n\nSe tiveres alguma dúvida, coloca o cursor do rato sobre qualquer elemento do jogo para obteres ajuda." \
 		+ "\n\nBoa sorte!"
-	
+
+#>Parágrafo sobre tipo de decisões que pode tomar
+
+
 # Button presses
 func _on_StartGame_pressed():
 	$NewGamePopup.hide()
@@ -319,6 +348,17 @@ func on_Services_Electrification_Plus_Button_pressed():
 		PlayerVariables.electrification_by_sector_level_services = PlayerVariables.electrification_by_sector_level_services + 1
 		update_level_images()
 
+func store_decision_history():
+	decisions_investment_renewables.push_back(PlayerVariables.investment_renewables_percentage)
+	decisions_shares_transportation.push_back(PlayerVariables.economy_type_level_transportation)
+	decisions_shares_industry.push_back(PlayerVariables.economy_type_level_industry)
+	decisions_shares_residential.push_back(PlayerVariables.economy_type_level_residential)
+	decisions_shares_services.push_back(PlayerVariables.economy_type_level_services)
+	decisions_eletrification_transportation .push_back(PlayerVariables.electrification_by_sector_level_transportation)
+	decisions_eletrification_industry.push_back(PlayerVariables.electrification_by_sector_level_industry)
+	decisions_eletrification_residential.push_back(PlayerVariables.electrification_by_sector_level_residential)
+	decisions_eletrification_services.push_back(PlayerVariables.electrification_by_sector_level_services)
+
 
 func on_History_Button_pressed():
 	get_node("GrafHistorico").popup()
@@ -328,7 +368,10 @@ func _on_FecharHistorico_pressed():
 	get_node("GrafHistorico").hide()
 	
 func update_graph():
-	update_past_data_text()
+	if !simulator_used:
+		update_past_data_text()
+	else:
+		update_past_data_text_simulator()
 	
 	var years_passed = PlayerVariables.current_year - PlayerVariables.starting_year
 	var point_x_distance = 0 if years_passed == 1 else 750 / (years_passed - 1)
@@ -379,18 +422,18 @@ func update_graph():
 		$GrafHistorico/Control/EmissionsLine.add_point((Vector2(point_x_distance * y, emissions_y_values[y] * -1)))
 		if y == 0:
 			$GrafHistorico/Control/EmissionsValueStart.rect_position = Vector2($GrafHistorico/Control/EmissionsValueStart.rect_position.x, values_text_offset - emissions_y_values[y])
-			$GrafHistorico/Control/EmissionsValueStart.bbcode_text = "[right]" + str(stepify(Model.emissoes_totais_do_ano[y + 1], 0.1)) + " kg CO2[/right]"
+			$GrafHistorico/Control/EmissionsValueStart.bbcode_text = "[right]" + str(stepify(Model.emissoes_totais_do_ano[y + 1], 1)) + " kg CO2[/right]"
 		if y == years_passed - 1:
 			$GrafHistorico/Control/EmissionsValueCurrent.rect_position = Vector2($GrafHistorico/Control/EmissionsValueCurrent.rect_position.x, values_text_offset - emissions_y_values[y])
-			$GrafHistorico/Control/EmissionsValueCurrent.bbcode_text = str(stepify(Model.emissoes_totais_do_ano[y + 1], 0.1)) + " kg CO2"
+			$GrafHistorico/Control/EmissionsValueCurrent.bbcode_text = str(stepify(Model.emissoes_totais_do_ano[y + 1], 1)) + " kg CO2"
 	
 		$GrafHistorico/Control/UtilityLine.add_point((Vector2(point_x_distance * y, utility_y_values[y] * -1)))
 		if y == 0:
 			$GrafHistorico/Control/UtilityValueStart.rect_position = Vector2($GrafHistorico/Control/UtilityValueStart.rect_position.x, values_text_offset - utility_y_values[y])
-			$GrafHistorico/Control/UtilityValueStart.bbcode_text = "[right]" + str(stepify(Model.utilidade_do_ano[y + 1], 0.1)) + "[/right]"
+			$GrafHistorico/Control/UtilityValueStart.bbcode_text = "[right]" + str(stepify(Model.utilidade_do_ano[y + 1], 0.01)) + "[/right]"
 		if y == years_passed - 1:
 			$GrafHistorico/Control/UtilityValueCurrent.rect_position = Vector2($GrafHistorico/Control/UtilityValueCurrent.rect_position.x, values_text_offset - utility_y_values[y])
-			$GrafHistorico/Control/UtilityValueCurrent.bbcode_text = str(stepify(Model.utilidade_do_ano[y + 1], 0.1))
+			$GrafHistorico/Control/UtilityValueCurrent.bbcode_text = str(stepify(Model.utilidade_do_ano[y + 1], 0.01))
 	
 	#####EXPERIMENTAL#####
 	#get_node("GrafHistorico/Control/TestLine2D").add_point(Vector2(400, 400))
@@ -417,6 +460,75 @@ func _on_ShowUtility_toggled(button_pressed):
 		$GrafHistorico/Control/UtilityLine.visible = false
 		$GrafHistorico/Control/UtilityValueStart.visible = false
 		$GrafHistorico/Control/UtilityValueCurrent.visible = false
+
+func update_past_data_text():
+	$PastDataPopup/Control/Texto.bbcode_text = ""
+	
+	# loop for n = 0 to ano_atual_indice
+	for n in range(1, Model.ano_atual_indice + 1):
+		$PastDataPopup/Control/Texto.bbcode_text += "[b]> Ano: " + str(Model.ano_do_indice(n)) + "[/b]" \
+			+ "[indent]\n[u]Decisões[/u]:" \
+			+ "\n[indent]Adição de Potência Instalada Renovável: " + str(decisions_investment_renewables[n]) + " GW" \
+			+ "\n" \
+			+ "\nTipo de Economia (Transportes): " + number_to_arrow(decisions_shares_transportation[n]) \
+			+ "\nTipo de Economia (Indústria): " + number_to_arrow(decisions_shares_industry[n]) \
+			+ "\nTipo de Economia (Residencial): " + number_to_arrow(decisions_shares_residential[n]) \
+			+ "\nTipo de Economia (Serviços): " + number_to_arrow(decisions_shares_services[n]) \
+			+ "\n" \
+			+ "\nEletrificação por Setor (Transportes): " + number_to_arrow(decisions_eletrification_transportation[n]) \
+			+ "\nEletrificação por Setor (Indústria): " + number_to_arrow(decisions_eletrification_industry[n]) \
+			+ "\nEletrificação por Setor (Residencial): " + number_to_arrow(decisions_eletrification_residential[n]) \
+			+ "\nEletrificação por Setor (Serviços): " + number_to_arrow(decisions_eletrification_services[n]) + "[/indent]" \
+			+ "\n\n[u]Resultados[/u]:" \
+			+ "\n[indent]Potência Instalada (Solar): " + str(Model.potencia_do_ano_solar[n]) + " GW" \
+			+ "\nPotência Instalada (Vento): " + str(Model.potencia_do_ano_vento[n]) + " GW" \
+			+ "\nPotência Instalada (Biomassa): " + str(Model.potencia_do_ano_biomassa[n]) + " GW" \
+			+ "\nCusto Total da Potência Instalada: " + str(stepify(Model.custo_total_do_ano[n], 1)) + " euros" \
+			+ "\n" \
+			+ "\nProduto Interno Bruto (PIB): " + str(stepify(Model.pib_do_ano[n], 0.01)) + " milhares de milhões de euros" \
+			+ "\nConsumo: " + str(stepify(Model.consumo_do_ano[n], 0.01)) + " milhares de milhões de euros"  \
+			+ "\n" \
+			+ "\nShares Exergia Final Transportes: " + str(Model.shares_exergia_final_transportes_do_ano[n]) \
+			+ "\nShares Exergia Final Indústria: " + str(Model.shares_exergia_final_industria_do_ano[n]) \
+			+ "\nShares Exergia Final Residencial: " + str(Model.shares_exergia_final_residencial_do_ano[n]) \
+			+ "\nShares Exergia Final Serviços: " + str(Model.shares_exergia_final_servicos_do_ano[n]) \
+			+ "\n" \
+			+ "\nEletrificação Transportes: " + str(Model.eletrificacao_transportes[n]) \
+			+ "\nEletrificação Industria: " + str(Model.eletrificacao_industria[n]) \
+			+ "\nEletrificação Residencial: " + str(Model.eletrificacao_residencial[n]) \
+			+ "\nEletrificação Serviços: " + str(Model.eletrificacao_servicos[n]) \
+			+ "\n" \
+			+ "\nEficiência Agregada: " + str(stepify(Model.eficiencia_agregada_do_ano[n], 0.01))  \
+			+ "\nEletricidade Renovável: " + str(stepify(Model.eletricidade_renovavel_do_ano[n], 0.01)) + " GWh"  \
+			+ "\nEmissões Totais: " + str(stepify(Model.emissoes_totais_do_ano[n], 0.01)) + " kg CO2"  \
+			+ "\nÍndice de Felicidade dos Cidadãos: " + str(stepify(Model.utilidade_do_ano[n], 0.0001)) + "[/indent]" \
+			+ "\n\n\n[/indent]"
+		
+func number_to_arrow(number):
+	match number:
+		1:
+			return "[color=blue][b]↓↓↓↓↓[/b][/color]"
+		2:
+			return "[color=blue][b]↓↓↓↓[/b][/color]"
+		3:
+			return "[color=blue][b]↓↓↓[/b][/color]"
+		4:
+			return "[color=blue][b]↓↓[/b][/color]"
+		5:
+			return "[color=blue][b]↓[/b][/color]"
+		6:
+			return "[color=gray][b]=[/b][/color]"
+		7:
+			return "[color=red][b]↑[/b][/color]"
+		8:
+			return "[color=red][b]↑↑[/b][/color]"
+		9:
+			return "[color=red][b]↑↑↑[/b][/color]"
+		10:
+			return "[color=red][b]↑↑↑↑[/b][/color]"
+		11:
+			return "[color=red][b]↑↑↑↑↑[/b][/color]"
+
 
 
 func _on_Button_pressed(): #Submit Decisions Button
@@ -468,7 +580,7 @@ func on_Confirm_Button_pressed():
 			get_node("ContainerResultados/Resultados").hide()
 			get_node("ContainerResultados/Resultados2").show()
 		get_node("ContainerResultados/Resultados").text = str(PlayerVariables.final_year) + " - Resultados"
-		get_node("PopupPanel/Control/Results").text = "Felicidade dos Cidadãos: " + str(PlayerVariables.final_year_utility) + "\n" + "Objetivo: " + str(PlayerVariables.utility_goals) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " kg CO2" + "\n" + "Objetivo: " + str(PlayerVariables.emission_goals) + " kg CO2"
+		get_node("PopupPanel/Control/Results").text = "Felicidade do Cidadão: " + str(PlayerVariables.final_year_utility) + "\n" + "Objetivo: " + str(PlayerVariables.utility_goals) + "\n\n" + "Emissões CO2: " + str(PlayerVariables.final_year_emissions) + " kg CO2" + "\n" + "Objetivo: " + str(PlayerVariables.emission_goals) + " kg CO2"
 		if achieved_utility:
 			no_of_achieved_goals += 1
 			get_node("ContainerResultados/Dados").bbcode_text = "Felicidade dos Cidadãos: " + str(PlayerVariables.final_year_utility) + "\n> Objetivo cumprido!"
@@ -498,6 +610,9 @@ func on_Cancel_Button_pressed():
 
 
 func process_next_year():
+	
+	#Store the year's decisions
+	store_decision_history()
 
 	#Send decisions to model
 	send_game_decisions_to_model()
@@ -565,7 +680,7 @@ func enable_all_buttons():
 	
 func update_confirmation_popup():
 	get_node("ConfirmationPopup/Control/ConfirmarDecisoes").text = "Confirmar e ir para " + str(PlayerVariables.current_year + 1)
-	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(stepify(PlayerVariables.investment_cost,1)) + " € (" + str(stepify(((PlayerVariables.investment_cost / PlayerVariables.money)) * 100, 0.000001)) + "% do PIB)"
+	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(stepify(PlayerVariables.investment_cost,1)) + " € (" + str(stepify(((PlayerVariables.investment_cost / PlayerVariables.money * pow(10,-9))) * 100, 0.00000001)) + "% do PIB)"
 
 	
 
@@ -854,10 +969,6 @@ func update_level_images():
 
 
 
-
-
-
-
 ## MODEL SIMULATOR POPUP
 func _on_Model_Button_pressed(): 
 	get_node("ModelPopup").popup()
@@ -869,15 +980,28 @@ func _on_Fechar_pressed():
 
 
 func _on_Simular_pressed():
+	simulator_used = true
+	
 	Model.input_potencia_a_instalar = get_node("ModelPopup/Control/Potencia").value
 	Model.input_percentagem_tipo_economia_transportes = get_node("ModelPopup/Control/TipoEconomiaTransportes").value
 	Model.input_percentagem_tipo_economia_industria = get_node("ModelPopup/Control/TipoEconomiaIndustria").value
 	Model.input_percentagem_tipo_economia_residencial = get_node("ModelPopup/Control/TipoEconomiaResidencial").value
-	Model.input_percentagem_tipo_economia_servicos = get_node("ModelPopup/Control/TipoEconomiaServicos").value	
+	Model.input_percentagem_tipo_economia_servicos = get_node("ModelPopup/Control/TipoEconomiaServicos").value
 	Model.input_percentagem_eletrificacao_transportes = get_node("ModelPopup/Control/EletrificacaoTransportes").value
 	Model.input_percentagem_eletrificacao_industria = get_node("ModelPopup/Control/EletrificacaoIndustria").value
 	Model.input_percentagem_eletrificacao_residencial = get_node("ModelPopup/Control/EletrificacaoResidencial").value
 	Model.input_percentagem_eletrificacao_servicos = get_node("ModelPopup/Control/EletrificacaoServicos").value
+	
+	decisions_investment_renewables.push_back(get_node("ModelPopup/Control/Potencia").value)
+	decisions_shares_transportation.push_back(get_node("ModelPopup/Control/TipoEconomiaTransportes").value)
+	decisions_shares_industry.push_back(get_node("ModelPopup/Control/TipoEconomiaIndustria").value)
+	decisions_shares_residential.push_back(get_node("ModelPopup/Control/TipoEconomiaResidencial").value)
+	decisions_shares_services.push_back(get_node("ModelPopup/Control/TipoEconomiaServicos").value)
+	decisions_eletrification_transportation .push_back(get_node("ModelPopup/Control/EletrificacaoTransportes").value)
+	decisions_eletrification_industry.push_back(get_node("ModelPopup/Control/EletrificacaoIndustria").value)
+	decisions_eletrification_residential.push_back(get_node("ModelPopup/Control/EletrificacaoResidencial").value)
+	decisions_eletrification_services.push_back(get_node("ModelPopup/Control/EletrificacaoServicos").value)
+
 	
 	Model.mudar_de_ano()
 	Model.calcular_distribuicao_por_fonte()
@@ -906,46 +1030,12 @@ func _on_Simular_pressed():
 	Model.calcular_utilidade()
 
 	update_simulator_text()
-	update_past_data_text()
-	
-func update_past_data_text():
-	$PastDataPopup/Control/Texto.bbcode_text = ""
-	
-	# loop for n = 0 to ano_atual_indice
-	for n in range(1, Model.ano_atual_indice + 1):
-		$PastDataPopup/Control/Texto.bbcode_text += "[b]> Ano: " + str(Model.ano_do_indice(n)) + "[/b]" \
-			+ "\nPotência Instalada (Solar): " + str(Model.potencia_do_ano_solar[n]) + " GW" \
-			+ "\nPotência Instalada (Vento): " + str(Model.potencia_do_ano_vento[n]) + " GW" \
-			+ "\nPotência Instalada (Biomassa): " + str(Model.potencia_do_ano_biomassa[n]) + " GW" \
-			+ "\nCusto Total da Potência Instalada: " + str(stepify(Model.custo_total_do_ano[n], 1)) + " euros" \
-			+ "\n" \
-			+ "\nProduto Interno Bruto (PIB): " + str(stepify(Model.pib_do_ano[n], 0.1)) + " milhares de milhões de euros" \
-			+ "\nConsumo: " + str(stepify(Model.consumo_do_ano[n], 0.1)) + " milhares de milhões de euros"  \
-			+ "\n" \
-			+ "\nShares Exergia Final Transportes: " + str(Model.shares_exergia_final_transportes_do_ano[n]) \
-			+ "\nShares Exergia Final Indústria: " + str(Model.shares_exergia_final_industria_do_ano[n]) \
-			+ "\nShares Exergia Final Residencial: " + str(Model.shares_exergia_final_residencial_do_ano[n]) \
-			+ "\nShares Exergia Final Serviços: " + str(Model.shares_exergia_final_servicos_do_ano[n]) \
-			+ "\n" \
-			+ "\nEletrificação Transportes: " + str(Model.eletrificacao_transportes[n]) \
-			+ "\nEletrificação Industria: " + str(Model.eletrificacao_industria[n]) \
-			+ "\nEletrificação Residencial: " + str(Model.eletrificacao_residencial[n]) \
-			+ "\nEletrificação Serviços: " + str(Model.eletrificacao_servicos[n]) \
-			+ "\n" \
-			+ "\nEficiência Agregada: " + str(stepify(Model.eficiencia_agregada_do_ano[n], 0.01))  \
-			+ "\nEletricidade Renovável: " + str(stepify(Model.eletricidade_renovavel_do_ano[n], 0.01)) + " GWh"  \
-			+ "\nEletricidade Não Renovável: " + str(stepify(Model.eletricidade_nao_renovavel_do_ano[n], 0.01)) + " GWh"  \
-			+ "\nEmissões Não Renováveis: " + str(stepify(Model.emissoes_nao_renovaveis_do_ano[n], 0.01)) + " kg CO2"  \
-			+ "\nEmissões Totais: " + str(stepify(Model.emissoes_totais_do_ano[n], 0.01)) + " kg CO2"  \
-			+ "\nÍndice de Felicidade dos Cidadãos: " + str(stepify(Model.utilidade_do_ano[n], 1))  \
-			+ "\n\n"
-		
+	update_past_data_text_simulator()
 	
 
 func _on_EscreverFicheiro_pressed():
 	get_node("FileWritePopup").popup()
 
-	
 	
 func update_simulator_text():
 	$ModelPopup/Control/Texto.text = ""
@@ -1015,15 +1105,53 @@ func update_simulator_text():
 			+ "\n..." \
 			+ "\nEficiência Agregada: " + str(Model.eficiencia_agregada_do_ano[n])  \
 			+ "\n..." \
+			+ "\nExergia Final Gás Natural: " + str(Model.exergia_final_gas_natural_do_ano[n]) + "TJ" \
+			+ "\nExergia Final Comb. Renováveis: " + str(Model.exergia_final_comb_renovaveis_do_ano[n]) + "TJ" \
+			+ "\n..." \
+			+ "\nEmissões Carvão: " + str(Model.emissoes_CO2_carvao_do_ano[n])  + " kg CO2" \
+			+ "\nEmissões Petróleo: " + str(Model.emissoes_CO2_petroleo_do_ano[n])  + " kg CO2" \
+			+ "\nEmissões Gás Natural: " + str(Model.emissoes_CO2_gas_natural_do_ano[n])  + " kg CO2" \
+			+ "\nEmissões Totais Sem Eletricidade: " + str(Model.emissoes_totais_sem_eletricidade[n])  + " kg CO2" \
 			+ "\nEletricidade Renovável: " + str(Model.eletricidade_renovavel_do_ano[n]) + " GWh"  \
 			+ "\nEletricidade Não Renovável: " + str(Model.eletricidade_nao_renovavel_do_ano[n]) + " GWh"  \
 			+ "\nEmissões Não Renováveis: " + str(Model.emissoes_nao_renovaveis_do_ano[n]) + " kg CO2"  \
-			+ "\nEMISSÔES TOTAIS DO ANO: " + str(Model.emissoes_totais_do_ano[n]) + " kg CO2"  \
+			+ "\nEMISSÕES TOTAIS DO ANO: " + str(Model.emissoes_totais_do_ano[n]) + " kg CO2"  \
 			+ "\nConsumo: " + str(Model.consumo_do_ano[n]) + " milhares de milhões de euros"  \
 			+ "\nUTILIDADE (felicidade dos cidadãos): " + str(Model.utilidade_do_ano[n])  \
 			+ "\n\n"
 		
-
+func update_past_data_text_simulator():
+	$PastDataPopup/Control/Texto.bbcode_text = ""
+	
+	# loop for n = 0 to ano_atual_indice
+	for n in range(1, Model.ano_atual_indice + 1):
+		$PastDataPopup/Control/Texto.bbcode_text += "[b]> Ano: " + str(Model.ano_do_indice(n)) + "[/b]" \
+			+ "[indent]\n[u]Decisões[/u]:" \
+			+ "\n[indent]Simulador usado. Decisões não disponíveis.[/indent]" \
+			+ "\n\n[u]Resultados[/u]:" \
+			+ "\n[indent]Potência Instalada (Solar): " + str(Model.potencia_do_ano_solar[n]) + " GW" \
+			+ "\nPotência Instalada (Vento): " + str(Model.potencia_do_ano_vento[n]) + " GW" \
+			+ "\nPotência Instalada (Biomassa): " + str(Model.potencia_do_ano_biomassa[n]) + " GW" \
+			+ "\nCusto Total da Potência Instalada: " + str(stepify(Model.custo_total_do_ano[n], 1)) + " euros" \
+			+ "\n" \
+			+ "\nProduto Interno Bruto (PIB): " + str(stepify(Model.pib_do_ano[n], 0.01)) + " milhares de milhões de euros" \
+			+ "\nConsumo: " + str(stepify(Model.consumo_do_ano[n], 0.01)) + " milhares de milhões de euros"  \
+			+ "\n" \
+			+ "\nShares Exergia Final Transportes: " + str(Model.shares_exergia_final_transportes_do_ano[n]) \
+			+ "\nShares Exergia Final Indústria: " + str(Model.shares_exergia_final_industria_do_ano[n]) \
+			+ "\nShares Exergia Final Residencial: " + str(Model.shares_exergia_final_residencial_do_ano[n]) \
+			+ "\nShares Exergia Final Serviços: " + str(Model.shares_exergia_final_servicos_do_ano[n]) \
+			+ "\n" \
+			+ "\nEletrificação Transportes: " + str(Model.eletrificacao_transportes[n]) \
+			+ "\nEletrificação Industria: " + str(Model.eletrificacao_industria[n]) \
+			+ "\nEletrificação Residencial: " + str(Model.eletrificacao_residencial[n]) \
+			+ "\nEletrificação Serviços: " + str(Model.eletrificacao_servicos[n]) \
+			+ "\n" \
+			+ "\nEficiência Agregada: " + str(stepify(Model.eficiencia_agregada_do_ano[n], 0.01))  \
+			+ "\nEletricidade Renovável: " + str(stepify(Model.eletricidade_renovavel_do_ano[n], 0.01)) + " GWh"  \
+			+ "\nEmissões Totais: " + str(stepify(Model.emissoes_totais_do_ano[n], 0.01)) + " kg CO2"  \
+			+ "\nÍndice de Felicidade dos Cidadãos: " + str(stepify(Model.utilidade_do_ano[n], 0.0001)) + "[/indent]" \
+			+ "\n\n\n[/indent]"
 
 func _on_FecharEscreverFicheiro_pressed():
 	get_node("FileWritePopup").hide()

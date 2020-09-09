@@ -1,3 +1,10 @@
+# A clone of the main model, designed to always run ahead to the final year while the main model stays in the current year
+# Developed by:
+# - Prof. Tânia Sousa
+# - Laura Felício
+# - João Santos
+# - André Fidalgo Silva
+
 extends Node
 
 # DOCUMENTO DE REFERÊNCIA:
@@ -90,6 +97,8 @@ var EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_GAS_NATURAL = 0.55
 var EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_CARVAO = 0.40
 
 var EFF1960 = 0.14 #Eficiência Agregada de 1960 (0.142140933352638) (João)
+
+var UTILIDADE_DO_ANO_UM = 3306665616517020
 
 
 # VARIÁVEIS
@@ -649,9 +658,9 @@ func calcular_pib():
 	pib_do_ano.push_back(tfp_do_ano[ano_atual_indice]*(pow((capital_do_ano[ano_atual_indice]),0.3))*(pow(labour_do_ano[ano_atual_indice],0.7)))
 
 	
-# FUNCS 8) - EXERGIA ÚTIL ANUAL (1 terajoule = 1 euro)
+# FUNCS 8) - EXERGIA ÚTIL ANUAL (1 megajoule = 1 euro)
 func calcular_exergia_util():
-	exergia_util_do_ano.push_back(pib_do_ano[ano_atual_indice] * pow(10,9))
+	exergia_util_do_ano.push_back(pib_do_ano[ano_atual_indice] * pow(10,3))
 	
 # FUNCS 9) - EXERGIA FINAL ANUAL (terajoule)
 func calcular_exergia_final():
@@ -777,31 +786,31 @@ func calcular_shares_de_exergia_final_por_setor_por_carrier():
 func calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier():
 	exergia_final_transportes_eletricidade_do_ano.push_back(exergia_final_transportes_do_ano[ano_atual_indice] * eletrificacao_transportes[ano_atual_indice])
 	exergia_final_transportes_carvao_do_ano.push_back(exergia_final_transportes_do_ano[ano_atual_indice] * shares_exergia_final_transportes_carvao_do_ano[ano_atual_indice])
-	exergia_final_transportes_petroleo_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_transportes_petroleo_do_ano[ano_atual_indice])
-	exergia_final_transportes_gas_natural_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_transportes_gas_natural_do_ano[ano_atual_indice])
-	exergia_final_transportes_comb_renovaveis_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_transportes_comb_renovaveis_do_ano[ano_atual_indice])
-	exergia_final_transportes_heat_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_transportes_heat_do_ano[ano_atual_indice])
+	exergia_final_transportes_petroleo_do_ano.push_back(exergia_final_transportes_do_ano[ano_atual_indice] * shares_exergia_final_transportes_petroleo_do_ano[ano_atual_indice])
+	exergia_final_transportes_gas_natural_do_ano.push_back(exergia_final_transportes_do_ano[ano_atual_indice] * shares_exergia_final_transportes_gas_natural_do_ano[ano_atual_indice])
+	exergia_final_transportes_comb_renovaveis_do_ano.push_back(exergia_final_transportes_do_ano[ano_atual_indice] * shares_exergia_final_transportes_comb_renovaveis_do_ano[ano_atual_indice])
+	exergia_final_transportes_heat_do_ano.push_back(exergia_final_transportes_do_ano[ano_atual_indice] * shares_exergia_final_transportes_heat_do_ano[ano_atual_indice])
 	
 	exergia_final_industria_eletricidade_do_ano.push_back(exergia_final_industria_do_ano[ano_atual_indice] * eletrificacao_industria[ano_atual_indice])
-	exergia_final_industria_carvao_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_industria_carvao_do_ano[ano_atual_indice])
-	exergia_final_industria_petroleo_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_industria_petroleo_do_ano[ano_atual_indice])
-	exergia_final_industria_gas_natural_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_industria_gas_natural_do_ano[ano_atual_indice])
-	exergia_final_industria_comb_renovaveis_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_industria_comb_renovaveis_do_ano[ano_atual_indice])
-	exergia_final_industria_heat_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_industria_heat_do_ano[ano_atual_indice])
+	exergia_final_industria_carvao_do_ano.push_back(exergia_final_industria_do_ano[ano_atual_indice] * shares_exergia_final_industria_carvao_do_ano[ano_atual_indice])
+	exergia_final_industria_petroleo_do_ano.push_back(exergia_final_industria_do_ano[ano_atual_indice] * shares_exergia_final_industria_petroleo_do_ano[ano_atual_indice])
+	exergia_final_industria_gas_natural_do_ano.push_back(exergia_final_industria_do_ano[ano_atual_indice] * shares_exergia_final_industria_gas_natural_do_ano[ano_atual_indice])
+	exergia_final_industria_comb_renovaveis_do_ano.push_back(exergia_final_industria_do_ano[ano_atual_indice] * shares_exergia_final_industria_comb_renovaveis_do_ano[ano_atual_indice])
+	exergia_final_industria_heat_do_ano.push_back(exergia_final_industria_do_ano[ano_atual_indice] * shares_exergia_final_industria_heat_do_ano[ano_atual_indice])
 	
 	exergia_final_residencial_eletricidade_do_ano.push_back(exergia_final_residencial_do_ano[ano_atual_indice] * eletrificacao_residencial[ano_atual_indice])
-	exergia_final_residencial_carvao_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_residencial_carvao_do_ano[ano_atual_indice])
-	exergia_final_residencial_petroleo_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_residencial_petroleo_do_ano[ano_atual_indice])
-	exergia_final_residencial_gas_natural_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_residencial_gas_natural_do_ano[ano_atual_indice])
-	exergia_final_residencial_comb_renovaveis_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_residencial_comb_renovaveis_do_ano[ano_atual_indice])
-	exergia_final_residencial_heat_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_residencial_heat_do_ano[ano_atual_indice])
+	exergia_final_residencial_carvao_do_ano.push_back(exergia_final_residencial_do_ano[ano_atual_indice] * shares_exergia_final_residencial_carvao_do_ano[ano_atual_indice])
+	exergia_final_residencial_petroleo_do_ano.push_back(exergia_final_residencial_do_ano[ano_atual_indice] * shares_exergia_final_residencial_petroleo_do_ano[ano_atual_indice])
+	exergia_final_residencial_gas_natural_do_ano.push_back(exergia_final_residencial_do_ano[ano_atual_indice] * shares_exergia_final_residencial_gas_natural_do_ano[ano_atual_indice])
+	exergia_final_residencial_comb_renovaveis_do_ano.push_back(exergia_final_residencial_do_ano[ano_atual_indice] * shares_exergia_final_residencial_comb_renovaveis_do_ano[ano_atual_indice])
+	exergia_final_residencial_heat_do_ano.push_back(exergia_final_residencial_do_ano[ano_atual_indice] * shares_exergia_final_residencial_heat_do_ano[ano_atual_indice])
 	
 	exergia_final_servicos_eletricidade_do_ano.push_back(exergia_final_servicos_do_ano[ano_atual_indice] * eletrificacao_servicos[ano_atual_indice])
-	exergia_final_servicos_carvao_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_servicos_carvao_do_ano[ano_atual_indice])
-	exergia_final_servicos_petroleo_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_servicos_petroleo_do_ano[ano_atual_indice])
-	exergia_final_servicos_gas_natural_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_servicos_gas_natural_do_ano[ano_atual_indice])
-	exergia_final_servicos_comb_renovaveis_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_servicos_comb_renovaveis_do_ano[ano_atual_indice])
-	exergia_final_servicos_heat_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_servicos_heat_do_ano[ano_atual_indice])
+	exergia_final_servicos_carvao_do_ano.push_back(exergia_final_servicos_do_ano[ano_atual_indice] * shares_exergia_final_servicos_carvao_do_ano[ano_atual_indice])
+	exergia_final_servicos_petroleo_do_ano.push_back(exergia_final_servicos_do_ano[ano_atual_indice] * shares_exergia_final_servicos_petroleo_do_ano[ano_atual_indice])
+	exergia_final_servicos_gas_natural_do_ano.push_back(exergia_final_servicos_do_ano[ano_atual_indice] * shares_exergia_final_servicos_gas_natural_do_ano[ano_atual_indice])
+	exergia_final_servicos_comb_renovaveis_do_ano.push_back(exergia_final_servicos_do_ano[ano_atual_indice] * shares_exergia_final_servicos_comb_renovaveis_do_ano[ano_atual_indice])
+	exergia_final_servicos_heat_do_ano.push_back(exergia_final_servicos_do_ano[ano_atual_indice] * shares_exergia_final_servicos_heat_do_ano[ano_atual_indice])
 	
 # FUNCS 14) - EFICIÊNCIA POR SETOR (percentagem decimal)
 func calcular_eficiencia_por_setor(): 
@@ -915,8 +924,11 @@ func calcular_emissoes_totais():
 func calcular_consumo():
 	consumo_do_ano.push_back(pib_do_ano[ano_atual_indice] - investimento_total_do_ano[ano_atual_indice])
 
-# FUNCS 25) - UTILIDADE (Felicidade dos cidadãos; um dos objetivos do jogo)
+# FUNCS 25) - UTILIDADE (Felicidade dos cidadãos; um dos objetivos do jogo) (Atenção: para efeitos de apresentação no jogo, estamos a dividir os resultados pelo resultado do ano 1)
 func calcular_utilidade():
 	#UTILIDADE = ((CONSUMO^b)*(EXP(CO2 / a))) / POPULAÇÃO, a = 10000000000 e b = 2
-	utilidade_do_ano.push_back(((pow(consumo_do_ano[ano_atual_indice],2))*exp(emissoes_totais_do_ano[ano_atual_indice]/10000000000000))/POPULACAO)
+	var utilidade_absoluta = ((pow(consumo_do_ano[ano_atual_indice] * pow(10, 9), 2)) * exp((-1 * emissoes_totais_do_ano[ano_atual_indice])/10000000000))/POPULACAO
+	var utilidade_relativa = utilidade_absoluta / UTILIDADE_DO_ANO_UM
+
+	utilidade_do_ano.push_back(utilidade_relativa)
 	

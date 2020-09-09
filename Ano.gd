@@ -1,3 +1,5 @@
+# This file stores helper functions for the NextYearAnimationPlayer node
+
 extends RichTextLabel
 
 # Declare member variables here. Examples:
