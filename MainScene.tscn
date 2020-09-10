@@ -587,33 +587,6 @@ bbcode_enabled = true
 bbcode_text = "[b]Potência Instalada Renovável:[/b]"
 text = "Potência Instalada Renovável:"
 
-[node name="PIBRenovaveis" type="SpinBox" parent="ContainerDecisoes/ScrollContainer/Control"]
-visible = false
-margin_left = 196.629
-margin_top = 46.0
-margin_right = 280.629
-margin_bottom = 70.0
-rect_scale = Vector2( 1.5, 1.5 )
-mouse_default_cursor_shape = 2
-step = 5.0
-value = 5.0
-rounded = true
-align = 3
-prefix = "+"
-suffix = "GW"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
-visible = false
-margin_left = 18.0
-margin_top = 23.0
-margin_right = 410.0
-margin_bottom = 101.0
-rect_pivot_offset = Vector2( 0, 21.7076 )
-custom_fonts/normal_font = ExtResource( 7 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-bbcode_text = "PIB para Energias Renováveis (%)"
-text = "PIB para Energias Renováveis (%)"
-
 [node name="Instalar" type="RichTextLabel" parent="ContainerDecisoes/ScrollContainer/Control"]
 margin_left = 49.0
 margin_top = 36.0
@@ -2498,7 +2471,7 @@ rect_clip_content = false
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Pode ser necessário avançar um ano no jogo para que quaisquer alterações aqui feitas apareçam no ecrã de jogo"
+text = "Pode ser necessário avançar um ano no jogo para que algumas alterações aqui feitas apareçam no ecrã de jogo"
 
 [node name="Texto12" type="RichTextLabel" parent="ModelPopup/Control"]
 margin_left = 925.0
@@ -2510,7 +2483,7 @@ rect_clip_content = false
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Simular um ano irá fazer com que o botão \"Mais detalhes\" na secção \"Histórico e Previsões\" fique desativado"
+text = "Simular um ano irá fazer com que o histórico de decisões deixe de ser armazenado na secção \"Histórico e Previsões\""
 
 [node name="EscreverFicheiro" type="Button" parent="ModelPopup/Control"]
 visible = false
@@ -2614,6 +2587,7 @@ min_value = -5.0
 max_value = 5.0
 
 [node name="NewGamePopup" type="PopupPanel" parent="."]
+editor/display_folded = true
 margin_left = -21.0
 margin_top = 7.0
 margin_right = 2280.0
@@ -2673,6 +2647,7 @@ custom_fonts/font = ExtResource( 3 )
 text = "Começar jogo"
 
 [node name="FileWritePopup" type="PopupPanel" parent="."]
+editor/display_folded = true
 margin_left = 19.0
 margin_top = 839.0
 margin_right = 1899.0
@@ -2970,6 +2945,7 @@ pressed = true
 text = " Felicidade"
 
 [node name="PastDataPopup" type="PopupPanel" parent="."]
+editor/display_folded = true
 margin_left = 19.0
 margin_top = 7.0
 margin_right = 1899.0
