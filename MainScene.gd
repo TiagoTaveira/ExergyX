@@ -220,6 +220,8 @@ func update_text():
 	##Actual bbcode text setting (with conditions)
 	get_node("ContainerPrevisoes/TextoPrevisoes").bbcode_text = "Felicidade do Cidadão: " + ("[color=red]" if PlayerVariables.final_year_utility < PlayerVariables.utility_goals else "[color=green]") + str(stepify(PlayerVariables.final_year_utility, 0.01)) + "[/color]\n\n"    +   "Emissões CO2: " + ("[color=red]" if PlayerVariables.final_year_emissions > PlayerVariables.emission_goals else "[color=green]") + str(stepify(PlayerVariables.final_year_emissions, 0.001)) + " Mt CO2[/color]"
 	get_node("ContainerPrevisoes/TextoMetas").bbcode_text = "Felicidade do Cidadão: ≥ " + str(PlayerVariables.utility_goals) + "\n\nEmissões CO2: ≤ " + str(PlayerVariables.emission_goals) + " Mt CO2"
+	get_node("ContainerPrevisoes/Metas").hint_tooltip = "Estes são os objetivos do jogo.\n\nSe em " + str(PlayerVariables.final_year) + " atingires as duas metas (têm de ser mesmo as duas!), vences o jogo!"
+	get_node("ContainerPrevisoes/TextoMetas").hint_tooltip = "Estes são os objetivos do jogo.\n\nSe em " + str(PlayerVariables.final_year) + " atingires as duas metas (têm de ser mesmo as duas!), vences o jogo!"
 	get_node("ContainerPrevisoes/Panel/PreviousYear").text = str(PlayerVariables.current_year  - 1)
 	get_node("ContainerPrevisoes/Panel/CurrentYear").text = str(PlayerVariables.current_year)
 	get_node("ContainerPrevisoes/Panel/NextYear").text = str(PlayerVariables.current_year + 1)
@@ -370,11 +372,19 @@ func update_graph():
 		update_past_data_text()
 	else:
 		update_past_data_text_simulator()
+		
+	var MAX_Y = 700
+	var MAX_X = 750
+	var TEXT_Y_OFFSET = 15
 	
 	var years_passed = PlayerVariables.current_year - PlayerVariables.starting_year
-	var point_x_distance = 0 if years_passed == 1 else 750 / (years_passed - 1)
-	var max_y = 700
-	var values_text_offset = 739 - 15
+	var point_x_distance = 0 if years_passed == 1 else MAX_X / (years_passed - 1)
+	var max_y = MAX_Y
+	var values_text_offset = 739 - TEXT_Y_OFFSET
+	var current_final_x_emissions
+	var current_final_y_emissions
+	var current_final_x_utility
+	var current_final_y_utility
 	
 	get_node("GrafHistorico/Control/StartingYear").bbcode_text = str(PlayerVariables.starting_year + 1)
 	get_node("GrafHistorico/Control/CurrentYear").bbcode_text = str(PlayerVariables.current_year)
@@ -382,6 +392,8 @@ func update_graph():
 	
 	$GrafHistorico/Control/EmissionsLine.clear_points()
 	$GrafHistorico/Control/UtilityLine.clear_points()
+	$GrafHistorico/Control/EmissionsLinePrediction.clear_points()
+	$GrafHistorico/Control/UtilityLinePrediction.clear_points()
 	
 	#Get points y-values
 	var emissions_values = []
@@ -396,11 +408,15 @@ func update_graph():
 	
 	#Normalize values for chart y-boundaries
 	var emissions_max = emissions_values.max()
+	if emissions_max < PlayerVariables.final_year_emissions * pow(10, 9):
+		emissions_max = PlayerVariables.final_year_emissions * pow(10, 9)
 	var emissions_y_values = []
 	for e in range(emissions_values.size()):
 		emissions_y_values.push_back((emissions_values[e] * max_y) / emissions_max)
 	
 	var utility_max = utility_values.max()
+	if utility_max < PlayerVariables.final_year_utility:
+		utility_max = PlayerVariables.final_year_utility
 	var utility_y_values = []
 	for u in range(utility_values.size()):
 		utility_y_values.push_back((utility_values[u] * max_y) / utility_max)
@@ -432,7 +448,41 @@ func update_graph():
 		if y == years_passed - 1:
 			$GrafHistorico/Control/UtilityValueCurrent.rect_position = Vector2($GrafHistorico/Control/UtilityValueCurrent.rect_position.x, values_text_offset - utility_y_values[y])
 			$GrafHistorico/Control/UtilityValueCurrent.bbcode_text = str(stepify(Model.utilidade_do_ano[y + 1], 0.01))
-	
+		
+		current_final_x_emissions = point_x_distance * y
+		current_final_y_emissions = emissions_y_values[y] * -1
+		
+		current_final_x_utility = point_x_distance * y
+		current_final_y_utility = utility_y_values[y] * -1
+		
+	#Draw predictions lines and text
+	if years_passed > 1:
+		$GrafHistorico/Control/EmissionsLinePrediction.add_point((Vector2(current_final_x_emissions, current_final_y_emissions)))
+		$GrafHistorico/Control/EmissionsLinePrediction.add_point((Vector2(MAX_X * 2, (PlayerVariables.final_year_emissions * pow(10, 9) * max_y) / emissions_max * -1)))
+		$GrafHistorico/Control/UtilityLinePrediction.add_point((Vector2(current_final_x_utility, current_final_y_utility)))
+		$GrafHistorico/Control/UtilityLinePrediction.add_point((Vector2(MAX_X * 2, (PlayerVariables.final_year_utility * max_y) / utility_max * -1)))
+		
+		$GrafHistorico/Control/EmissionsValueEnd.rect_position = Vector2($GrafHistorico/Control/EmissionsValueEnd.rect_position.x, values_text_offset - (PlayerVariables.final_year_emissions  * pow(10, 9) * max_y) / emissions_max)
+		$GrafHistorico/Control/EmissionsValueEnd.bbcode_text = str(stepify(PlayerVariables.final_year_emissions, 0.01)) + " Mt CO2" + "\nMeta: ≤ " + str(PlayerVariables.emission_goals) + " Mt CO2"
+		$GrafHistorico/Control/UtilityValueEnd.rect_position = Vector2($GrafHistorico/Control/UtilityValueEnd.rect_position.x, values_text_offset - (PlayerVariables.final_year_utility * max_y) / utility_max)
+		$GrafHistorico/Control/UtilityValueEnd.bbcode_text = str(stepify(PlayerVariables.final_year_utility, 0.01)) + "\nMeta: ≥ " + str(PlayerVariables.utility_goals)
+		
+		var achieved_emissions = PlayerVariables.final_year_emissions <= PlayerVariables.emission_goals
+		var achieved_utility = PlayerVariables.final_year_utility >= PlayerVariables.utility_goals
+		
+		if achieved_emissions:
+			$GrafHistorico/Control/EmissionsValueEnd.bbcode_text += " [color=green][b](√)[/b][/color]"
+			$GrafHistorico/Control/EmissionsValueEnd.hint_tooltip = "De acordo com as previsões atuais, irás cumprir este objetivo no ano meta!\nTenta que isto não mude!"
+		else:
+			$GrafHistorico/Control/EmissionsValueEnd.bbcode_text += " [color=red][b](!)[/b][/color]"
+			$GrafHistorico/Control/EmissionsValueEnd.hint_tooltip = "De acordo com as previsões atuais, NÃO irás cumprir este objetivo no ano meta!\nTenta mudar isto!"
+		if achieved_utility:
+			$GrafHistorico/Control/UtilityValueEnd.bbcode_text += " [color=green][b](√)[/b][/color]"
+			$GrafHistorico/Control/UtilityValueEnd.hint_tooltip = "De acordo com as previsões atuais, irás cumprir este objetivo no ano meta!\nTenta que isto não mude!"
+		else:
+			$GrafHistorico/Control/UtilityValueEnd.bbcode_text += " [color=red][b](!)[/b][/color]"
+			$GrafHistorico/Control/UtilityValueEnd.hint_tooltip = "De acordo com as previsões atuais, NÃO irás cumprir este objetivo no ano meta!\nTenta mudar isto!"
+			
 	#####EXPERIMENTAL#####
 	#get_node("GrafHistorico/Control/TestLine2D").add_point(Vector2(400, 400))
 	#get_node("GrafHistorico/Control/TestLine2D").add_point(Vector2(500, 500))
@@ -442,22 +492,30 @@ func update_graph():
 func _on_ShowEmissions_toggled(button_pressed):
 	if $GrafHistorico/Control/ShowEmissions.is_pressed():
 		$GrafHistorico/Control/EmissionsLine.visible = true
+		$GrafHistorico/Control/EmissionsLinePrediction.visible = true
 		$GrafHistorico/Control/EmissionsValueStart.visible = true
 		$GrafHistorico/Control/EmissionsValueCurrent.visible = true
+		$GrafHistorico/Control/EmissionsValueEnd.visible = true
 	else:
 		$GrafHistorico/Control/EmissionsLine.visible = false
+		$GrafHistorico/Control/EmissionsLinePrediction.visible = false
 		$GrafHistorico/Control/EmissionsValueStart.visible = false
 		$GrafHistorico/Control/EmissionsValueCurrent.visible = false
+		$GrafHistorico/Control/EmissionsValueEnd.visible = false
 
 func _on_ShowUtility_toggled(button_pressed):
 	if $GrafHistorico/Control/ShowUtility.is_pressed():
 		$GrafHistorico/Control/UtilityLine.visible = true
+		$GrafHistorico/Control/UtilityLinePrediction.visible = true
 		$GrafHistorico/Control/UtilityValueStart.visible = true
 		$GrafHistorico/Control/UtilityValueCurrent.visible = true
+		$GrafHistorico/Control/UtilityValueEnd.visible = true
 	else:
 		$GrafHistorico/Control/UtilityLine.visible = false
+		$GrafHistorico/Control/UtilityLinePrediction.visible = false
 		$GrafHistorico/Control/UtilityValueStart.visible = false
 		$GrafHistorico/Control/UtilityValueCurrent.visible = false
+		$GrafHistorico/Control/UtilityValueEnd.visible = false
 
 func update_past_data_text():
 	$PastDataPopup/Control/Texto.bbcode_text = ""
