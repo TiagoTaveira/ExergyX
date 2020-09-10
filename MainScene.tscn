@@ -571,11 +571,13 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Podes aqui escolher investir em infraestruturas para melhorar a produção de potência elétrica renovável do país.
 O investimento que fizeres aqui será dividido por três fontes: solar, vento, e biomassa.
 
+A eletricidade que não for produzida de forma renovável será de origem fóssil.
+
 Atenção: após a instalação, os custos das infraestruturas têm de ser pagos anualmente (como custos de manutenção),
 pelo que a despesa pode acumular rapidamente.
 É possível ver este custo total na secção \"Histórico e Previsões\" -> \"Mais detalhes\".
 
-Tem também em atenção que cada fonte tem um máximo de potência produzível.
+Tem também em atenção que cada fonte tem um potencial limitado.
 Podes ver na mesma secção se os ganhos estão a começar a estagnar."
 theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
@@ -621,11 +623,13 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Podes aqui escolher investir em infraestruturas para melhorar a produção de potência elétrica renovável do país.
 O investimento que fizeres aqui será dividido por três fontes: solar, vento, e biomassa.
 
+A eletricidade que não for produzida de forma renovável será de origem fóssil.
+
 Atenção: após a instalação, os custos das infraestruturas têm de ser pagos anualmente (como custos de manutenção),
 pelo que a despesa pode acumular rapidamente.
 É possível ver este custo total na secção \"Histórico e Previsões\" -> \"Mais detalhes\".
 
-Tem também em atenção que cada fonte tem um máximo de potência produzível.
+Tem também em atenção que cada fonte tem um potencial limitado.
 Podes ver na mesma secção se os ganhos estão a começar a estagnar."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -641,11 +645,13 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Podes aqui escolher investir em infraestruturas para melhorar a produção de potência elétrica renovável do país.
 O investimento que fizeres aqui será dividido por três fontes: solar, vento, e biomassa.
 
+A eletricidade que não for produzida de forma renovável será de origem fóssil.
+
 Atenção: após a instalação, os custos das infraestruturas têm de ser pagos anualmente (como custos de manutenção),
 pelo que a despesa pode acumular rapidamente.
 É possível ver este custo total na secção \"Histórico e Previsões\" -> \"Mais detalhes\".
 
-Tem também em atenção que cada fonte tem um máximo de potência produzível.
+Tem também em atenção que cada fonte tem um potencial limitado.
 Podes ver na mesma secção se os ganhos estão a começar a estagnar."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -664,11 +670,13 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Podes aqui escolher investir em infraestruturas para melhorar a produção de potência elétrica renovável do país.
 O investimento que fizeres aqui será dividido por três fontes: solar, vento, e biomassa.
 
+A eletricidade que não for produzida de forma renovável será de origem fóssil.
+
 Atenção: após a instalação, os custos das infraestruturas têm de ser pagos anualmente (como custos de manutenção),
 pelo que a despesa pode acumular rapidamente.
 É possível ver este custo total na secção \"Histórico e Previsões\" -> \"Mais detalhes\".
 
-Tem também em atenção que cada fonte tem um máximo de potência produzível.
+Tem também em atenção que cada fonte tem um potencial limitado.
 Podes ver na mesma secção se os ganhos estão a começar a estagnar."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -686,11 +694,13 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Podes aqui escolher investir em infraestruturas para melhorar a produção de potência elétrica renovável do país.
 O investimento que fizeres aqui será dividido por três fontes: solar, vento, e biomassa.
 
+A eletricidade que não for produzida de forma renovável será de origem fóssil.
+
 Atenção: após a instalação, os custos das infraestruturas têm de ser pagos anualmente (como custos de manutenção),
 pelo que a despesa pode acumular rapidamente.
 É possível ver este custo total na secção \"Histórico e Previsões\" -> \"Mais detalhes\".
 
-Tem também em atenção que cada fonte tem um máximo de potência produzível.
+Tem também em atenção que cada fonte tem um potencial limitado.
 Podes ver na mesma secção se os ganhos estão a começar a estagnar."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -708,11 +718,13 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Podes aqui escolher investir em infraestruturas para melhorar a produção de potência elétrica renovável do país.
 O investimento que fizeres aqui será dividido por três fontes: solar, vento, e biomassa.
 
+A eletricidade que não for produzida de forma renovável será de origem fóssil.
+
 Atenção: após a instalação, os custos das infraestruturas têm de ser pagos anualmente (como custos de manutenção),
 pelo que a despesa pode acumular rapidamente.
 É possível ver este custo total na secção \"Histórico e Previsões\" -> \"Mais detalhes\".
 
-Tem também em atenção que cada fonte tem um máximo de potência produzível.
+Tem também em atenção que cada fonte tem um potencial limitado.
 Podes ver na mesma secção se os ganhos estão a começar a estagnar."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -730,11 +742,13 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Podes aqui escolher investir em infraestruturas para melhorar a produção de potência elétrica renovável do país.
 O investimento que fizeres aqui será dividido por três fontes: solar, vento, e biomassa.
 
+A eletricidade que não for produzida de forma renovável será de origem fóssil.
+
 Atenção: após a instalação, os custos das infraestruturas têm de ser pagos anualmente (como custos de manutenção),
 pelo que a despesa pode acumular rapidamente.
 É possível ver este custo total na secção \"Histórico e Previsões\" -> \"Mais detalhes\".
 
-Tem também em atenção que cada fonte tem um máximo de potência produzível.
+Tem também em atenção que cada fonte tem um potencial limitado.
 Podes ver na mesma secção se os ganhos estão a começar a estagnar."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -1034,9 +1048,7 @@ margin_top = 410.958
 margin_right = 322.958
 margin_bottom = 450.958
 rect_pivot_offset = Vector2( 0, 21.7076 )
-hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
-
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
+hint_tooltip = "Aqui podes aumentar a eletrificação de cada setor."
 theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
@@ -1055,9 +1067,7 @@ margin_top = 456.0
 margin_right = 271.0
 margin_bottom = 499.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
-hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
-
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
+hint_tooltip = "Aqui podes aumentar a eletrificação de cada setor."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1112,9 +1122,7 @@ margin_top = 503.0
 margin_right = 271.216
 margin_bottom = 546.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
-hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
-
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
+hint_tooltip = "Aqui podes aumentar a eletrificação de cada setor."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1169,9 +1177,7 @@ margin_top = 550.0
 margin_right = 271.216
 margin_bottom = 593.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
-hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
-
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
+hint_tooltip = "Aqui podes aumentar a eletrificação de cada setor."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1226,9 +1232,7 @@ margin_top = 594.0
 margin_right = 271.216
 margin_bottom = 637.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
-hint_tooltip = "Aqui podes escolher a distribuição da eletricidade produzida no país a ser efetuada pelos diferentes setores.
-
-Atenção: estarás a alterar o peso da distribuição, pelo que ao diminuir a atribuição a um setor, estarás a aumentar a dos restantes (e vice-versa)."
+hint_tooltip = "Aqui podes aumentar a eletrificação de cada setor."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1424,7 +1428,7 @@ margin_top = 327.555
 margin_right = 428.442
 margin_bottom = 367.555
 rect_pivot_offset = Vector2( 0, 21.7076 )
-hint_tooltip = "Estas são as previsões estatísticas dos resultados que vais obter no ano meta tendo
+hint_tooltip = "Estas são as previsões dos resultados que vais obter no ano meta tendo
 em conta as ações que tens tomado.
 
 São calculadas com base no teu histórico, por isso, se não gostas das previsões,
@@ -1445,7 +1449,7 @@ margin_top = 378.0
 margin_right = 492.0
 margin_bottom = 539.0
 rect_clip_content = false
-hint_tooltip = "Estas são as previsões estatísticas dos resultados que vais obter no ano meta tendo
+hint_tooltip = "Estas são as previsões dos resultados que vais obter no ano meta tendo
 em conta as ações que tens tomado.
 
 São calculadas com base no teu histórico, por isso, se não gostas das previsões,
@@ -1512,6 +1516,7 @@ rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "A previsão de outros dados relevantes do país para o ano meta.
 
 Podes obter mais informação sobre os dados deste painel no painel \"Ano Atual\"."
+theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
@@ -1613,13 +1618,13 @@ margin_top = 169.0
 margin_right = 681.0
 margin_bottom = 439.0
 hint_tooltip = "Potência Total Instalada:
-Representa a potência elétrica renovável a ser produzida no país.
+Representa a potência elétrica renovável instalada no país.
 	
 Eletricidade Renovável:
 A eletricidade produzida no ano no pais.
 
 Emissões:
-Quantidade em peso das emissões de dióxido de carbono (CO2) emitidas pelo país para a atmosfera.
+Emissões de dióxido de carbono (CO2) emitidas pelo país para a atmosfera.
 
 Eficiência Agregada do País:
 A eficiência na transição de exergia final para exergia útil de todos os setores."
@@ -1707,13 +1712,13 @@ margin_right = 422.702
 margin_bottom = 153.327
 rect_pivot_offset = Vector2( 0, 21.7076 )
 hint_tooltip = "Potência Total Instalada:
-Representa a potência elétrica renovável a ser produzida no país.
+Representa a potência elétrica renovável instalada no país.
 	
 Eletricidade Renovável:
 A eletricidade produzida no ano no pais.
 
 Emissões:
-Quantidade em peso das emissões de dióxido de carbono (CO2) emitidas pelo país para a atmosfera.
+Emissões de dióxido de carbono (CO2) emitidas pelo país para a atmosfera.
 
 Eficiência Agregada do País:
 A eficiência na transição de exergia final para exergia útil de todos os setores."
@@ -2622,9 +2627,9 @@ margin_bottom = 1470.0
 
 [node name="Title" type="RichTextLabel" parent="NewGamePopup/Control"]
 margin_left = 663.0
-margin_top = 35.0
+margin_top = -48.0
 margin_right = 1283.0
-margin_bottom = 308.0
+margin_bottom = 225.0
 custom_fonts/normal_font = SubResource( 12 )
 custom_colors/default_color = Color( 0.227451, 0.658824, 0.6, 1 )
 tab_size = 3
@@ -2632,16 +2637,19 @@ text = "			   	exergyX"
 scroll_active = false
 
 [node name="Text" type="RichTextLabel" parent="NewGamePopup/Control"]
-margin_left = 291.0
-margin_top = 339.0
+margin_left = 236.0
+margin_top = 246.0
 margin_right = 1804.0
-margin_bottom = 898.0
+margin_bottom = 941.0
 rect_pivot_offset = Vector2( 0, 21.7076 )
+rect_clip_content = false
 theme = ExtResource( 4 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = SubResource( 13 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "Parabéns! Devido aos teus conhecimentos, foste escolhido como assessor do governo português. A tua missão é assegurar que Portugal usa os seus recursos económicos e energéticos de forma a que o país possa alcançar as suas metas futuras em termos de emissões de CO2 garantindo a felicidade da população para o ano de 
+
+A redução das emissões de CO2, exige que haja uma electrificação renovável significativa dos diferentes sectores da sociedade. À crescente electrificação dos usos está associado um aumento da eficiência exergética agregada final-útil que promove crescimento económico e portanto um uso crescente de energia final e de electricidade. O fornecimento desta energia extra de forma renovável, exige um investimento massivo na instalação de potência renovável. Este investimento diminui o rendimento disponível para consumo. A felicidade dos cidadãos aumenta com a diminuição das emissões de CO2 e com o rendimento disponível para consumo. O teu desafio é 
 
 Com a tua influência, poderás fazer com que o governo tome as ações necessárias para garantir o sucesso da tua missão.
 
@@ -2756,7 +2764,6 @@ margin_bottom = 47.0
 text = "Configurador de Jogo"
 
 [node name="GrafHistorico" type="PopupPanel" parent="."]
-editor/display_folded = true
 margin_left = 19.0
 margin_top = 8.0
 margin_right = 1898.0
@@ -2811,7 +2818,7 @@ joint_mode = 2
 end_cap_mode = 2
 
 [node name="EmissionsValueStart" type="RichTextLabel" parent="GrafHistorico/Control"]
-margin_left = 4.0
+margin_left = -5.0
 margin_top = 418.0
 margin_right = 186.0
 margin_bottom = 458.0

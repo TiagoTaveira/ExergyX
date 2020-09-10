@@ -76,10 +76,10 @@ var EFICIENCIA_SERVICOS_COMB_RENOVAVEIS = 0.09 #na passagem de exergia final par
 var EFICIENCIA_SERVICOS_HEAT = 0.09 #na passagem de exergia final para útil
 
 
-var FATOR_DE_EMISSAO_CARVAO = 94.6 #kg CO2 / TJ
-var FATOR_DE_EMISSAO_PETROLEO = 73.3 
-var FATOR_DE_EMISSAO_GAS_NATURAL = 56.1
-var FATOR_DE_EMISSAO_COMB_RENOVAVEIS = 0.00
+var FATOR_DE_EMISSAO_CARVAO = 94.6 * 1000 #kg CO2 / TJ
+var FATOR_DE_EMISSAO_PETROLEO = 73.3 * 1000
+var FATOR_DE_EMISSAO_GAS_NATURAL = 56.1 * 1000
+var FATOR_DE_EMISSAO_COMB_RENOVAVEIS = 0.00 * 1000
 
 
 
@@ -165,7 +165,8 @@ var EXERGIA_FINAL_PETROLEO_DO_ANO_ZERO = 329820.48 #TJ
 var EXERGIA_FINAL_ELETRICIDADE_DO_ANO_ZERO = 171581.67 #TJ
 var EXERGIA_FINAL_GAS_NATURAL_DO_ANO_ZERO = 73443.77 #TJ
 
-var UTILIDADE_DO_ANO_UM = 3306665616517020
+var UTILIDADE_DO_ANO_UM = 6606903717100.8291
+
 
 # VARIÁVEIS
 var ano_atual_indice = 0
@@ -409,17 +410,18 @@ func mudar_de_ano():
 	ano_atual += 1
 	ano_atual_indice += 1
 
-	#após execução desta função, acede-se aos valores do ano anterior presentes em vetores com um .back(),
-	#desde que não tenha sido já colocado o valor do ano atual. Neste último caso, tem de se procurar
-	#pelo índice [ano_atual_indice - 1]
+	# Após execução desta função, acede-se aos valores do ano anterior presentes
+	# em vetores procurando pelo índice [ano_atual_indice - 1]
+	# Em algumas funções em que se pretende aceder a um valor recém adicionado,
+	# usa-se um .back()
 
 
 # FUNCS 1) - POTÊNCIA ELETRICA ACUMULADA POR FONTE RENOVÁVEL (gigawatts)
 func calcular_distribuicao_por_fonte():
 	
-	var potencia_maxima_solar_alcancada = (potencia_do_ano_solar.back() >= POTENCIA_MAXIMA_SOLAR)
-	var potencia_maxima_vento_alcancada = (potencia_do_ano_vento.back() >= POTENCIA_MAXIMA_VENTO)
-	var potencia_maxima_biomassa_alcancada = (potencia_do_ano_biomassa.back() >= POTENCIA_MAXIMA_BIOMASSA)
+	var potencia_maxima_solar_alcancada = (potencia_do_ano_solar[ano_atual_indice - 1] >= POTENCIA_MAXIMA_SOLAR)
+	var potencia_maxima_vento_alcancada = (potencia_do_ano_vento[ano_atual_indice - 1] >= POTENCIA_MAXIMA_VENTO)
+	var potencia_maxima_biomassa_alcancada = (potencia_do_ano_biomassa[ano_atual_indice - 1] >= POTENCIA_MAXIMA_BIOMASSA)
 	
 	#111
 	potencia_solar_instantanea = 0.0
@@ -447,17 +449,17 @@ func calcular_distribuicao_por_fonte():
 		potencia_biomassa_instantanea = input_potencia_a_instalar
 	
 # Prevenção da quebra dos limites máximos
-	if((potencia_do_ano_solar.back() + potencia_solar_instantanea) > POTENCIA_MAXIMA_SOLAR):
-		potencia_solar_instantanea = POTENCIA_MAXIMA_SOLAR - potencia_do_ano_solar.back()
-	if((potencia_do_ano_vento.back() + potencia_vento_instantanea) > POTENCIA_MAXIMA_VENTO):
-		potencia_vento_instantanea = POTENCIA_MAXIMA_VENTO - potencia_do_ano_vento.back()
-	if((potencia_do_ano_biomassa.back() + potencia_biomassa_instantanea) > POTENCIA_MAXIMA_BIOMASSA):
-		potencia_biomassa_instantanea = POTENCIA_MAXIMA_BIOMASSA - potencia_do_ano_biomassa.back()
+	if((potencia_do_ano_solar[ano_atual_indice - 1] + potencia_solar_instantanea) > POTENCIA_MAXIMA_SOLAR):
+		potencia_solar_instantanea = POTENCIA_MAXIMA_SOLAR - potencia_do_ano_solar[ano_atual_indice - 1]
+	if((potencia_do_ano_vento[ano_atual_indice - 1] + potencia_vento_instantanea) > POTENCIA_MAXIMA_VENTO):
+		potencia_vento_instantanea = POTENCIA_MAXIMA_VENTO - potencia_do_ano_vento[ano_atual_indice - 1]
+	if((potencia_do_ano_biomassa[ano_atual_indice - 1] + potencia_biomassa_instantanea) > POTENCIA_MAXIMA_BIOMASSA):
+		potencia_biomassa_instantanea = POTENCIA_MAXIMA_BIOMASSA - potencia_do_ano_biomassa[ano_atual_indice - 1]
 	
 # Soma dos valores instantâneos aos do ano anterior e adição ao vetor respetivo
-	potencia_do_ano_solar.push_back(potencia_do_ano_solar.back() + potencia_solar_instantanea)
-	potencia_do_ano_vento.push_back(potencia_do_ano_vento.back() + potencia_vento_instantanea)
-	potencia_do_ano_biomassa.push_back(potencia_do_ano_biomassa.back() + potencia_biomassa_instantanea)
+	potencia_do_ano_solar.push_back(potencia_do_ano_solar[ano_atual_indice - 1] + potencia_solar_instantanea)
+	potencia_do_ano_vento.push_back(potencia_do_ano_vento[ano_atual_indice - 1] + potencia_vento_instantanea)
+	potencia_do_ano_biomassa.push_back(potencia_do_ano_biomassa[ano_atual_indice - 1] + potencia_biomassa_instantanea)
 	
 	
 # FUNCS 2) - CUSTO DA POTÊNCIA (euros)
@@ -477,14 +479,14 @@ func calcular_custo():
 # FUNCS 3) - INVESTIMENTO (milhares de milhões de euros)
 func calcular_investimento():
 	
-	var investimento_total_instantaneo = PERCENTAGEM_A_RETIRAR_DO_PIB * pib_do_ano.back()
+	var investimento_total_instantaneo = PERCENTAGEM_A_RETIRAR_DO_PIB * pib_do_ano[ano_atual_indice - 1]
 	
 	investimento_total_do_ano.push_back(investimento_total_instantaneo)
-	investimento_para_capital_do_ano.push_back(investimento_total_instantaneo - custo_total_do_ano[ano_atual_indice] * pow(10,-9))
+	investimento_para_capital_do_ano.push_back(investimento_total_instantaneo - (custo_total_do_ano[ano_atual_indice] * pow(10,-9)))
 	
 # FUNCS 4) - CAPITAL (milhares de milhões de euros)
 func calcular_capital():
-	capital_do_ano.push_back(capital_do_ano.back() + investimento_para_capital_do_ano[ano_atual_indice])
+	capital_do_ano.push_back(capital_do_ano[ano_atual_indice - 1] + investimento_para_capital_do_ano[ano_atual_indice])
 
 # FUNCS 5) - LABOUR (horas de trabalho realizadas por trabalhadores ativos)
 func calcular_labour():
@@ -494,12 +496,12 @@ func calcular_labour():
 func calcular_tfp():
 	#tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.87) * 0.00000105 + 0.00000025)
 	#tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960),1.87))
-	tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano.back() / EFF1960), 1.93) * 0.00000102 + 0.00000039)
+	tfp_do_ano.push_back(pow((eficiencia_agregada_do_ano[ano_atual_indice - 1] / EFF1960), 1.93) * 0.00000102 + 0.00000039)
 	
 	
 # FUNCS 7) - PIB (milhares de milhões de euros)
 func calcular_pib():
-	pib_do_ano.push_back(tfp_do_ano[ano_atual_indice]*(pow((capital_do_ano[ano_atual_indice]),0.3))*(pow(labour_do_ano[ano_atual_indice],0.7)))
+	pib_do_ano.push_back(tfp_do_ano[ano_atual_indice]* pow(capital_do_ano[ano_atual_indice], 0.3) *pow(labour_do_ano[ano_atual_indice], 0.7))
 	
 	
 # FUNCS 8) - EXERGIA ÚTIL ANUAL (terajoule) (1 megajoule = 1 euro)
@@ -508,20 +510,20 @@ func calcular_exergia_util():
 	
 # FUNCS 9) - EXERGIA FINAL ANUAL (terajoule)
 func calcular_exergia_final():
-	exergia_final_do_ano.push_back(exergia_util_do_ano[ano_atual_indice] / eficiencia_agregada_do_ano.back())
+	exergia_final_do_ano.push_back(exergia_util_do_ano[ano_atual_indice] / eficiencia_agregada_do_ano[ano_atual_indice - 1])
 
 # FUNCS 10) - SHARES DE EXERGIA FINAL POR SETOR (percentagem decimal)
 func calcular_shares_de_exergia_final_por_setor():
-	var shares_transportes = shares_exergia_final_transportes_do_ano.back() + input_percentagem_tipo_economia_transportes * PERCENTAGEM_INPUT_SETAS
-	var shares_industria = shares_exergia_final_industria_do_ano.back() + input_percentagem_tipo_economia_industria * PERCENTAGEM_INPUT_SETAS
-	var shares_residencial = shares_exergia_final_residencial_do_ano.back() + input_percentagem_tipo_economia_residencial * PERCENTAGEM_INPUT_SETAS
-	var shares_servicos = shares_exergia_final_servicos_do_ano.back() + input_percentagem_tipo_economia_servicos * PERCENTAGEM_INPUT_SETAS
+	var shares_transportes = shares_exergia_final_transportes_do_ano[ano_atual_indice - 1] + input_percentagem_tipo_economia_transportes * PERCENTAGEM_INPUT_SETAS
+	var shares_industria = shares_exergia_final_industria_do_ano[ano_atual_indice - 1] + input_percentagem_tipo_economia_industria * PERCENTAGEM_INPUT_SETAS
+	var shares_residencial = shares_exergia_final_residencial_do_ano[ano_atual_indice - 1] + input_percentagem_tipo_economia_residencial * PERCENTAGEM_INPUT_SETAS
+	var shares_servicos = shares_exergia_final_servicos_do_ano[ano_atual_indice - 1] + input_percentagem_tipo_economia_servicos * PERCENTAGEM_INPUT_SETAS
 	
 	if (input_percentagem_tipo_economia_industria == input_percentagem_tipo_economia_residencial && input_percentagem_tipo_economia_residencial == input_percentagem_tipo_economia_servicos && input_percentagem_tipo_economia_servicos == input_percentagem_tipo_economia_transportes && input_percentagem_tipo_economia_industria):
-		shares_exergia_final_transportes_do_ano.push_back(shares_exergia_final_transportes_do_ano.back())
-		shares_exergia_final_industria_do_ano.push_back(shares_exergia_final_industria_do_ano.back())
-		shares_exergia_final_residencial_do_ano.push_back(shares_exergia_final_residencial_do_ano.back())
-		shares_exergia_final_servicos_do_ano.push_back(shares_exergia_final_servicos_do_ano.back())
+		shares_exergia_final_transportes_do_ano.push_back(shares_exergia_final_transportes_do_ano[ano_atual_indice - 1])
+		shares_exergia_final_industria_do_ano.push_back(shares_exergia_final_industria_do_ano[ano_atual_indice - 1])
+		shares_exergia_final_residencial_do_ano.push_back(shares_exergia_final_residencial_do_ano[ano_atual_indice - 1])
+		shares_exergia_final_servicos_do_ano.push_back(shares_exergia_final_servicos_do_ano[ano_atual_indice - 1])
 		return
 		
 	if(shares_transportes < 0.01):
@@ -547,7 +549,6 @@ func calcular_shares_de_exergia_final_por_setor():
 	shares_exergia_final_residencial_do_ano.push_back(shares_residencial)
 	shares_exergia_final_servicos_do_ano.push_back(shares_servicos)
 
-
 # FUNCS 11) - EXERGIA FINAL POR SETOR (terajoules)
 func calcular_valores_absolutos_de_exergia_final_por_setor():
 	exergia_final_transportes_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_transportes_do_ano[ano_atual_indice])
@@ -555,8 +556,7 @@ func calcular_valores_absolutos_de_exergia_final_por_setor():
 	exergia_final_residencial_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_residencial_do_ano[ano_atual_indice])
 	exergia_final_servicos_do_ano.push_back(exergia_final_do_ano[ano_atual_indice] * shares_exergia_final_servicos_do_ano[ano_atual_indice])
 	
-	
-# FUNCS 11) - ELETRIFICAÇÃO (e afins) DE SETORES
+# FUNCS 12) - ELETRIFICAÇÃO (e afins) DE SETORES
 func calcular_eletrificacao_etc_de_setores():
 	#(SHARES_EXERGIA_FINAL_TRANSPORTES_ELETRICIDADE_DO_ANO_ZERO * exergia_final_do_ano) / exergia_final_transportes_do_ano
 	var eletrificacao_transportes_temp = eletrificacao_transportes[ano_atual_indice - 1] + input_percentagem_eletrificacao_transportes * PERCENTAGEM_INPUT_SETAS
@@ -591,9 +591,8 @@ func calcular_eletrificacao_etc_de_setores():
 	shares_exergia_final_industria_eletricidade_do_ano.push_back(eletrificacao_industria_temp)
 	shares_exergia_final_residencial_eletricidade_do_ano.push_back(eletrificacao_residencial_temp)
 	shares_exergia_final_servicos_eletricidade_do_ano.push_back(eletrificacao_servicos_temp)
-	
 
-# FUNCS 12) - SHARES DE EXERGIA FINAL POR SETOR POR CARRIER (percentagem decimal)
+# FUNCS 13) - SHARES DE EXERGIA FINAL POR SETOR POR CARRIER (percentagem decimal)
 func calcular_shares_de_exergia_final_por_setor_por_carrier():
 
 	#TRANSPORTES
@@ -626,7 +625,7 @@ func calcular_shares_de_exergia_final_por_setor_por_carrier():
 	shares_exergia_final_servicos_heat_do_ano.push_back(shares_exergia_final_servicos_heat_do_ano[ano_atual_indice - 1] * (1 - eletrificacao_servicos[ano_atual_indice]) / (1 - eletrificacao_servicos[ano_atual_indice - 1]))
 	
 
-# FUNCS 13) - EXERGIA FINAL POR SETOR POR CARRIER (terajoules)
+# FUNCS 14) - EXERGIA FINAL POR SETOR POR CARRIER (terajoules)
 func calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier():
 	exergia_final_transportes_eletricidade_do_ano.push_back(exergia_final_transportes_do_ano[ano_atual_indice] * eletrificacao_transportes[ano_atual_indice])
 	exergia_final_transportes_carvao_do_ano.push_back(exergia_final_transportes_do_ano[ano_atual_indice] * shares_exergia_final_transportes_carvao_do_ano[ano_atual_indice])
@@ -656,7 +655,7 @@ func calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier():
 	exergia_final_servicos_comb_renovaveis_do_ano.push_back(exergia_final_servicos_do_ano[ano_atual_indice] * shares_exergia_final_servicos_comb_renovaveis_do_ano[ano_atual_indice])
 	exergia_final_servicos_heat_do_ano.push_back(exergia_final_servicos_do_ano[ano_atual_indice] * shares_exergia_final_servicos_heat_do_ano[ano_atual_indice])
 	
-# FUNCS 14) - EFICIÊNCIA POR SETOR (percentagem decimal)
+# FUNCS 15) - EFICIÊNCIA POR SETOR (percentagem decimal)
 func calcular_eficiencia_por_setor(): 
 	exergia_util_transportes_eletricidade_do_ano.push_back(exergia_final_transportes_eletricidade_do_ano[ano_atual_indice] * EFICIENCIA_TRANSPORTES_ELETRICIDADE)
 	exergia_util_industria_eletricidade_do_ano.push_back(exergia_final_industria_eletricidade_do_ano[ano_atual_indice] * EFICIENCIA_INDUSTRIA_ELETRICIDADE)
@@ -700,7 +699,7 @@ func calcular_eficiencia_por_setor():
 	eficiencia_residencial_do_ano.push_back(exergia_util_residencial_do_ano[ano_atual_indice] / exergia_final_residencial_do_ano[ano_atual_indice])
 	eficiencia_servicos_do_ano.push_back(exergia_util_servicos_do_ano[ano_atual_indice] / exergia_final_servicos_do_ano[ano_atual_indice])
 	
-# FUNCS 15) - EFICIÊNCIA AGREGADA (para cálculos em anos futuros)
+# FUNCS 16) - EFICIÊNCIA AGREGADA (para cálculos em anos futuros)
 func calcular_eficiencia_agregada():
 	#atualização dos valores anteriormente calculados, usando os somatórios das partes
 	#exergia_util_do_ano[ano_atual_indice] = exergia_util_transportes_do_ano[ano_atual_indice] + exergia_util_industria_do_ano[ano_atual_indice] + exergia_util_residencial_do_ano[ano_atual_indice] + exergia_util_servicos_do_ano[ano_atual_indice]
@@ -714,7 +713,7 @@ func calcular_eficiencia_agregada():
 	#calculo da eficiencia agregada usando valores atualizados
 	eficiencia_agregada_do_ano.push_back(exergia_util_do_ano[ano_atual_indice] / exergia_final_do_ano[ano_atual_indice])
 
-# FUNCS 16) - EXERGIA FINAL POR CARRIER (terajoules)
+# FUNCS 17) - EXERGIA FINAL POR CARRIER (terajoules)
 func calcular_valores_absolutos_de_exergia_final_por_carrier():
 	exergia_final_eletricidade_do_ano.push_back(exergia_final_transportes_eletricidade_do_ano[ano_atual_indice] + exergia_final_industria_eletricidade_do_ano[ano_atual_indice] + exergia_final_residencial_eletricidade_do_ano[ano_atual_indice] + exergia_final_servicos_eletricidade_do_ano[ano_atual_indice])
 	exergia_final_carvao_do_ano.push_back(exergia_final_transportes_carvao_do_ano[ano_atual_indice] + exergia_final_industria_carvao_do_ano[ano_atual_indice] + exergia_final_residencial_carvao_do_ano[ano_atual_indice] + exergia_final_servicos_carvao_do_ano[ano_atual_indice])
@@ -723,7 +722,7 @@ func calcular_valores_absolutos_de_exergia_final_por_carrier():
 	exergia_final_comb_renovaveis_do_ano.push_back(exergia_final_transportes_comb_renovaveis_do_ano[ano_atual_indice] + exergia_final_industria_comb_renovaveis_do_ano[ano_atual_indice] + exergia_final_residencial_comb_renovaveis_do_ano[ano_atual_indice] + exergia_final_servicos_comb_renovaveis_do_ano[ano_atual_indice])
 	exergia_final_heat_do_ano.push_back(exergia_final_transportes_heat_do_ano[ano_atual_indice] + exergia_final_industria_heat_do_ano[ano_atual_indice] + exergia_final_residencial_heat_do_ano[ano_atual_indice] + exergia_final_servicos_heat_do_ano[ano_atual_indice])
 
-# FUNCS 17) - EMISSÕES DE CO2 POR CARRIER (exceto eletricidade) (kg CO2) (não há passo 18)
+# FUNCS 18) - EMISSÕES DE CO2 POR CARRIER (exceto eletricidade) (kg CO2)
 func calcular_emissoes_CO2_carvao_petroleo_gas_natural():
 	emissoes_CO2_carvao_do_ano.push_back(exergia_final_carvao_do_ano[ano_atual_indice] * FATOR_DE_EMISSAO_CARVAO)
 	emissoes_CO2_petroleo_do_ano.push_back(exergia_final_petroleo_do_ano[ano_atual_indice] * FATOR_DE_EMISSAO_PETROLEO)
@@ -743,8 +742,7 @@ func calcular_eletricidade_de_fontes_renovaveis():
 # FUNCS 20) - ELETRICIDADE NÃO RENOVÁVEL (GWh)
 func calcular_eletricidade_nao_renovavel():
 	#1 GWh = 3.6 TJ
-	eletricidade_nao_renovavel_do_ano.push_front(((exergia_final_eletricidade_do_ano[ano_atual_indice]/3.6) * INEFICIENCIA_PRIMARIO_PARA_FINAL) - eletricidade_renovavel_do_ano[ano_atual_indice])
-
+	eletricidade_nao_renovavel_do_ano.push_back(((exergia_final_eletricidade_do_ano[ano_atual_indice]/3.6) * INEFICIENCIA_PRIMARIO_PARA_FINAL) - eletricidade_renovavel_do_ano[ano_atual_indice])
 
 # FUNCS 21) e 22) - EMISSÕES NÃO RENOVÁVEIS (kg CO2)
 func calcular_emissoes_nao_renovaveis():
@@ -762,7 +760,6 @@ func calcular_emissoes_nao_renovaveis():
 		maximo_produzido_por_gas_natural_TJ = MAXIMO_PRODUZIDO_POR_GAS_NATURAL * 3.6
 		emissoes_nao_renovaveis_do_ano.push_back(( (maximo_produzido_por_gas_natural_TJ / EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_GAS_NATURAL) * FATOR_DE_EMISSAO_GAS_NATURAL ) + ( ( (eletricidade_nao_renovavel_TJ - maximo_produzido_por_gas_natural_TJ) / EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_CARVAO ) * FATOR_DE_EMISSAO_CARVAO)) 
 
-
 # FUNCS 23) - EMISSÕES TOTAIS (um dos objetivos do jogo) (tons C02 = kg/1000 CO2) (i.e. para estar em toneladas é necessário dividir por 1000)
 func calcular_emissoes_totais():
 	emissoes_totais_do_ano.push_back(emissoes_totais_sem_eletricidade[ano_atual_indice] + emissoes_nao_renovaveis_do_ano[ano_atual_indice])
@@ -770,12 +767,11 @@ func calcular_emissoes_totais():
 # FUNCS 24) - CONSUMO (milhares de milhões de euros)
 func calcular_consumo():
 	consumo_do_ano.push_back(pib_do_ano[ano_atual_indice] - investimento_total_do_ano[ano_atual_indice])
-
+	
 # FUNCS 25) - UTILIDADE (Felicidade dos cidadãos; um dos objetivos do jogo) (Atenção: para efeitos de apresentação no jogo, estamos a dividir os resultados pelo resultado do ano 1)
 func calcular_utilidade():
 	#UTILIDADE = ((CONSUMO^b)*(EXP(CO2 / a))) / POPULAÇÃO, a = 10000000000 e b = 2
 	var utilidade_absoluta = ((pow(consumo_do_ano[ano_atual_indice] * pow(10, 9), 2)) * exp((-1 * emissoes_totais_do_ano[ano_atual_indice])/10000000000))/POPULACAO
 	var utilidade_relativa = utilidade_absoluta / UTILIDADE_DO_ANO_UM
-
 	utilidade_do_ano.push_back(utilidade_relativa)
 	

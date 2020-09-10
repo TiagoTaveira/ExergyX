@@ -1,7 +1,5 @@
 #TODO (essencial):
 Acrescentar previsões ao gráfico, após corrigido o modelo
-Enviar um email a perguntar targets realistas de emissões para 2050
-Confirmar tooltip text
 Exportar uma versão com o simulador de modelo para http://exergyx.tecnico.ulisboa.pt/model
 
 #TODO (no futuro do projeto):
@@ -42,6 +40,8 @@ No ecrã de resultados final, permitir analisar o histórico para o jogador pode
 -> Para analisar o histórico bastaria então aos jogadores entrarem nesse painel
 Modelo: sempre que tiver carriers, acrescentar Comb.Ren e Heat (exceto a partir do passo 17 inclusive)
 Correr o modelo automaticamente uma vez para se começar o jogo no ano 2015
+Confirmar tooltip text
+Enviar um email a perguntar targets realistas de emissões para 2050
 
 #TESTES:
 Enviar para testes com um questionário simples aberto

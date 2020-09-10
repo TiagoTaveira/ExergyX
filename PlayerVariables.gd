@@ -1,4 +1,5 @@
 # Global player variables, used by the game (MainScene.gd)
+# The goals of the game are defined here
 
 extends Node
 
@@ -16,7 +17,7 @@ var efficiency = 0.7
 var total_installed_power = 0.00
 var renewable_energy = 0.00
 
-var economy_type_percentage_transportation = 25.00     #from 0 to 100
+var economy_type_percentage_transportation = 25.00     #from 0 to 100, sum of all four 100%
 var economy_type_percentage_industry = 25.00
 var economy_type_percentage_residential = 25.00
 var economy_type_percentage_services = 25.00
@@ -35,9 +36,9 @@ var final_year_money = 0
 var final_year_economic_growth = 1
 
 # Final year goals
-var utility_goals = 1.50
-var emission_goals = 13000000
-var economic_growth_goals = 1
+var utility_goals = 1
+var emission_goals = 14  # NOTA: No roteiro este valor é de 2 Mt CO2
+var economic_growth_goals = 1 # Unused as of this version
 # Player decisions here
 var investment_renewables_percentage = 0.00
 var investment_cost = 0
