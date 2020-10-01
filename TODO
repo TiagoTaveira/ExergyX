@@ -7,12 +7,13 @@ Tabela de registo de pontuações (estatísticas para o jogador saber como se va
 -> Adicionar botão de reiniciar jogo
 Fazer um configurador para o ano zero (permitindo mudar os valores do jogo sem ser preciso alterar o Model.gd)
 Fazer com que o simulador funcione com o update_past_data_text()
+Adicionar ícone personalizado da aplicação
 
 #IMPROVE (no futuro do projeto):
 Melhorar simulador
 -> Colocar ainda mais dados
--> Implementar exportação para CSV
-Melhorar ecrã de novo jogo (com explicação) e créditos
+-> Implementar exportação para CSV e texto
+Melhorar ecrã de novo jogo (com explicação) e créditos (identificando quem trabalhou no jogo)
 Melhorar animação de mudança de ano (baixa prioridade)
 
 #DONE:
@@ -43,7 +44,6 @@ Confirmar tooltip text
 Enviar um email a perguntar targets realistas de emissões para 2050
 Acrescentar previsões ao gráfico, após corrigido o modelo
 Exportar uma versão com o simulador de modelo para https://exergyx.tecnico.ulisboa.pt/model
-
-#TESTES:
-Enviar para testes com um questionário simples aberto
-Para ver se as pessoas conseguem tomar decisões informadas / ver se elas percebem
+TESTES:
+-> Enviar para testes com um questionário simples aberto
+-> Para ver se as pessoas conseguem tomar decisões informadas / ver se elas percebem

@@ -1,5 +1,6 @@
 Testes de usabilidade:
-Testes duraram em média 20 minutos (Tese: Colocar na implementação)
+
+> Testes duraram em média 20 minutos
 
 TEST #1 (Female, 28yo):
 	Não é óbvio identificar quais dos botões são clicáveis
@@ -19,11 +20,11 @@ TEST 2 (Male, 26yo):
 	Percebeu a distribuição por setor
 	Achou que era relativamente óbvio onde estavam os botões
 	Achou que não havia máximo na potência a instalar, mas não atingiu limites
-	Adoptou uma estratégia de tentativa e erro ao analisar os resultados
+	Adotou uma estratégia de tentativa e erro ao analisar os resultados
 	Achou que há tempo suficiente para corrigir erros cometidos antes de 2050
 	"A animação do ano está gira"
 	Arredondar ecrã de resultados (corrigir o ecrã no geral, retirar crescimento)
-	Sugriu dar mais contexto ao número da felicidade
+	Sugeriu dar mais contexto ao número da felicidade
 	Em termos estéticos gostou
 	
 TEST 3 (Male, 23yo):
