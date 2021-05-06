@@ -26,6 +26,19 @@ var decisions_eletrification_services = [PlayerVariables.electrification_by_sect
 
 var simulator_used = false #true when the model debug simulator is used
 
+var total_cost = 0
+var calculated_budget = 0
+var politics = []
+var selected_politics = []
+
+#List of buttons
+var transports_politics = []
+var industry_politics = []
+var services_politics = []
+var residential_politics = []
+
+var politics_dictionary = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_intro_text()
@@ -35,8 +48,15 @@ func _ready():
 	#function that initializes text from variables () goes here
 	update_text()
 	#first_year_text()
+	create_politics()
+	create_buttons_by_sector(politics)
+	filter_list("Transports")
 	update_simulator_text()
-	update_past_data_text()
+	#update_past_data_text()
+	get_node("ContainerDecisoes/economyOptions").add_item("Transports",0)
+	get_node("ContainerDecisoes/economyOptions").add_item("Industry",1)
+	get_node("ContainerDecisoes/economyOptions").add_item("Residential",2)
+	get_node("ContainerDecisoes/economyOptions").add_item("Services",3)
 	get_node("ContainerDecisoes/EnviarDecisoes").connect("pressed", self, "_on_Button_pressed")
 	get_node("ContainerPrevisoes/HistoricoPrevisoes").connect("pressed", self, "on_History_Button_pressed")
 	get_node("ContainerDecisoes/ScrollContainer/Control/Minus").connect("pressed", self, "on_Investment_Minus_Button_pressed")
@@ -59,9 +79,13 @@ func _ready():
 	get_node("ContainerDecisoes/ScrollContainer/Control11/Plus").connect("pressed", self, "on_Services_Electrification_Plus_Button_pressed")
 	get_node("ConfirmationPopup/Control/ConfirmarDecisoes").connect("pressed", self, "on_Confirm_Button_pressed") 
 	get_node("ConfirmationPopup/Control/CancelarDecisoes").connect("pressed", self, "on_Cancel_Button_pressed")
+#	get_node("ContainerDecisoes/sc/ListBox/Politica1").connect("pressed", self, "on_Politic1_pressed")
+#	get_node("ContainerDecisoes/sc/ListBox/Politica2").connect("pressed", self, "on_Politic2_pressed")
+#	get_node("ContainerDecisoes/sc/ListBox/Politica3").connect("pressed", self, "on_Politic3_pressed")
+	get_node("ContainerDecisoes/economyOptions").connect("item_selected", self, "on_EconomyOptions_pressed")
 	#Run one year of the game, in order to start with all data filled:
 	process_next_year()
-	update_graph()
+	#update_graph()
 	update_text()
 	update_simulator_text()
 
@@ -95,8 +119,13 @@ func initial_model_loading():
 	PlayerVariables.electrification_by_sector_percentage_residential = Model.shares_exergia_final_residencial_eletricidade_do_ano[Model.ano_atual_indice] * 100.0
 	PlayerVariables.electrification_by_sector_percentage_services = Model.shares_exergia_final_servicos_eletricidade_do_ano[Model.ano_atual_indice] * 100.0
 	
+	PlayerVariables.budget = Model.pib_do_ano[Model.ano_atual_indice]*0.01 * 1000
+	calculated_budget = Model.pib_do_ano[Model.ano_atual_indice]*0.01 * 1000
+	
+
 func send_game_decisions_to_model():
 	Model.input_potencia_a_instalar = PlayerVariables.investment_renewables_percentage
+	print ("@send_game_decisions_to_model - " + str(PlayerVariables.investment_renewables_percentage))
 
 	Model.input_percentagem_tipo_economia_transportes = PlayerVariables.economy_type_level_transportation - 6
 	Model.input_percentagem_tipo_economia_industria = PlayerVariables.economy_type_level_industry - 6
@@ -137,8 +166,10 @@ func update_model():
 
 func update_game_after_model(): #TODO: change final year names to current year
 	PlayerVariables.current_year = Model.ano_atual
-	PlayerVariables.money = Model.pib_do_ano[Model.ano_atual_indice]
-	PlayerVariables.expenditure = Model.consumo_do_ano[Model.ano_atual_indice]
+	print("Current year: " + str(PlayerVariables.current_year))
+	PlayerVariables.money = Model.pib_do_ano[-1]
+	calculated_budget = PlayerVariables.money
+	PlayerVariables.expenditure = Model.consumo_do_ano[-1]
 	PlayerVariables.utility = Model.utilidade_do_ano[Model.ano_atual_indice]
 	PlayerVariables.co2_emissions = Model.emissoes_totais_do_ano[Model.ano_atual_indice]  * pow(10, -9)
 	PlayerVariables.economic_growth = 1
@@ -163,7 +194,7 @@ func update_predictions():
 	var final_year = PlayerVariables.final_year
 	
 	# loop for y = current_year + 1 (next year) to final_year + 1 (not a typo, gdscript for doesn't include outter boundary)
-	for y in range(current_year + 1, final_year + 2):
+	for y in range(current_year +4 , final_year + 2):
 		PredictionsModel.ano_atual = y
 		PredictionsModel.ano_atual_indice = PredictionsModel.indice_do_ano(y)
 		PredictionsModel.calcular_distribuicao_por_fonte()
@@ -225,6 +256,9 @@ func update_text():
 	get_node("ContainerPrevisoes/Panel/PreviousYear").text = str(PlayerVariables.current_year  - 1)
 	get_node("ContainerPrevisoes/Panel/CurrentYear").text = str(PlayerVariables.current_year)
 	get_node("ContainerPrevisoes/Panel/NextYear").text = str(PlayerVariables.current_year + 1)
+	
+	calculated_budget = calculated_budget*10
+	get_node("ContainerDecisoes/Budget").text = "Orçamento: " + str(stepify(calculated_budget, 0.01)) + " M€"
 
 func first_year_text():
 	get_node("ContainerPrevisoes/TextoPrevisoes").bbcode_text = "Felicidade do Cidadão: n/d\n\n"    +   "Emissões CO2: n/d"
@@ -256,6 +290,7 @@ func on_Investment_Minus_Button_pressed():
 			PlayerVariables.investment_renewables_percentage = 0.00
 		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
 		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
+		refund_to_budget(PlayerVariables.cost_per_gigawatt*0.000001)
 		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(stepify(PlayerVariables.investment_cost,1)) + "[/right]"
 
 func on_Investment_Plus_Button_pressed():
@@ -264,8 +299,10 @@ func on_Investment_Plus_Button_pressed():
 		if(PlayerVariables.investment_renewables_percentage > 9.99):
 			PlayerVariables.investment_renewables_percentage = 10.00
 		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
-		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
-		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(stepify(PlayerVariables.investment_cost,1)) + "[/right]"
+		
+		if(reduce_budget(PlayerVariables.cost_per_gigawatt*0.000001)):
+			PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
+			$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(stepify(PlayerVariables.investment_cost,1)) + "[/right]"
 
 func on_Transport_Minus_Button_pressed():
 	if(PlayerVariables.economy_type_level_transportation > 1):
@@ -367,17 +404,17 @@ func on_History_Button_pressed():
 func _on_FecharHistorico_pressed():
 	get_node("GrafHistorico").hide()
 	
-func update_graph():
-	if !simulator_used:
-		update_past_data_text()
-	else:
-		update_past_data_text_simulator()
+#func update_graph():
+#	if !simulator_used:
+#		update_past_data_text()
+#	else:
+#		update_past_data_text_simulator()
 		
 	var MAX_Y = 700
 	var MAX_X = 750
 	var TEXT_Y_OFFSET = 15
 	
-	var years_passed = PlayerVariables.current_year - PlayerVariables.starting_year
+	var years_passed = (PlayerVariables.current_year - PlayerVariables.starting_year -4)/4
 	var point_x_distance = 0 if years_passed == 1 else MAX_X / (years_passed - 1)
 	var max_y = MAX_Y
 	var values_text_offset = 739 - TEXT_Y_OFFSET
@@ -517,48 +554,48 @@ func _on_ShowUtility_toggled(button_pressed):
 		$GrafHistorico/Control/UtilityValueCurrent.visible = false
 		$GrafHistorico/Control/UtilityValueEnd.visible = false
 
-func update_past_data_text():
-	$PastDataPopup/Control/Texto.bbcode_text = ""
-	
-	# loop for n = 0 to ano_atual_indice
-	for n in range(1, Model.ano_atual_indice + 1):
-		$PastDataPopup/Control/Texto.bbcode_text += "[b]> Ano: " + str(Model.ano_do_indice(n)) + "[/b]" \
-			+ "[indent]\n[u]Decisões[/u]:" \
-			+ "\n[indent]Adição de Potência Instalada Renovável: " + str(decisions_investment_renewables[n]) + " GW" \
-			+ "\n" \
-			+ "\nTipo de Economia (Transportes): " + number_to_arrow(decisions_shares_transportation[n]) \
-			+ "\nTipo de Economia (Indústria): " + number_to_arrow(decisions_shares_industry[n]) \
-			+ "\nTipo de Economia (Residencial): " + number_to_arrow(decisions_shares_residential[n]) \
-			+ "\nTipo de Economia (Serviços): " + number_to_arrow(decisions_shares_services[n]) \
-			+ "\n" \
-			+ "\nEletrificação por Setor (Transportes): " + number_to_arrow(decisions_eletrification_transportation[n]) \
-			+ "\nEletrificação por Setor (Indústria): " + number_to_arrow(decisions_eletrification_industry[n]) \
-			+ "\nEletrificação por Setor (Residencial): " + number_to_arrow(decisions_eletrification_residential[n]) \
-			+ "\nEletrificação por Setor (Serviços): " + number_to_arrow(decisions_eletrification_services[n]) + "[/indent]" \
-			+ "\n\n[u]Resultados[/u]:" \
-			+ "\n[indent]Potência Instalada (Solar): " + str(Model.potencia_do_ano_solar[n]) + " GW" \
-			+ "\nPotência Instalada (Vento): " + str(Model.potencia_do_ano_vento[n]) + " GW" \
-			+ "\nPotência Instalada (Biomassa): " + str(Model.potencia_do_ano_biomassa[n]) + " GW" \
-			+ "\nCusto Total da Potência Instalada: " + str(stepify(Model.custo_total_do_ano[n], 1)) + " euros" \
-			+ "\n" \
-			+ "\nProduto Interno Bruto (PIB): " + str(stepify(Model.pib_do_ano[n], 0.01)) + " milhares de milhões de euros" \
-			+ "\nConsumo: " + str(stepify(Model.consumo_do_ano[n], 0.01)) + " milhares de milhões de euros"  \
-			+ "\n" \
-			+ "\nShares Exergia Final Transportes: " + str(Model.shares_exergia_final_transportes_do_ano[n]) \
-			+ "\nShares Exergia Final Indústria: " + str(Model.shares_exergia_final_industria_do_ano[n]) \
-			+ "\nShares Exergia Final Residencial: " + str(Model.shares_exergia_final_residencial_do_ano[n]) \
-			+ "\nShares Exergia Final Serviços: " + str(Model.shares_exergia_final_servicos_do_ano[n]) \
-			+ "\n" \
-			+ "\nEletrificação Transportes: " + str(Model.eletrificacao_transportes[n]) \
-			+ "\nEletrificação Industria: " + str(Model.eletrificacao_industria[n]) \
-			+ "\nEletrificação Residencial: " + str(Model.eletrificacao_residencial[n]) \
-			+ "\nEletrificação Serviços: " + str(Model.eletrificacao_servicos[n]) \
-			+ "\n" \
-			+ "\nEficiência Agregada: " + str(stepify(Model.eficiencia_agregada_do_ano[n], 0.01))  \
-			+ "\nEletricidade Renovável: " + str(stepify(Model.eletricidade_renovavel_do_ano[n], 0.01)) + " GWh"  \
-			+ "\nEmissões Totais: " + str(stepify(Model.emissoes_totais_do_ano[n], 0.01)) + " kg CO2"  \
-			+ "\nÍndice de Felicidade dos Cidadãos: " + str(stepify(Model.utilidade_do_ano[n], 0.0001)) + "[/indent]" \
-			+ "\n\n\n[/indent]"
+#func update_past_data_text():
+#	$PastDataPopup/Control/Texto.bbcode_text = ""
+#
+#	# loop for n = 0 to ano_atual_indice
+#	for n in range(1, Model.ano_atual_indice + 1):
+#		$PastDataPopup/Control/Texto.bbcode_text += "[b]> Ano: " + str(Model.ano_do_indice(n)) + "[/b]" \
+#			+ "[indent]\n[u]Decisões[/u]:" \
+#			+ "\n[indent]Adição de Potência Instalada Renovável: " + str(decisions_investment_renewables[n]) + " GW" \
+#			+ "\n" \
+#			+ "\nTipo de Economia (Transportes): " + number_to_arrow(decisions_shares_transportation[n]) \
+#			+ "\nTipo de Economia (Indústria): " + number_to_arrow(decisions_shares_industry[n]) \
+#			+ "\nTipo de Economia (Residencial): " + number_to_arrow(decisions_shares_residential[n]) \
+#			+ "\nTipo de Economia (Serviços): " + number_to_arrow(decisions_shares_services[n]) \
+#			+ "\n" \
+#			+ "\nEletrificação por Setor (Transportes): " + number_to_arrow(decisions_eletrification_transportation[n]) \
+#			+ "\nEletrificação por Setor (Indústria): " + number_to_arrow(decisions_eletrification_industry[n]) \
+#			+ "\nEletrificação por Setor (Residencial): " + number_to_arrow(decisions_eletrification_residential[n]) \
+#			+ "\nEletrificação por Setor (Serviços): " + number_to_arrow(decisions_eletrification_services[n]) + "[/indent]" \
+#			+ "\n\n[u]Resultados[/u]:" \
+#			+ "\n[indent]Potência Instalada (Solar): " + str(Model.potencia_do_ano_solar[n]) + " GW" \
+#			+ "\nPotência Instalada (Vento): " + str(Model.potencia_do_ano_vento[n]) + " GW" \
+#			+ "\nPotência Instalada (Biomassa): " + str(Model.potencia_do_ano_biomassa[n]) + " GW" \
+#			+ "\nCusto Total da Potência Instalada: " + str(stepify(Model.custo_total_do_ano[n], 1)) + " euros" \
+#			+ "\n" \
+#			+ "\nProduto Interno Bruto (PIB): " + str(stepify(Model.pib_do_ano[n], 0.01)) + " milhares de milhões de euros" \
+#			+ "\nConsumo: " + str(stepify(Model.consumo_do_ano[n], 0.01)) + " milhares de milhões de euros"  \
+#			+ "\n" \
+#			+ "\nShares Exergia Final Transportes: " + str(Model.shares_exergia_final_transportes_do_ano[n]) \
+#			+ "\nShares Exergia Final Indústria: " + str(Model.shares_exergia_final_industria_do_ano[n]) \
+#			+ "\nShares Exergia Final Residencial: " + str(Model.shares_exergia_final_residencial_do_ano[n]) \
+#			+ "\nShares Exergia Final Serviços: " + str(Model.shares_exergia_final_servicos_do_ano[n]) \
+#			+ "\n" \
+#			+ "\nEletrificação Transportes: " + str(Model.eletrificacao_transportes[n]) \
+#			+ "\nEletrificação Industria: " + str(Model.eletrificacao_industria[n]) \
+#			+ "\nEletrificação Residencial: " + str(Model.eletrificacao_residencial[n]) \
+#			+ "\nEletrificação Serviços: " + str(Model.eletrificacao_servicos[n]) \
+#			+ "\n" \
+#			+ "\nEficiência Agregada: " + str(stepify(Model.eficiencia_agregada_do_ano[n], 0.01))  \
+#			+ "\nEletricidade Renovável: " + str(stepify(Model.eletricidade_renovavel_do_ano[n], 0.01)) + " GWh"  \
+#			+ "\nEmissões Totais: " + str(stepify(Model.emissoes_totais_do_ano[n], 0.01)) + " kg CO2"  \
+#			+ "\nÍndice de Felicidade dos Cidadãos: " + str(stepify(Model.utilidade_do_ano[n], 0.0001)) + "[/indent]" \
+#			+ "\n\n\n[/indent]"
 		
 func number_to_arrow(number):
 	match number:
@@ -604,10 +641,13 @@ func on_Confirm_Button_pressed():
 	next_year_animation()
 	yield(get_tree().create_timer(1.0), "timeout") #wait() in GDscript
 	enable_all_buttons()
+	process_politic()
 	process_next_year()
-	update_graph()
+	clear_politics_selection()
+	#update_graph()
 	update_text()
 	update_simulator_text()
+	filter_list("Transports")
 	
 	
 	
@@ -735,7 +775,7 @@ func enable_all_buttons():
 	
 	
 func update_confirmation_popup():
-	get_node("ConfirmationPopup/Control/ConfirmarDecisoes").text = "Confirmar e ir para " + str(PlayerVariables.current_year + 1)
+	get_node("ConfirmationPopup/Control/ConfirmarDecisoes").text = "Confirmar e ir para " + str(PlayerVariables.current_year + 4)
 	get_node("ConfirmationPopup/Control/ResumoPotenciaInstalada").text = "Instalação: " + str(PlayerVariables.investment_renewables_percentage) + " GW \nCusto: " + str(stepify(PlayerVariables.investment_cost,1)) + " € (" + str(stepify(((PlayerVariables.investment_cost / PlayerVariables.money * pow(10,-9))) * 100, 0.00000001)) + "% do PIB)"
 
 	
@@ -1219,3 +1259,354 @@ func _on_MaisDetalhes_pressed():
 
 func _on_FecharPast_pressed():
 	get_node("PastDataPopup").hide()
+	
+
+func create_politics():
+	var politica_class = load("res://Politica.gd")
+	var p1 = politica_class.new()
+	var p2 = politica_class.new()
+	var p3 = politica_class.new()
+	var p4 = politica_class.new()
+	var p5 = politica_class.new()
+	var p6 = politica_class.new()
+	var p7 = politica_class.new()
+	var p8 = politica_class.new()
+	var p9 = politica_class.new()
+	
+
+	p1.init_this("Eletrificação dos Transportes", 400, 0.7, ["Transport", "Service"], "Transports", [3,5])
+	politics.push_back(p1)
+	
+	p2.init_this("Eletrificação da Indústria", 100, 0.9, ["Industry"], "Industry", [1,3])
+	politics.push_back(p2)
+	
+	p3.init_this("Eletrificação dos Serviços", 250, 0.6, ["Service"], "Services", [2,3])
+	politics.push_back(p3)
+	
+	p4.init_this("Carros Eletricos", 600, 0.4, ["Transport"], "Transports", [4,6])
+	politics.push_back(p4)
+	
+	p5.init_this("Fabricas ecologicas", 350, 0.6, ["Industry"], "Industry", [2,4])
+	politics.push_back(p5)
+	
+	p6.init_this("Casas eficientes", 280, 0.5, ["Service"],"Residential", [2,2])
+	politics.push_back(p6)
+	
+	p7.init_this("Aumento Transportes", 1000, 0.8, ["Transport", "Service"], "Transports", [5,8])
+	politics.push_back(p7)
+	
+	p8.init_this("Fabricas ecologicas II", 299, 0.7, ["Industry"], "Industry", [2,5])
+	politics.push_back(p8)
+	
+	p9.init_this("Eletrificação cidades", 900, 0.8, ["Service", "Residential"], "Services", [4,4])
+	politics.push_back(p9)
+	politics.shuffle()
+	filter_list("Transport")
+	
+func create_buttons_by_sector(politics_array):
+	for i in range (politics_array.size()):
+		if (politics_array[i].getType() == "Transports"):
+			#Create Button
+			var button = Button.new()
+			button.set_size(Vector2(490,150))
+			button.rect_min_size = Vector2(490,150)
+			button.toggle_mode = true
+			
+			#Create fields
+			var titleTxt = politics_array[i].getTitle()
+			var priceTxt = politics_array[i].getPrice()
+			var descArray = politics_array[i].getDesc()
+
+			var titleField = RichTextLabel.new()
+			titleField.set_size(Vector2(480,40))
+			titleField.margin_left = 5
+			titleField.margin_right = 487
+			titleField.margin_top = 5
+			titleField.margin_bottom = 50
+			titleField.bbcode_enabled = true
+			titleField.bbcode_text = "[center][b]" + titleTxt + "[/b][/center]"
+			titleField.add_font_override("font", load("res://your_dynamic_font.tres"))
+			titleField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(titleField)
+			
+			var priceField = RichTextLabel.new()
+			priceField.set_size(Vector2(150,50))
+			priceField.margin_left = 10
+			priceField.margin_right = 165
+			priceField.margin_top = 75
+			priceField.margin_bottom = 130
+			priceField.text = str(priceTxt) + "M"
+			priceField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(priceField)
+			
+			var descField = RichTextLabel.new()
+			descField.set_size(Vector2(215,100))
+			descField.margin_left = 270
+			descField.margin_right = 490
+			descField.margin_top = 60
+			descField.margin_bottom = 160
+			
+			for j in range(descArray.size()):
+				descField.text += descArray[j] + "\n"
+				
+			descField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(descField)
+			
+			button.connect("pressed", self, "on_Politic_Button_pressed", [button])
+			politics_dictionary[button] = politics_array[i]
+			transports_politics.push_back(button)
+		
+		elif(politics_array[i].getType() == "Industry"):
+			#Create Button
+			var button = Button.new()
+			button.set_size(Vector2(490,150))
+			button.rect_min_size = Vector2(490,150)
+			button.toggle_mode = true
+			
+			#Create fields
+			var titleTxt = politics_array[i].getTitle()
+			var priceTxt = politics_array[i].getPrice()
+			var descArray = politics_array[i].getDesc()
+
+			var titleField = RichTextLabel.new()
+			titleField.set_size(Vector2(480,40))
+			titleField.margin_left = 5
+			titleField.margin_right = 487
+			titleField.margin_top = 5
+			titleField.margin_bottom = 50
+			titleField.bbcode_enabled = true
+			titleField.bbcode_text = "[center][b]" + titleTxt + "[/b][/center]"
+			titleField.add_font_override("font", load("res://your_dynamic_font.tres"))
+			titleField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(titleField)
+			
+			var priceField = RichTextLabel.new()
+			priceField.set_size(Vector2(150,50))
+			priceField.margin_left = 10
+			priceField.margin_right = 165
+			priceField.margin_top = 75
+			priceField.margin_bottom = 130
+			priceField.text = str(priceTxt) + "M"
+			priceField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(priceField)
+			
+			var descField = RichTextLabel.new()
+			descField.set_size(Vector2(215,100))
+			descField.margin_left = 270
+			descField.margin_right = 490
+			descField.margin_top = 60
+			descField.margin_bottom = 160
+			
+			for j in range(descArray.size()):
+				descField.text += descArray[j] + "\n"
+				
+			descField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(descField)
+			
+			button.connect("pressed", self, "on_Politic_Button_pressed", [button])
+			politics_dictionary[button] = politics_array[i]
+			industry_politics.push_back(button)
+			
+		elif(politics_array[i].getType() == "Services"):
+			#Create Button
+			var button = Button.new()
+			button.set_size(Vector2(490,150))
+			button.rect_min_size = Vector2(490,150)
+			button.toggle_mode = true
+			
+			#Create fields
+			var titleTxt = politics_array[i].getTitle()
+			var priceTxt = politics_array[i].getPrice()
+			var descArray = politics_array[i].getDesc()
+
+			var titleField = RichTextLabel.new()
+			titleField.set_size(Vector2(480,40))
+			titleField.margin_left = 5
+			titleField.margin_right = 487
+			titleField.margin_top = 5
+			titleField.margin_bottom = 50
+			titleField.bbcode_enabled = true
+			titleField.bbcode_text = "[center][b]" + titleTxt + "[/b][/center]"
+			titleField.add_font_override("font", load("res://your_dynamic_font.tres"))
+			titleField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(titleField)
+			
+			var priceField = RichTextLabel.new()
+			priceField.set_size(Vector2(150,50))
+			priceField.margin_left = 10
+			priceField.margin_right = 165
+			priceField.margin_top = 75
+			priceField.margin_bottom = 130
+			priceField.text = str(priceTxt) + "M"
+			priceField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(priceField)
+			
+			var descField = RichTextLabel.new()
+			descField.set_size(Vector2(215,100))
+			descField.margin_left = 270
+			descField.margin_right = 490
+			descField.margin_top = 60
+			descField.margin_bottom = 160
+			
+			for j in range(descArray.size()):
+				descField.text += descArray[j] + "\n"
+				
+			descField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(descField)
+			
+			button.connect("pressed", self, "on_Politic_Button_pressed", [button])
+			politics_dictionary[button] = politics_array[i]
+			services_politics.push_back(button)
+			
+		elif(politics_array[i].getType() == "Residential"):
+			#Create Button
+			var button = Button.new()
+			button.set_size(Vector2(490,150))
+			button.rect_min_size = Vector2(490,150)
+			button.toggle_mode = true
+			
+			#Create fields
+			var titleTxt = politics_array[i].getTitle()
+			var priceTxt = politics_array[i].getPrice()
+			var descArray = politics_array[i].getDesc()
+
+			var titleField = RichTextLabel.new()
+			titleField.set_size(Vector2(480,40))
+			titleField.margin_left = 5
+			titleField.margin_right = 487
+			titleField.margin_top = 5
+			titleField.margin_bottom = 50
+			titleField.bbcode_enabled = true
+			titleField.bbcode_text = "[center][b]" + titleTxt + "[/b][/center]"
+			titleField.add_font_override("font", load("res://your_dynamic_font.tres"))
+			titleField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(titleField)
+			
+			var priceField = RichTextLabel.new()
+			priceField.set_size(Vector2(150,50))
+			priceField.margin_left = 10
+			priceField.margin_right = 165
+			priceField.margin_top = 75
+			priceField.margin_bottom = 130
+			priceField.text = str(priceTxt) + "M"
+			priceField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(priceField)
+			
+			var descField = RichTextLabel.new()
+			descField.set_size(Vector2(215,100))
+			descField.margin_left = 270
+			descField.margin_right = 490
+			descField.margin_top = 60
+			descField.margin_bottom = 160
+			
+			for j in range(descArray.size()):
+				descField.text += descArray[j] + "\n"
+				
+			descField.mouse_filter = MOUSE_FILTER_IGNORE
+			button.add_child(descField)
+			
+			button.connect("pressed", self, "on_Politic_Button_pressed", [button])
+			politics_dictionary[button] = politics_array[i]
+			residential_politics.push_back(button)
+
+
+func process_politic():
+	
+	for i in selected_politics:
+		var temp_pol = politics_dictionary.get(i)
+		var impactDictionary = temp_pol.getImpact()
+		var politicType = temp_pol.getType()
+		
+		if(PlayerVariables.investment_renewables_percentage < 20.00):
+			PlayerVariables.investment_renewables_percentage += impactDictionary.get("Ren")
+		if(PlayerVariables.investment_renewables_percentage > 19.99):
+			PlayerVariables.investment_renewables_percentage = 20.00
+		
+		if(politicType == "Transports"):
+			if(PlayerVariables.electrification_by_sector_level_transportation < 11):
+				PlayerVariables.electrification_by_sector_level_transportation = PlayerVariables.electrification_by_sector_level_transportation + impactDictionary.get("Ele")
+		elif(politicType == "Industry"):
+			if(PlayerVariables.electrification_by_sector_level_industry < 11):
+				PlayerVariables.electrification_by_sector_level_industry = PlayerVariables.electrification_by_sector_level_industry + impactDictionary.get("Ele")
+		elif(politicType == "Services"):
+			if(PlayerVariables.electrification_by_sector_level_services < 11):
+				PlayerVariables.electrification_by_sector_level_services = PlayerVariables.electrification_by_sector_level_services + impactDictionary.get("Ele")		
+		elif(politicType == "Residential"):
+			if(PlayerVariables.electrification_by_sector_level_residential < 11):
+				PlayerVariables.electrification_by_sector_level_residential = PlayerVariables.electrification_by_sector_level_residential + impactDictionary.get("Ele")
+		else:
+			print("ERROR: @process_politics")
+	
+
+
+func clear_politics_selection():
+	print(selected_politics)
+	for i in range (selected_politics.size()):
+		selected_politics[i].pressed = false
+	selected_politics.clear()
+
+func reduce_budget(cost):
+	var new_budget = calculated_budget - cost
+	if(new_budget > 0):
+		calculated_budget = new_budget
+		update_budget_text()
+		return true
+	else:
+		print("NO Money")
+		return false
+		
+func refund_to_budget(cost):
+	var new_budget = calculated_budget + cost
+	calculated_budget = new_budget
+	update_budget_text()
+
+func update_budget_text():
+	get_node("ContainerDecisoes/Budget").text = "Orçamento: " + str(stepify(calculated_budget, 0.01)) + "M€"
+
+func on_EconomyOptions_pressed(id):
+	var txtType = get_node("ContainerDecisoes/economyOptions").get_item_text(id)
+	filter_list(txtType)
+
+func filter_list(txtType):
+	var listNode = get_node("ContainerDecisoes/sc/ListBox")
+	var listNode_items = listNode.get_children()
+	for subNode in listNode_items:
+		listNode.remove_child(subNode)
+		
+	if(txtType=="Transports"):
+		show_politics_list(transports_politics)
+	elif(txtType=="Industry"):
+		show_politics_list(industry_politics)
+	elif(txtType=="Services"):
+		show_politics_list(services_politics)
+	elif(txtType=="Residential"):
+		show_politics_list(residential_politics)
+	
+		
+#	var filteredArray = []
+#	for item in politics:
+#		if(item.getType() == txtType):
+#			filteredArray.push_back(item)
+#	update_decisions(filteredArray) 
+
+func on_Politic_Button_pressed(button):
+	var elements = button.get_children()
+	var cost = elements[1].text
+	
+	if(button.pressed):
+		var is_accepted = reduce_budget(float(cost))
+		button.pressed = is_accepted
+		if(is_accepted):
+			selected_politics.push_back(button)
+			print(button)
+	else:
+		refund_to_budget(float(cost))
+		var indexToRemove = selected_politics.find(button)
+		if (indexToRemove > -1):
+			selected_politics.remove(indexToRemove)
+
+
+func show_politics_list(elem):
+	var listNode = get_node("ContainerDecisoes/sc/ListBox")	
+	for item in elem:
+		listNode.add_child(item)

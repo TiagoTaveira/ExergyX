@@ -22,7 +22,7 @@ func _ready():
 # 
 
 # CONSTANTES (podem ser alteradas, resultando num jogo diferente sem necessidade de o reprogramar)
-var ANO_INICIAL = 2014
+var ANO_INICIAL = 2011
 
 var POTENCIA_MAXIMA_SOLAR = 18.6 #GW
 var POTENCIA_MAXIMA_VENTO = 15.0
@@ -32,7 +32,7 @@ var CUSTO_POR_GIGAWATT_INSTALADO_SOLAR = 700 #euro/GW
 var CUSTO_POR_GIGAWATT_INSTALADO_VENTO = 1000
 var CUSTO_POR_GIGAWATT_INSTALADO_SOLAR_BIOMASSA = 4700
 
-var CUSTO_POR_GIGAWATT_INSTALADO = 2133 #euro/GW #esta é uma média dos valores acima, para apresentação estatística. Os valores a usar são os acima.
+var CUSTO_POR_GIGAWATT_INSTALADO = 20100 #euro/GW #esta é uma média dos valores acima, para apresentação estatística. Os valores a usar são os acima.
 
 var PERCENTAGEM_A_RETIRAR_DO_PIB = 0.16 #cenário pessimista
 
@@ -110,7 +110,7 @@ var CUSTO_DO_ANO_ZERO_VENTO = 0.00
 var CUSTO_DO_ANO_ZERO_BIOMASSA = 0.00
 
 var PIB_DO_ANO_ZERO = 169.11 #milhares de milhões de euros
-
+var ORCAMENTO_ANO_ZERO = PIB_DO_ANO_ZERO * 0.01
 var CAPITAL_DO_ANO_ZERO = 532.63 #milhares de milhões de euros
 
 var EFF1960 = 0.14 #Eficiência Agregada de 1960 (0.142140933352638) (João)
@@ -204,6 +204,7 @@ var custo_do_ano_biomassa = [CUSTO_DO_ANO_ZERO_BIOMASSA]
 var pib_do_ano = [PIB_DO_ANO_ZERO]
 var investimento_total_do_ano = [0.0]
 var investimento_para_capital_do_ano = [0.0]
+var orcamento_ano = [ORCAMENTO_ANO_ZERO]
 
 ## VARS 4)
 var capital_do_ano = [CAPITAL_DO_ANO_ZERO]
@@ -400,14 +401,14 @@ var utilidade_do_ano = [0.0]
 
 # FUNÇÕES
 func indice_do_ano(ano):
-	return ano - ANO_INICIAL
+	return ((ano - ANO_INICIAL -4)/4)
 	
 func ano_do_indice(indice):
 	return indice + ANO_INICIAL
 	
 # FUNCS 0) - PREPARAÇÃO
 func mudar_de_ano():
-	ano_atual += 1
+	ano_atual += 4
 	ano_atual_indice += 1
 
 	# Após execução desta função, acede-se aos valores do ano anterior presentes
@@ -502,7 +503,7 @@ func calcular_tfp():
 # FUNCS 7) - PIB (milhares de milhões de euros)
 func calcular_pib():
 	pib_do_ano.push_back(tfp_do_ano[ano_atual_indice]* pow(capital_do_ano[ano_atual_indice], 0.3) *pow(labour_do_ano[ano_atual_indice], 0.7))
-	
+	print (pib_do_ano)
 	
 # FUNCS 8) - EXERGIA ÚTIL ANUAL (terajoule) (1 megajoule = 1 euro)
 func calcular_exergia_util():

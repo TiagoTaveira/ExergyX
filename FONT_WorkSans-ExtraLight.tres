@@ -3,5 +3,6 @@
 [ext_resource path="res://WorkSans-ExtraLight.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 42
+size = 24
+outline_size = 1
 font_data = ExtResource( 1 )

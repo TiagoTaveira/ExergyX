@@ -3,16 +3,16 @@
 
 extends Node
 
-var starting_year = 2014
+var starting_year = 2011
 
 # Current year variables
-var current_year = 2014
+var current_year = 2011
 var money = 50000000
 var expenditure = 0 #"consumo"
 var utility = 100
 var co2_emissions = 70
 var economic_growth = 1
-var cost_per_gigawatt = 2100
+var cost_per_gigawatt = 20100
 var efficiency = 0.7
 var total_installed_power = 0.00
 var renewable_energy = 0.00
@@ -52,6 +52,7 @@ var electrification_by_sector_level_residential = 6
 var electrification_by_sector_level_services = 6
 
 var extra_year_text = ""
+var budget = money * 0.01
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -22,7 +22,7 @@ func _ready():
 # 
 
 # CONSTANTES (têm de ser alteradas se o modelo original em Model.gd for alterado)
-var ANO_INICIAL = 2014
+var ANO_INICIAL = 2011
 
 var POTENCIA_MAXIMA_SOLAR = 18.6 #GW
 var POTENCIA_MAXIMA_VENTO = 15.0
@@ -555,14 +555,14 @@ func carregar_modelo_original():
 
 # FUNÇÕES
 func indice_do_ano(ano):
-	return ano - ANO_INICIAL
+	return ((ano - ANO_INICIAL - 4)/4) 
 	
 func ano_do_indice(indice):
 	return indice + ANO_INICIAL
 	
 # FUNCS 0) - PREPARAÇÃO
 func mudar_de_ano():
-	ano_atual += 1
+	ano_atual += 4
 	ano_atual_indice += 1
 
 	# Após execução desta função, acede-se aos valores do ano anterior presentes
