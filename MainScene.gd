@@ -23,11 +23,24 @@ var decisions_eletrification_transportation  = [PlayerVariables.electrification_
 var decisions_eletrification_industry = [PlayerVariables.electrification_by_sector_level_industry]
 var decisions_eletrification_residential = [PlayerVariables.electrification_by_sector_level_residential]
 var decisions_eletrification_services = [PlayerVariables.electrification_by_sector_level_services]
-
+var renewable_energy_amounts = [PlayerVariables.renewable_energy]
+var total_co2_emissions = [PlayerVariables.co2_emissions]
+var total_efficiency_results = [PlayerVariables.efficiency]
+var decisions_economy_type_transportation = [PlayerVariables.economy_type_percentage_transportation]
+var decisions_transports_eletrification = [PlayerVariables.electrification_by_sector_percentage_transportation]
+var decisions_industries_eletrification = [PlayerVariables.electrification_by_sector_percentage_industry]
+var decisions_services_eletrification = [PlayerVariables.electrification_by_sector_percentage_services]
+var decisions_residential_eletrification = [PlayerVariables.electrification_by_sector_percentage_residential]
+var prev_pib_value =[PlayerVariables.money]
+var prev_expenditure_value = [PlayerVariables.expenditure]
+var prev_utility_value = [PlayerVariables.utility]
+var renewable_ratio = []
+var current_ratio = 33.95
 var simulator_used = false #true when the model debug simulator is used
 
 var total_cost = 0
 var calculated_budget = 0
+
 var politics = []
 var selected_politics = []
 
@@ -100,7 +113,7 @@ func initial_model_loading():
 	PlayerVariables.current_year = Model.ano_atual
 	PlayerVariables.final_year = FINAL_YEAR
 	PlayerVariables.money = Model.pib_do_ano[Model.ano_atual_indice]
-	PlayerVariables.expenditure = Model.consumo_do_ano[Model.ano_atual_indice]
+	PlayerVariables.expenditure = Model.consumo_do_ano[-1]
 	PlayerVariables.utility = Model.utilidade_do_ano[Model.ano_atual_indice]
 	PlayerVariables.co2_emissions = Model.emissoes_totais_do_ano[Model.ano_atual_indice]  * pow(10, -9)
 	PlayerVariables.economic_growth = 1
@@ -125,13 +138,13 @@ func initial_model_loading():
 
 func send_game_decisions_to_model():
 	Model.input_potencia_a_instalar = PlayerVariables.investment_renewables_percentage
-	print ("@send_game_decisions_to_model - " + str(PlayerVariables.investment_renewables_percentage))
 
 	Model.input_percentagem_tipo_economia_transportes = PlayerVariables.economy_type_level_transportation - 6
 	Model.input_percentagem_tipo_economia_industria = PlayerVariables.economy_type_level_industry - 6
 	Model.input_percentagem_tipo_economia_residencial = PlayerVariables.economy_type_level_residential - 6
 	Model.input_percentagem_tipo_economia_servicos = PlayerVariables.economy_type_level_services - 6
 
+	print("A enviar para o modelo: " + str(PlayerVariables.electrification_by_sector_level_transportation))
 	Model.input_percentagem_eletrificacao_transportes = PlayerVariables.electrification_by_sector_level_transportation - 6
 	Model.input_percentagem_eletrificacao_industria = PlayerVariables.electrification_by_sector_level_industry - 6
 	Model.input_percentagem_eletrificacao_residencial = PlayerVariables.electrification_by_sector_level_residential - 6
@@ -164,9 +177,9 @@ func update_model():
 	Model.calcular_consumo()
 	Model.calcular_utilidade()
 
+
 func update_game_after_model(): #TODO: change final year names to current year
 	PlayerVariables.current_year = Model.ano_atual
-	print("Current year: " + str(PlayerVariables.current_year))
 	PlayerVariables.money = Model.pib_do_ano[-1]
 	calculated_budget = PlayerVariables.money
 	PlayerVariables.expenditure = Model.consumo_do_ano[-1]
@@ -188,13 +201,16 @@ func update_game_after_model(): #TODO: change final year names to current year
 	PlayerVariables.electrification_by_sector_percentage_residential = Model.shares_exergia_final_residencial_eletricidade_do_ano[Model.ano_atual_indice] * 100.0
 	PlayerVariables.electrification_by_sector_percentage_services = Model.shares_exergia_final_servicos_eletricidade_do_ano[Model.ano_atual_indice] * 100.0
 	
+	print("Investment in Renewables: " + str(decisions_investment_renewables))
+	
+	
 func update_predictions():
 	PredictionsModel.carregar_modelo_original()
 	var current_year = PlayerVariables.current_year
 	var final_year = PlayerVariables.final_year
 	
 	# loop for y = current_year + 1 (next year) to final_year + 1 (not a typo, gdscript for doesn't include outter boundary)
-	for y in range(current_year +4 , final_year + 2):
+	for y in range(current_year +4 , final_year + 4):
 		PredictionsModel.ano_atual = y
 		PredictionsModel.ano_atual_indice = PredictionsModel.indice_do_ano(y)
 		PredictionsModel.calcular_distribuicao_por_fonte()
@@ -223,7 +239,8 @@ func update_predictions():
 		PredictionsModel.calcular_utilidade()
 	
 	PlayerVariables.final_year_utility = PredictionsModel.utilidade_do_ano[PredictionsModel.indice_do_ano(final_year)]
-	PlayerVariables.final_year_emissions = PredictionsModel.emissoes_totais_do_ano[PredictionsModel.indice_do_ano(final_year)] * pow(10, -9)
+	#PlayerVariables.final_year_emissions = PredictionsModel.emissoes_totais_do_ano[PredictionsModel.indice_do_ano(final_year)] * pow(10, -9)
+	PlayerVariables.final_year_emissions = PredictionsModel.emissoes_totais_do_ano[-1] * pow(10, -9)
 	PlayerVariables.final_year_efficiency = PredictionsModel.eficiencia_agregada_do_ano[PredictionsModel.indice_do_ano(final_year)]
 	PlayerVariables.final_year_expenditure = PredictionsModel.consumo_do_ano[PredictionsModel.indice_do_ano(final_year)]
 	PlayerVariables.final_year_money = PredictionsModel.pib_do_ano[PredictionsModel.indice_do_ano(final_year)]
@@ -233,16 +250,16 @@ func update_text():
 	get_node("EstadoAtual/AnoAtual/Ano").text = str(PlayerVariables.current_year)
 	get_node("EstadoAtual/TextoAnoAtual").text = "Ano Atual"
 
-	get_node("EstadoAtual/TextoDadosEnergeticos").text = "Potência Total Instalada (Fração Renovável): " + str(stepify(PlayerVariables.total_installed_power, 0.1)) + " GW" + "\n\nEletricidade Renovável: " + str(stepify(PlayerVariables.renewable_energy, 0.1)) + " GWh" + "\n\nEmissões: " + str(stepify(PlayerVariables.co2_emissions, 0.001)) + " Mt CO2" + "\n\nEficiência Agregada do País: " + str(stepify(PlayerVariables.efficiency * 100, 0.1)) + "%"
-	get_node("EstadoAtual/FundoTabela/Control/SharesTransportes").text = str(stepify(PlayerVariables.economy_type_percentage_transportation, 0.01)) + "%"
+	get_node("EstadoAtual/TextoDadosEnergeticos").bbcode_text = "Potência Total Instalada (Renovável): " + str(stepify(PlayerVariables.total_installed_power, 0.1)) + " GW" + " ("+ get_Investment_difference() + ")" + "\n\nEletricidade Renovável: " + str(stepify(PlayerVariables.renewable_energy, 0.1)) + " GWh" + " ("+get_renewable_energy_difference()+")"+"\n\nRácio renovável: " +str(get_renewable_ratio()) + "%" +" (" + str(get_ratio_difference())+")" + "\n\nEmissões: " + str(stepify(PlayerVariables.co2_emissions, 0.001)) + " Mt CO2" +" ("+get_total_co2_difference()+")" + "\n\nEficiência Agregada do País: " + str(stepify(PlayerVariables.efficiency * 100, 0.1)) + "%" + " ("+ get_efficiency_difference()+ ")"
+	get_node("EstadoAtual/FundoTabela/Control/SharesTransportes").bbcode_text = str(stepify(PlayerVariables.economy_type_percentage_transportation, 0.01)) + "%" 
 	get_node("EstadoAtual/FundoTabela/Control/SharesIndustria").text = str(stepify(PlayerVariables.economy_type_percentage_industry, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/SharesResidencial").text = str(stepify(PlayerVariables.economy_type_percentage_residential, 0.01)) + "%"
 	get_node("EstadoAtual/FundoTabela/Control/SharesServicos").text = str(stepify(PlayerVariables.economy_type_percentage_services, 0.01)) + "%"
-	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoTransportes").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_transportation, 0.01)) + "%"
-	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoIndustria").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_industry, 0.01)) + "%"
-	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoResidencial").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_residential, 0.01)) + "%"
-	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoServicos").text = str(stepify(PlayerVariables.electrification_by_sector_percentage_services, 0.01)) + "%"
-	get_node("EstadoAtual/TextoDadosSocioeconomicos").text = "PIB: " + str(stepify(PlayerVariables.money, 1)) + " milhares de milhões €" + "\n\nConsumo: " + str(stepify(PlayerVariables.expenditure, 1)) + " milhares de milhões €" + "\n\nFelicidade do Cidadão: " + str(stepify(PlayerVariables.utility, 0.01))
+	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoTransportes").bbcode_text = str(stepify(PlayerVariables.electrification_by_sector_percentage_transportation, 0.01)) + "%" + " (" + get_eletrification_difference_transports()+")"
+	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoIndustria").bbcode_text = str(stepify(PlayerVariables.electrification_by_sector_percentage_industry, 0.01)) + "%" + " ("+get_eletrification_difference_industries()+")"
+	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoResidencial").bbcode_text = str(stepify(PlayerVariables.electrification_by_sector_percentage_residential, 0.01)) + "%" + " ("+get_eletrification_difference_residential()+")"
+	get_node("EstadoAtual/FundoTabela/Control/EletrificacaoServicos").bbcode_text = str(stepify(PlayerVariables.electrification_by_sector_percentage_services, 0.01)) + "%" + " ("+get_eletrification_difference_services()+")"
+	get_node("EstadoAtual/TextoDadosSocioeconomicos").bbcode_text = "PIB: " + str(stepify(PlayerVariables.money, 1)) + " milhares de milhões €" + " ("+ str(get_pib_difference())+")"+ "\n\nConsumo: " + str(stepify(PlayerVariables.expenditure, 1)) + " milhares de milhões €" +" ("+str(get_expenditure_difference()) +")" + "\n\nFelicidade do Cidadão: " + str(stepify(PlayerVariables.utility, 0.01)) + " (" +str(get_utility_difference()) +")"
 	get_node("ContainerPrevisoes/TextoOutrosDados").text = "Eficiência Agregada do País: " + str(stepify(PlayerVariables.final_year_efficiency * 100, 0.1)) + "%" + "\n\nPIB: " + str(stepify(PlayerVariables.final_year_money, 1)) +" milhares de milhões €" + "\n\nConsumo: " + str(stepify(PlayerVariables.final_year_expenditure, 1)) + " milhares de milhões €"
 	#get_node("ContainerDecisoes/ProximoAno").text = "Decisões para " + str(PlayerVariables.current_year + 1)
 	get_node("ContainerDecisoes/ProximoAno").text = "Decisões"
@@ -290,100 +307,100 @@ func on_Investment_Minus_Button_pressed():
 			PlayerVariables.investment_renewables_percentage = 0.00
 		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
 		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
-		refund_to_budget(PlayerVariables.cost_per_gigawatt*0.000001)
+		refund_to_budget(PlayerVariables.cost_per_gigawatt*0.1)
 		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(stepify(PlayerVariables.investment_cost,1)) + "[/right]"
 
 func on_Investment_Plus_Button_pressed():
-	if(PlayerVariables.investment_renewables_percentage < 10.00):
-		PlayerVariables.investment_renewables_percentage += 0.10
-		if(PlayerVariables.investment_renewables_percentage > 9.99):
-			PlayerVariables.investment_renewables_percentage = 10.00
-		$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
+	if(reduce_budget(PlayerVariables.cost_per_gigawatt*0.1)):
+		if(PlayerVariables.investment_renewables_percentage < 10.00):
+			PlayerVariables.investment_renewables_percentage += 0.10
+			if(PlayerVariables.investment_renewables_percentage > 9.99):
+				PlayerVariables.investment_renewables_percentage = 10.00
+			$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
 		
-		if(reduce_budget(PlayerVariables.cost_per_gigawatt*0.000001)):
-			PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
-			$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(stepify(PlayerVariables.investment_cost,1)) + "[/right]"
+		PlayerVariables.investment_cost = PlayerVariables.investment_renewables_percentage * PlayerVariables.cost_per_gigawatt
+		$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(stepify(PlayerVariables.investment_cost,1)) + " M[/right]"
 
-func on_Transport_Minus_Button_pressed():
-	if(PlayerVariables.economy_type_level_transportation > 1):
-		PlayerVariables.economy_type_level_transportation = PlayerVariables.economy_type_level_transportation - 1
-		update_level_images()
-		
-func on_Transport_Plus_Button_pressed():
-	if(PlayerVariables.economy_type_level_transportation < 11):
-		PlayerVariables.economy_type_level_transportation = PlayerVariables.economy_type_level_transportation + 1
-		update_level_images()
-		
-func on_Industry_Minus_Button_pressed():
-	if(PlayerVariables.economy_type_level_industry > 1):
-		PlayerVariables.economy_type_level_industry = PlayerVariables.economy_type_level_industry - 1
-		update_level_images()
-		
-func on_Industry_Plus_Button_pressed():
-	if(PlayerVariables.economy_type_level_industry < 11):
-		PlayerVariables.economy_type_level_industry = PlayerVariables.economy_type_level_industry + 1
-		update_level_images()
-		
-func on_Residential_Minus_Button_pressed():
-	if(PlayerVariables.economy_type_level_residential > 1):
-		PlayerVariables.economy_type_level_residential = PlayerVariables.economy_type_level_residential - 1
-		update_level_images()
-		
-func on_Residential_Plus_Button_pressed():
-	if(PlayerVariables.economy_type_level_residential < 11):
-		PlayerVariables.economy_type_level_residential = PlayerVariables.economy_type_level_residential + 1
-		update_level_images()
-		
-func on_Services_Minus_Button_pressed():
-	if(PlayerVariables.economy_type_level_services > 1):
-		PlayerVariables.economy_type_level_services = PlayerVariables.economy_type_level_services - 1
-		update_level_images()
-		
-func on_Services_Plus_Button_pressed():
-	if(PlayerVariables.economy_type_level_services < 11):
-		PlayerVariables.economy_type_level_services = PlayerVariables.economy_type_level_services + 1
-		update_level_images()
-		
-		
-func on_Transport_Electrification_Minus_Button_pressed():
-	if(PlayerVariables.electrification_by_sector_level_transportation > 1):
-		PlayerVariables.electrification_by_sector_level_transportation = PlayerVariables.electrification_by_sector_level_transportation - 1
-		update_level_images()
-		
-func on_Transport_Electrification_Plus_Button_pressed():
-	if(PlayerVariables.electrification_by_sector_level_transportation < 11):
-		PlayerVariables.electrification_by_sector_level_transportation = PlayerVariables.electrification_by_sector_level_transportation + 1
-		update_level_images()
-		
-func on_Industry_Electrification_Minus_Button_pressed():
-	if(PlayerVariables.electrification_by_sector_level_industry > 1):
-		PlayerVariables.electrification_by_sector_level_industry = PlayerVariables.electrification_by_sector_level_industry - 1
-		update_level_images()
-		
-func on_Industry_Electrification_Plus_Button_pressed():
-	if(PlayerVariables.electrification_by_sector_level_industry < 11):
-		PlayerVariables.electrification_by_sector_level_industry = PlayerVariables.electrification_by_sector_level_industry + 1
-		update_level_images()
-		
-func on_Residential_Electrification_Minus_Button_pressed():
-	if(PlayerVariables.electrification_by_sector_level_residential > 1):
-		PlayerVariables.electrification_by_sector_level_residential = PlayerVariables.electrification_by_sector_level_residential - 1
-		update_level_images()
-		
-func on_Residential_Electrification_Plus_Button_pressed():
-	if(PlayerVariables.electrification_by_sector_level_residential < 11):
-		PlayerVariables.electrification_by_sector_level_residential = PlayerVariables.electrification_by_sector_level_residential + 1
-		update_level_images()
-		
-func on_Services_Electrification_Minus_Button_pressed():
-	if(PlayerVariables.electrification_by_sector_level_services > 1):
-		PlayerVariables.electrification_by_sector_level_services = PlayerVariables.electrification_by_sector_level_services - 1
-		update_level_images()
-		
-func on_Services_Electrification_Plus_Button_pressed():
-	if(PlayerVariables.electrification_by_sector_level_services < 11):
-		PlayerVariables.electrification_by_sector_level_services = PlayerVariables.electrification_by_sector_level_services + 1
-		update_level_images()
+#func on_Transport_Minus_Button_pressed():
+#	if(PlayerVariables.economy_type_level_transportation > 1):
+#		PlayerVariables.economy_type_level_transportation = PlayerVariables.economy_type_level_transportation - 1
+#		update_level_images()
+#
+#func on_Transport_Plus_Button_pressed():
+#	if(PlayerVariables.economy_type_level_transportation < 11):
+#		PlayerVariables.economy_type_level_transportation = PlayerVariables.economy_type_level_transportation + 1
+#		update_level_images()
+#
+#func on_Industry_Minus_Button_pressed():
+#	if(PlayerVariables.economy_type_level_industry > 1):
+#		PlayerVariables.economy_type_level_industry = PlayerVariables.economy_type_level_industry - 1
+#		update_level_images()
+#
+#func on_Industry_Plus_Button_pressed():
+#	if(PlayerVariables.economy_type_level_industry < 11):
+#		PlayerVariables.economy_type_level_industry = PlayerVariables.economy_type_level_industry + 1
+#		update_level_images()
+#
+#func on_Residential_Minus_Button_pressed():
+#	if(PlayerVariables.economy_type_level_residential > 1):
+#		PlayerVariables.economy_type_level_residential = PlayerVariables.economy_type_level_residential - 1
+#		update_level_images()
+#
+#func on_Residential_Plus_Button_pressed():
+#	if(PlayerVariables.economy_type_level_residential < 11):
+#		PlayerVariables.economy_type_level_residential = PlayerVariables.economy_type_level_residential + 1
+#		update_level_images()
+#
+#func on_Services_Minus_Button_pressed():
+#	if(PlayerVariables.economy_type_level_services > 1):
+#		PlayerVariables.economy_type_level_services = PlayerVariables.economy_type_level_services - 1
+#		update_level_images()
+#
+#func on_Services_Plus_Button_pressed():
+#	if(PlayerVariables.economy_type_level_services < 11):
+#		PlayerVariables.economy_type_level_services = PlayerVariables.economy_type_level_services + 1
+#		update_level_images()
+#
+#
+#func on_Transport_Electrification_Minus_Button_pressed():
+#	if(PlayerVariables.electrification_by_sector_level_transportation > 1):
+#		PlayerVariables.electrification_by_sector_level_transportation = PlayerVariables.electrification_by_sector_level_transportation - 1
+#		update_level_images()
+#
+#func on_Transport_Electrification_Plus_Button_pressed():
+#	if(PlayerVariables.electrification_by_sector_level_transportation < 11):
+#		PlayerVariables.electrification_by_sector_level_transportation = PlayerVariables.electrification_by_sector_level_transportation + 1
+#		update_level_images()
+#
+#func on_Industry_Electrification_Minus_Button_pressed():
+#	if(PlayerVariables.electrification_by_sector_level_industry > 1):
+#		PlayerVariables.electrification_by_sector_level_industry = PlayerVariables.electrification_by_sector_level_industry - 1
+#		update_level_images()
+#
+#func on_Industry_Electrification_Plus_Button_pressed():
+#	if(PlayerVariables.electrification_by_sector_level_industry < 11):
+#		PlayerVariables.electrification_by_sector_level_industry = PlayerVariables.electrification_by_sector_level_industry + 1
+#		update_level_images()
+#
+#func on_Residential_Electrification_Minus_Button_pressed():
+#	if(PlayerVariables.electrification_by_sector_level_residential > 1):
+#		PlayerVariables.electrification_by_sector_level_residential = PlayerVariables.electrification_by_sector_level_residential - 1
+#		update_level_images()
+#
+#func on_Residential_Electrification_Plus_Button_pressed():
+#	if(PlayerVariables.electrification_by_sector_level_residential < 11):
+#		PlayerVariables.electrification_by_sector_level_residential = PlayerVariables.electrification_by_sector_level_residential + 1
+#		update_level_images()
+#
+#func on_Services_Electrification_Minus_Button_pressed():
+#	if(PlayerVariables.electrification_by_sector_level_services > 1):
+#		PlayerVariables.electrification_by_sector_level_services = PlayerVariables.electrification_by_sector_level_services - 1
+#		update_level_images()
+#
+#func on_Services_Electrification_Plus_Button_pressed():
+#	if(PlayerVariables.electrification_by_sector_level_services < 11):
+#		PlayerVariables.electrification_by_sector_level_services = PlayerVariables.electrification_by_sector_level_services + 1
+#		update_level_images()
 
 func store_decision_history():
 	decisions_investment_renewables.push_back(PlayerVariables.investment_renewables_percentage)
@@ -395,7 +412,17 @@ func store_decision_history():
 	decisions_eletrification_industry.push_back(PlayerVariables.electrification_by_sector_level_industry)
 	decisions_eletrification_residential.push_back(PlayerVariables.electrification_by_sector_level_residential)
 	decisions_eletrification_services.push_back(PlayerVariables.electrification_by_sector_level_services)
-
+	renewable_energy_amounts.push_back(PlayerVariables.renewable_energy)
+	total_co2_emissions.push_back(PlayerVariables.co2_emissions)
+	total_efficiency_results.push_back(PlayerVariables.efficiency)
+	decisions_transports_eletrification.push_back(PlayerVariables.electrification_by_sector_percentage_transportation)
+	decisions_industries_eletrification.push_back(PlayerVariables.electrification_by_sector_percentage_industry)
+	decisions_services_eletrification.push_back(PlayerVariables.electrification_by_sector_percentage_services)
+	decisions_residential_eletrification.push_back(PlayerVariables.electrification_by_sector_percentage_residential)
+	prev_pib_value.push_back(PlayerVariables.money)
+	prev_expenditure_value.push_back(PlayerVariables.expenditure)
+	prev_utility_value.push_back(PlayerVariables.utility)
+	renewable_ratio.push_back(current_ratio)
 
 func on_History_Button_pressed():
 	get_node("GrafHistorico").popup()
@@ -640,13 +667,16 @@ func on_Confirm_Button_pressed():
 	#animation goes here
 	next_year_animation()
 	yield(get_tree().create_timer(1.0), "timeout") #wait() in GDscript
+	
 	enable_all_buttons()
 	process_politic()
 	process_next_year()
 	clear_politics_selection()
 	#update_graph()
+	clear_text()
 	update_text()
 	update_simulator_text()
+	get_node("ContainerDecisoes/economyOptions").select(0)
 	filter_list("Transports")
 	
 	
@@ -780,287 +810,287 @@ func update_confirmation_popup():
 
 	
 
-func update_level_images():
-	##Economy Types
-	#Transports
-	if(PlayerVariables.economy_type_level_transportation == 1):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down5.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down5.png")
-	if(PlayerVariables.economy_type_level_transportation == 2):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down4.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down4.png")
-	if(PlayerVariables.economy_type_level_transportation == 3):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down3.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.economy_type_level_transportation == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down2.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down2.png")
-	if(PlayerVariables.economy_type_level_transportation == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down1.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down1.png")
-	if(PlayerVariables.economy_type_level_transportation == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://middle0.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://middle0.png")
-	if(PlayerVariables.economy_type_level_transportation == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up1.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up1.png")
-	if(PlayerVariables.economy_type_level_transportation == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up2.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up2.png")
-	if(PlayerVariables.economy_type_level_transportation == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up3.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up3.png")
-	if(PlayerVariables.economy_type_level_transportation == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up4.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up4.png")
-	if(PlayerVariables.economy_type_level_transportation == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up5.png")
-		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up5.png")
-	#Industry
-	if(PlayerVariables.economy_type_level_industry == 1):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down5.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down5.png")
-	if(PlayerVariables.economy_type_level_industry == 2):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down4.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down4.png")
-	if(PlayerVariables.economy_type_level_industry == 3):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down3.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.economy_type_level_industry == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down2.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down2.png")
-	if(PlayerVariables.economy_type_level_industry == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down1.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down1.png")
-	if(PlayerVariables.economy_type_level_industry == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://middle0.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://middle0.png")
-	if(PlayerVariables.economy_type_level_industry == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up1.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up1.png")
-	if(PlayerVariables.economy_type_level_industry == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up2.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up2.png")
-	if(PlayerVariables.economy_type_level_industry == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up3.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up3.png")
-	if(PlayerVariables.economy_type_level_industry == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up4.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up4.png")
-	if(PlayerVariables.economy_type_level_industry == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up5.png")
-		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up5.png")
-	#Residential
-	if(PlayerVariables.economy_type_level_residential == 1):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down5.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down5.png")
-	if(PlayerVariables.economy_type_level_residential == 2):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down4.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down4.png")
-	if(PlayerVariables.economy_type_level_residential == 3):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down3.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.economy_type_level_residential == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down2.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down2.png")
-	if(PlayerVariables.economy_type_level_residential == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down1.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down1.png")
-	if(PlayerVariables.economy_type_level_residential == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://middle0.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://middle0.png")
-	if(PlayerVariables.economy_type_level_residential == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up1.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up1.png")
-	if(PlayerVariables.economy_type_level_residential == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up2.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up2.png")
-	if(PlayerVariables.economy_type_level_residential == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up3.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up3.png")
-	if(PlayerVariables.economy_type_level_residential == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up4.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up4.png")
-	if(PlayerVariables.economy_type_level_residential == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up5.png")
-		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up5.png")
-	#Services
-	if(PlayerVariables.economy_type_level_services == 1):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down5.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down5.png")
-	if(PlayerVariables.economy_type_level_services == 2):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down4.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down4.png")
-	if(PlayerVariables.economy_type_level_services == 3):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down3.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.economy_type_level_services == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down2.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.economy_type_level_services == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down1.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down1.png")
-	if(PlayerVariables.economy_type_level_services == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://middle0.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://middle0.png")
-	if(PlayerVariables.economy_type_level_services == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up1.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up1.png")
-	if(PlayerVariables.economy_type_level_services == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up2.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up2.png")
-	if(PlayerVariables.economy_type_level_services == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up3.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up3.png")
-	if(PlayerVariables.economy_type_level_services == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up4.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up4.png")
-	if(PlayerVariables.economy_type_level_services == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up5.png")
-		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up5.png")
-	
-	
-	
-	
-	
-	##Electrification
-	#Transports
-	if(PlayerVariables.electrification_by_sector_level_transportation == 1):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down5.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down5.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 2):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down4.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down4.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 3):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down3.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down2.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down2.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down1.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down1.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://middle0.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://middle0.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up1.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up1.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up2.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up2.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up3.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up3.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up4.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up4.png")
-	if(PlayerVariables.electrification_by_sector_level_transportation == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up5.png")
-		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up5.png")
-	#Industry
-	if(PlayerVariables.electrification_by_sector_level_industry == 1):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down5.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down5.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 2):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down4.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down4.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 3):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down3.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down2.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down2.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down1.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down1.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://middle0.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://middle0.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up1.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up1.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up2.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up2.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up3.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up3.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up4.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up4.png")
-	if(PlayerVariables.electrification_by_sector_level_industry == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up5.png")
-		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up5.png")
-	#Residential
-	if(PlayerVariables.electrification_by_sector_level_residential == 1):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down5.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down5.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 2):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down4.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down4.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 3):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down3.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down2.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down2.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down1.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down1.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://middle0.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://middle0.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up1.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up1.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up2.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up2.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up3.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up3.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up4.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up4.png")
-	if(PlayerVariables.electrification_by_sector_level_residential == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up5.png")
-		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up5.png")
-	#Services
-	if(PlayerVariables.electrification_by_sector_level_services == 1):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down5.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down5.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 2):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down4.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down4.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 3):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down3.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 4):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down2.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down3.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 5):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down1.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down1.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 6):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://middle0.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://middle0.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 7):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up1.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up1.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 8):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up2.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up2.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 9):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up3.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up3.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 10):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up4.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up4.png")
-	if(PlayerVariables.electrification_by_sector_level_services == 11):
-		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up5.png")
-		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up5.png")
-	
+#func update_level_images():
+#	##Economy Types
+#	#Transports
+#	if(PlayerVariables.economy_type_level_transportation == 1):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down5.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down5.png")
+#	if(PlayerVariables.economy_type_level_transportation == 2):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down4.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down4.png")
+#	if(PlayerVariables.economy_type_level_transportation == 3):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down3.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.economy_type_level_transportation == 4):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down2.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down2.png")
+#	if(PlayerVariables.economy_type_level_transportation == 5):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://down1.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://down1.png")
+#	if(PlayerVariables.economy_type_level_transportation == 6):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://middle0.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://middle0.png")
+#	if(PlayerVariables.economy_type_level_transportation == 7):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up1.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up1.png")
+#	if(PlayerVariables.economy_type_level_transportation == 8):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up2.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up2.png")
+#	if(PlayerVariables.economy_type_level_transportation == 9):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up3.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up3.png")
+#	if(PlayerVariables.economy_type_level_transportation == 10):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up4.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up4.png")
+#	if(PlayerVariables.economy_type_level_transportation == 11):
+#		get_node("ContainerDecisoes/ScrollContainer/Control3/Level").texture = load("res://up5.png")
+#		get_node("ConfirmationPopup/Control/Transportes/Level").texture  = load("res://up5.png")
+#	#Industry
+#	if(PlayerVariables.economy_type_level_industry == 1):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down5.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down5.png")
+#	if(PlayerVariables.economy_type_level_industry == 2):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down4.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down4.png")
+#	if(PlayerVariables.economy_type_level_industry == 3):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down3.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.economy_type_level_industry == 4):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down2.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down2.png")
+#	if(PlayerVariables.economy_type_level_industry == 5):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://down1.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://down1.png")
+#	if(PlayerVariables.economy_type_level_industry == 6):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://middle0.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://middle0.png")
+#	if(PlayerVariables.economy_type_level_industry == 7):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up1.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up1.png")
+#	if(PlayerVariables.economy_type_level_industry == 8):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up2.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up2.png")
+#	if(PlayerVariables.economy_type_level_industry == 9):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up3.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up3.png")
+#	if(PlayerVariables.economy_type_level_industry == 10):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up4.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up4.png")
+#	if(PlayerVariables.economy_type_level_industry == 11):
+#		get_node("ContainerDecisoes/ScrollContainer/Control4/Level").texture = load("res://up5.png")
+#		get_node("ConfirmationPopup/Control/Industria/Level").texture  = load("res://up5.png")
+#	#Residential
+#	if(PlayerVariables.economy_type_level_residential == 1):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down5.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down5.png")
+#	if(PlayerVariables.economy_type_level_residential == 2):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down4.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down4.png")
+#	if(PlayerVariables.economy_type_level_residential == 3):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down3.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.economy_type_level_residential == 4):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down2.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down2.png")
+#	if(PlayerVariables.economy_type_level_residential == 5):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://down1.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://down1.png")
+#	if(PlayerVariables.economy_type_level_residential == 6):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://middle0.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://middle0.png")
+#	if(PlayerVariables.economy_type_level_residential == 7):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up1.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up1.png")
+#	if(PlayerVariables.economy_type_level_residential == 8):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up2.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up2.png")
+#	if(PlayerVariables.economy_type_level_residential == 9):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up3.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up3.png")
+#	if(PlayerVariables.economy_type_level_residential == 10):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up4.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up4.png")
+#	if(PlayerVariables.economy_type_level_residential == 11):
+#		get_node("ContainerDecisoes/ScrollContainer/Control5/Level").texture = load("res://up5.png")
+#		get_node("ConfirmationPopup/Control/Residencial/Level").texture  = load("res://up5.png")
+#	#Services
+#	if(PlayerVariables.economy_type_level_services == 1):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down5.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down5.png")
+#	if(PlayerVariables.economy_type_level_services == 2):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down4.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down4.png")
+#	if(PlayerVariables.economy_type_level_services == 3):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down3.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.economy_type_level_services == 4):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down2.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.economy_type_level_services == 5):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://down1.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://down1.png")
+#	if(PlayerVariables.economy_type_level_services == 6):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://middle0.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://middle0.png")
+#	if(PlayerVariables.economy_type_level_services == 7):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up1.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up1.png")
+#	if(PlayerVariables.economy_type_level_services == 8):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up2.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up2.png")
+#	if(PlayerVariables.economy_type_level_services == 9):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up3.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up3.png")
+#	if(PlayerVariables.economy_type_level_services == 10):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up4.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up4.png")
+#	if(PlayerVariables.economy_type_level_services == 11):
+#		get_node("ContainerDecisoes/ScrollContainer/Control6/Level").texture = load("res://up5.png")
+#		get_node("ConfirmationPopup/Control/Servicos/Level").texture  = load("res://up5.png")
+#
+#
+#
+#
+#
+#	##Electrification
+#	#Transports
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 1):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down5.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down5.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 2):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down4.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down4.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 3):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down3.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 4):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down2.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down2.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 5):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://down1.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://down1.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 6):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://middle0.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://middle0.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 7):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up1.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up1.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 8):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up2.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up2.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 9):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up3.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up3.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 10):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up4.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up4.png")
+#	if(PlayerVariables.electrification_by_sector_level_transportation == 11):
+#		get_node("ContainerDecisoes/ScrollContainer/Control8/Level").texture = load("res://up5.png")
+#		get_node("ConfirmationPopup/Control/Transportes2/Level").texture  = load("res://up5.png")
+#	#Industry
+#	if(PlayerVariables.electrification_by_sector_level_industry == 1):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down5.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down5.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 2):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down4.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down4.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 3):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down3.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 4):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down2.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down2.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 5):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://down1.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://down1.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 6):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://middle0.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://middle0.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 7):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up1.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up1.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 8):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up2.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up2.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 9):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up3.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up3.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 10):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up4.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up4.png")
+#	if(PlayerVariables.electrification_by_sector_level_industry == 11):
+#		get_node("ContainerDecisoes/ScrollContainer/Control9/Level").texture = load("res://up5.png")
+#		get_node("ConfirmationPopup/Control/Industria2/Level").texture  = load("res://up5.png")
+#	#Residential
+#	if(PlayerVariables.electrification_by_sector_level_residential == 1):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down5.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down5.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 2):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down4.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down4.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 3):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down3.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 4):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down2.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down2.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 5):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://down1.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://down1.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 6):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://middle0.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://middle0.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 7):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up1.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up1.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 8):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up2.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up2.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 9):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up3.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up3.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 10):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up4.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up4.png")
+#	if(PlayerVariables.electrification_by_sector_level_residential == 11):
+#		get_node("ContainerDecisoes/ScrollContainer/Control10/Level").texture = load("res://up5.png")
+#		get_node("ConfirmationPopup/Control/Residencial2/Level").texture  = load("res://up5.png")
+#	#Services
+#	if(PlayerVariables.electrification_by_sector_level_services == 1):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down5.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down5.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 2):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down4.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down4.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 3):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down3.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 4):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down2.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down3.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 5):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://down1.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://down1.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 6):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://middle0.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://middle0.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 7):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up1.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up1.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 8):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up2.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up2.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 9):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up3.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up3.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 10):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up4.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up4.png")
+#	if(PlayerVariables.electrification_by_sector_level_services == 11):
+#		get_node("ContainerDecisoes/ScrollContainer/Control11/Level").texture = load("res://up5.png")
+#		get_node("ConfirmationPopup/Control/Servicos2/Level").texture  = load("res://up5.png")
+#
 
 
 
@@ -1074,60 +1104,61 @@ func _on_Fechar_pressed():
 	update_text()
 	get_node("ModelPopup").hide()
 
-
-func _on_Simular_pressed():
-	simulator_used = true
-	
-	Model.input_potencia_a_instalar = get_node("ModelPopup/Control/Potencia").value
-	Model.input_percentagem_tipo_economia_transportes = get_node("ModelPopup/Control/TipoEconomiaTransportes").value
-	Model.input_percentagem_tipo_economia_industria = get_node("ModelPopup/Control/TipoEconomiaIndustria").value
-	Model.input_percentagem_tipo_economia_residencial = get_node("ModelPopup/Control/TipoEconomiaResidencial").value
-	Model.input_percentagem_tipo_economia_servicos = get_node("ModelPopup/Control/TipoEconomiaServicos").value
-	Model.input_percentagem_eletrificacao_transportes = get_node("ModelPopup/Control/EletrificacaoTransportes").value
-	Model.input_percentagem_eletrificacao_industria = get_node("ModelPopup/Control/EletrificacaoIndustria").value
-	Model.input_percentagem_eletrificacao_residencial = get_node("ModelPopup/Control/EletrificacaoResidencial").value
-	Model.input_percentagem_eletrificacao_servicos = get_node("ModelPopup/Control/EletrificacaoServicos").value
-	
-	decisions_investment_renewables.push_back(get_node("ModelPopup/Control/Potencia").value)
-	decisions_shares_transportation.push_back(get_node("ModelPopup/Control/TipoEconomiaTransportes").value)
-	decisions_shares_industry.push_back(get_node("ModelPopup/Control/TipoEconomiaIndustria").value)
-	decisions_shares_residential.push_back(get_node("ModelPopup/Control/TipoEconomiaResidencial").value)
-	decisions_shares_services.push_back(get_node("ModelPopup/Control/TipoEconomiaServicos").value)
-	decisions_eletrification_transportation .push_back(get_node("ModelPopup/Control/EletrificacaoTransportes").value)
-	decisions_eletrification_industry.push_back(get_node("ModelPopup/Control/EletrificacaoIndustria").value)
-	decisions_eletrification_residential.push_back(get_node("ModelPopup/Control/EletrificacaoResidencial").value)
-	decisions_eletrification_services.push_back(get_node("ModelPopup/Control/EletrificacaoServicos").value)
-
-	
-	Model.mudar_de_ano()
-	Model.calcular_distribuicao_por_fonte()
-	Model.calcular_custo()
-	Model.calcular_investimento()
-	Model.calcular_capital()
-	Model.calcular_labour()
-	Model.calcular_tfp()
-	Model.calcular_pib()
-	Model.calcular_exergia_util()
-	Model.calcular_exergia_final()
-	Model.calcular_shares_de_exergia_final_por_setor()
-	Model.calcular_eletrificacao_etc_de_setores()
-	Model.calcular_shares_de_exergia_final_por_setor_por_carrier()
-	Model.calcular_valores_absolutos_de_exergia_final_por_setor()
-	Model.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
-	Model.calcular_eficiencia_por_setor()
-	Model.calcular_eficiencia_agregada()
-	Model.calcular_valores_absolutos_de_exergia_final_por_carrier()
-	Model.calcular_emissoes_CO2_carvao_petroleo_gas_natural()
-	Model.calcular_eletricidade_de_fontes_renovaveis()
-	Model.calcular_eletricidade_nao_renovavel()
-	Model.calcular_emissoes_nao_renovaveis()
-	Model.calcular_emissoes_totais()
-	Model.calcular_consumo()
-	Model.calcular_utilidade()
-
-	update_simulator_text()
-	update_past_data_text_simulator()
-	
+#
+#func _on_Simular_pressed():
+#	simulator_used = true
+#
+#	Model.input_potencia_a_instalar = get_node("ModelPopup/Control/Potencia").value
+#	Model.input_percentagem_tipo_economia_transportes = get_node("ModelPopup/Control/TipoEconomiaTransportes").value
+#	Model.input_percentagem_tipo_economia_industria = get_node("ModelPopup/Control/TipoEconomiaIndustria").value
+#	Model.input_percentagem_tipo_economia_residencial = get_node("ModelPopup/Control/TipoEconomiaResidencial").value
+#	Model.input_percentagem_tipo_economia_servicos = get_node("ModelPopup/Control/TipoEconomiaServicos").value
+#	Model.input_percentagem_eletrificacao_transportes = get_node("ModelPopup/Control/EletrificacaoTransportes").value
+#	Model.input_percentagem_eletrificacao_industria = get_node("ModelPopup/Control/EletrificacaoIndustria").value
+#	Model.input_percentagem_eletrificacao_residencial = get_node("ModelPopup/Control/EletrificacaoResidencial").value
+#	Model.input_percentagem_eletrificacao_servicos = get_node("ModelPopup/Control/EletrificacaoServicos").value
+#
+#	decisions_investment_renewables.push_back(get_node("ModelPopup/Control/Potencia").value)
+#	decisions_shares_transportation.push_back(get_node("ModelPopup/Control/TipoEconomiaTransportes").value)
+#	decisions_shares_industry.push_back(get_node("ModelPopup/Control/TipoEconomiaIndustria").value)
+#	decisions_shares_residential.push_back(get_node("ModelPopup/Control/TipoEconomiaResidencial").value)
+#	decisions_shares_services.push_back(get_node("ModelPopup/Control/TipoEconomiaServicos").value)
+#	decisions_eletrification_transportation .push_back(get_node("ModelPopup/Control/EletrificacaoTransportes").value)
+#	decisions_eletrification_industry.push_back(get_node("ModelPopup/Control/EletrificacaoIndustria").value)
+#	decisions_eletrification_residential.push_back(get_node("ModelPopup/Control/EletrificacaoResidencial").value)
+#	decisions_eletrification_services.push_back(get_node("ModelPopup/Control/EletrificacaoServicos").value)
+#
+#
+#	Model.mudar_de_ano()
+#	Model.calcular_distribuicao_por_fonte()
+#	Model.calcular_custo()
+#	Model.calcular_investimento()
+#	Model.calcular_capital()
+#	Model.calcular_labour()
+#	Model.calcular_tfp()
+#	Model.calcular_pib()
+#	print("Chamado o PIB")
+#	Model.calcular_exergia_util()
+#	Model.calcular_exergia_final()
+#	Model.calcular_shares_de_exergia_final_por_setor()
+#	Model.calcular_eletrificacao_etc_de_setores()
+#	Model.calcular_shares_de_exergia_final_por_setor_por_carrier()
+#	Model.calcular_valores_absolutos_de_exergia_final_por_setor()
+#	Model.calcular_valores_absolutos_de_exergia_final_por_setor_por_carrier()
+#	Model.calcular_eficiencia_por_setor()
+#	Model.calcular_eficiencia_agregada()
+#	Model.calcular_valores_absolutos_de_exergia_final_por_carrier()
+#	Model.calcular_emissoes_CO2_carvao_petroleo_gas_natural()
+#	Model.calcular_eletricidade_de_fontes_renovaveis()
+#	Model.calcular_eletricidade_nao_renovavel()
+#	Model.calcular_emissoes_nao_renovaveis()
+#	Model.calcular_emissoes_totais()
+#	Model.calcular_consumo()
+#	Model.calcular_utilidade()
+#
+#	update_simulator_text()
+#	update_past_data_text_simulator()
+#
 
 func _on_EscreverFicheiro_pressed():
 	get_node("FileWritePopup").popup()
@@ -1512,6 +1543,12 @@ func create_buttons_by_sector(politics_array):
 
 func process_politic():
 	
+	#reset values before setting
+	PlayerVariables.electrification_by_sector_level_transportation = 6
+	PlayerVariables.electrification_by_sector_level_industry = 6
+	PlayerVariables.electrification_by_sector_level_services = 6
+	PlayerVariables.electrification_by_sector_level_residential = 6
+	
 	for i in selected_politics:
 		var temp_pol = politics_dictionary.get(i)
 		var impactDictionary = temp_pol.getImpact()
@@ -1523,17 +1560,17 @@ func process_politic():
 			PlayerVariables.investment_renewables_percentage = 20.00
 		
 		if(politicType == "Transports"):
-			if(PlayerVariables.electrification_by_sector_level_transportation < 11):
-				PlayerVariables.electrification_by_sector_level_transportation = PlayerVariables.electrification_by_sector_level_transportation + impactDictionary.get("Ele")
+			if(PlayerVariables.electrification_by_sector_level_transportation < 30):
+				PlayerVariables.electrification_by_sector_level_transportation += impactDictionary.get("Ele")
 		elif(politicType == "Industry"):
-			if(PlayerVariables.electrification_by_sector_level_industry < 11):
-				PlayerVariables.electrification_by_sector_level_industry = PlayerVariables.electrification_by_sector_level_industry + impactDictionary.get("Ele")
+			if(PlayerVariables.electrification_by_sector_level_industry < 30):
+				PlayerVariables.electrification_by_sector_level_industry += impactDictionary.get("Ele")
 		elif(politicType == "Services"):
-			if(PlayerVariables.electrification_by_sector_level_services < 11):
-				PlayerVariables.electrification_by_sector_level_services = PlayerVariables.electrification_by_sector_level_services + impactDictionary.get("Ele")		
+			if(PlayerVariables.electrification_by_sector_level_services < 30):
+				PlayerVariables.electrification_by_sector_level_services += impactDictionary.get("Ele")		
 		elif(politicType == "Residential"):
-			if(PlayerVariables.electrification_by_sector_level_residential < 11):
-				PlayerVariables.electrification_by_sector_level_residential = PlayerVariables.electrification_by_sector_level_residential + impactDictionary.get("Ele")
+			if(PlayerVariables.electrification_by_sector_level_residential < 30):
+				PlayerVariables.electrification_by_sector_level_residential += impactDictionary.get("Ele")
 		else:
 			print("ERROR: @process_politics")
 	
@@ -1582,12 +1619,6 @@ func filter_list(txtType):
 	elif(txtType=="Residential"):
 		show_politics_list(residential_politics)
 	
-		
-#	var filteredArray = []
-#	for item in politics:
-#		if(item.getType() == txtType):
-#			filteredArray.push_back(item)
-#	update_decisions(filteredArray) 
 
 func on_Politic_Button_pressed(button):
 	var elements = button.get_children()
@@ -1610,3 +1641,178 @@ func show_politics_list(elem):
 	var listNode = get_node("ContainerDecisoes/sc/ListBox")	
 	for item in elem:
 		listNode.add_child(item)
+
+func clear_text():
+	PlayerVariables.investment_renewables_percentage = 0
+	PlayerVariables.investment_cost = 0
+	$ContainerDecisoes/ScrollContainer/Control/ValorPotencia.bbcode_text = "[right]" + str(PlayerVariables.investment_renewables_percentage) + "[/right]"
+	$ContainerDecisoes/ScrollContainer/Control/ValorCusto.bbcode_text = "[right]" + str(stepify(PlayerVariables.investment_cost,1)) + " M[/right]"
+
+func get_Investment_difference():
+	var numElems = decisions_investment_renewables.size()
+	if(numElems > 1):
+		if (decisions_investment_renewables[-1] > 0):
+			return "[color=green]" + "+ " + str(decisions_investment_renewables[-1]) + "[/color]"
+		else:
+			return str(decisions_investment_renewables[-1])
+	else:
+		return "0"
+
+func get_renewable_energy_difference():
+	var numElems = renewable_energy_amounts.size()
+	if(numElems > 2):
+		var diff = stepify(PlayerVariables.renewable_energy - renewable_energy_amounts[-1], 0.1)
+		if (diff > 0):
+			return "[color=green]" + "+ " + str(diff) + "[/color]"
+		elif(diff < 0):
+			return "[color=red]" + "+" + str(diff) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+
+func get_total_co2_difference():
+	var numElems = total_co2_emissions.size()
+	if(numElems > 2):
+		var diff = PlayerVariables.co2_emissions - total_co2_emissions[-1]
+		if (diff > 0):
+			return "[color=red]" + "+" + str(stepify(diff,0.001)) + "[/color]"
+		elif(diff < 0):
+			return "[color=green]" + str(stepify(diff,0.001)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+		
+func get_efficiency_difference():
+	var numElems = total_efficiency_results.size()
+	if(numElems > 2):
+		var diff = stepify(PlayerVariables.efficiency*100, 0.1) - stepify(total_efficiency_results[-1]*100,0.1)
+		if (diff < 0):
+			return "[color=red]" + str(stepify(diff,0.1)) + "[/color]"
+		elif(diff > 0):
+			return "[color=green]" + "+" + str(stepify(diff,0.1)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+
+
+func get_eletrification_difference_transports():
+	var numElems = decisions_transports_eletrification.size()
+	if(numElems > 2):
+		var diff = stepify(PlayerVariables.electrification_by_sector_percentage_transportation, 0.1) - stepify(decisions_transports_eletrification[-1],0.1)
+		if (diff < 0):
+			return "[color=red]" + str(stepify(diff,0.1)) + "[/color]"
+		elif(diff > 0):
+			return "[color=green]" + "+" + str(stepify(diff,0.1)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+
+
+func get_eletrification_difference_industries():
+	var numElems = decisions_industries_eletrification.size()
+	if(numElems > 2):
+		var diff = stepify(PlayerVariables.electrification_by_sector_percentage_industry, 0.1) - stepify(decisions_industries_eletrification[-1],0.1)
+		if (diff < 0):
+			return "[color=red]" + str(stepify(diff,0.1)) + "[/color]"
+		elif(diff > 0):
+			return "[color=green]" + "+" + str(stepify(diff,0.1)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+
+func get_eletrification_difference_services():
+	var numElems = decisions_services_eletrification.size()
+	if(numElems > 2):
+		var diff = stepify(PlayerVariables.electrification_by_sector_percentage_services, 0.1) - stepify(decisions_services_eletrification[-1],0.1)
+		if (diff < 0):
+			return "[color=red]" + str(stepify(diff,0.1)) + "[/color]"
+		elif(diff > 0):
+			return "[color=green]" + "+" + str(stepify(diff,0.1)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+
+func get_eletrification_difference_residential():
+	var numElems = decisions_residential_eletrification.size()
+	if(numElems > 2):
+		var diff = stepify(PlayerVariables.electrification_by_sector_percentage_residential, 0.1) - stepify(decisions_residential_eletrification[-1],0.1)
+		if (diff < 0):
+			return "[color=red]" + str(stepify(diff,0.1)) + "[/color]"
+		elif(diff > 0):
+			return "[color=green]" + "+" + str(stepify(diff,0.1)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+
+
+func get_pib_difference():
+	var numElems = prev_pib_value.size()
+	if(numElems > 2):
+		var diff = stepify(PlayerVariables.money,1) - stepify(prev_pib_value[-1],1)
+		if (diff < 0):
+			return "[color=red]" + str(stepify(diff,1)) + "[/color]"
+		elif(diff > 0):
+			return "[color=green]" + "+" + str(stepify(diff,1)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+
+
+func get_expenditure_difference():
+	var numElems = prev_expenditure_value.size()
+	if(numElems > 2):
+		var diff = stepify(PlayerVariables.expenditure,1) - stepify(prev_expenditure_value[-1],1)
+		if (diff < 0):
+			return "[color=red]" + str(stepify(diff,1)) + "[/color]"
+		elif(diff > 0):
+			return "[color=green]" + "+" + str(stepify(diff,1)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+
+func get_utility_difference():
+	var numElems = prev_utility_value.size()
+	if(numElems > 2):
+		var diff = stepify(PlayerVariables.utility,0.01) - stepify(prev_utility_value[-1],0.01)
+		if (diff < 0):
+			return "[color=red]" + str(stepify(diff,0.01)) + "[/color]"
+		elif(diff > 0):
+			return "[color=green]" + "+" + str(stepify(diff,0.01)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+
+
+func get_renewable_ratio():
+	if(Model.eletricidade_nao_renovavel_do_ano.size() > 2):
+		var total_energy = Model.eletricidade_nao_renovavel_do_ano[-1] + PlayerVariables.renewable_energy
+		var result = stepify(min(((PlayerVariables.renewable_energy/total_energy) * 100), 100), 0.01)
+		current_ratio = result
+		return result
+	else :
+		return 33.95
+
+func get_ratio_difference():
+	var numElems = renewable_ratio.size()
+	if(numElems > 1 && Model.eletricidade_nao_renovavel_do_ano.size() > 2):
+		var diff = current_ratio - renewable_ratio[-1]
+		if (diff < 0):
+			return "[color=red]" + str(stepify(diff,0.01)) + "[/color]"
+		elif(diff > 0):
+			return "[color=green]" + "+" + str(stepify(diff,0.01)) + "[/color]"
+		else:
+			return str(diff)
+	else:
+		return "0"
+		
+

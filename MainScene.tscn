@@ -534,9 +534,9 @@ __meta__ = {
 
 [node name="ContainerDecisoes" type="ItemList" parent="."]
 margin_left = 1343.5
-margin_top = 43.8762
+margin_top = 54.4709
 margin_right = 1857.5
-margin_bottom = 1021.87
+margin_bottom = 1032.46
 rect_pivot_offset = Vector2( -126.604, 50.5367 )
 custom_styles/bg = SubResource( 2 )
 max_text_lines = 3
@@ -1630,6 +1630,7 @@ text = "2050 - Previsões"
 scroll_active = false
 
 [node name="Previsoes" type="RichTextLabel" parent="ContainerPrevisoes"]
+visible = false
 margin_left = 22.4422
 margin_top = 327.555
 margin_right = 428.442
@@ -1651,6 +1652,7 @@ bbcode_text = "[b]Previsões:[/b]"
 text = "Previsões:"
 
 [node name="TextoPrevisoes" type="RichTextLabel" parent="ContainerPrevisoes"]
+visible = false
 margin_left = 45.0
 margin_top = 378.0
 margin_right = 492.0
@@ -1675,6 +1677,9 @@ text = "Felicidade dos Cidadãos: n/d
 
 Emissões CO2: n/d
 "
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Metas" type="RichTextLabel" parent="ContainerPrevisoes"]
 margin_left = 22.4422
@@ -1715,6 +1720,7 @@ Emissões CO2: ≤  MT
 "
 
 [node name="OutrosDados" type="RichTextLabel" parent="ContainerPrevisoes"]
+visible = false
 margin_left = 21.3449
 margin_top = 545.759
 margin_right = 427.345
@@ -1732,6 +1738,7 @@ bbcode_text = "[b]Outros Dados:[/b]"
 text = "Outros Dados:"
 
 [node name="TextoOutrosDados" type="RichTextLabel" parent="ContainerPrevisoes"]
+visible = false
 margin_left = 45.0
 margin_top = 597.0
 margin_right = 492.0
@@ -1837,13 +1844,10 @@ A eficiência na transição de exergia final para exergia útil de todos os set
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "Potência Total Instalada (Fração Renovável):
-	
-Eletricidade Renovável: GWh
-
-Emissões: MT
-
-Eficiência Agregada do País: %"
+bbcode_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextoDadosEnergeticos2" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 41.0
@@ -1905,11 +1909,7 @@ Um número maior do que 1 indica que houve um aumento na felicidade (e vice-vers
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "PIB: 197.5 mil milhões de euros
-
-Consumo: 
-
-Felicidade dos Cidadãos: 100"
+bbcode_enabled = true
 
 [node name="DadosEnergeticos" type="RichTextLabel" parent="EstadoAtual"]
 margin_left = 16.7022
@@ -1985,9 +1985,9 @@ script = ExtResource( 17 )
 anims/NextYear = SubResource( 8 )
 
 [node name="FundoTabela" type="ItemList" parent="EstadoAtual"]
-margin_left = 35.0
+margin_left = 12.0
 margin_top = 461.0
-margin_right = 662.0
+margin_right = 683.0
 margin_bottom = 694.0
 hint_tooltip = "O tipo de economia é determinado pela exergia usada pelos diferentes setores representados.
 A distribuição (\"shares de exergia\") pelos diversos setores aqui representada tem sempre a soma de 100%.
@@ -2034,6 +2034,9 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "Transportes"
 text = "Transportes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SharesTransportes" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
 margin_left = 273.245
@@ -2048,13 +2051,13 @@ As percentagens são independentes entre setores."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "0%"
+bbcode_enabled = true
 
 [node name="EletrificacaoTransportes" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
-margin_left = 511.245
-margin_top = 55.3904
-margin_right = 655.245
-margin_bottom = 100.39
+margin_left = 456.0
+margin_top = 55.0
+margin_right = 656.0
+margin_bottom = 100.0
 hint_tooltip = "O tipo de economia é determinado pela exergia usada pelos diferentes setores representados.
 A distribuição (\"shares de exergia\") pelos diversos setores aqui representada tem sempre a soma de 100%.
 
@@ -2063,13 +2066,13 @@ As percentagens são independentes entre setores."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "0%"
+bbcode_enabled = true
 
 [node name="EletrificacaoIndustria" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
-margin_left = 511.245
-margin_top = 101.39
-margin_right = 657.245
-margin_bottom = 146.39
+margin_left = 457.0
+margin_top = 101.0
+margin_right = 657.0
+margin_bottom = 146.0
 hint_tooltip = "O tipo de economia é determinado pela exergia usada pelos diferentes setores representados.
 A distribuição (\"shares de exergia\") pelos diversos setores aqui representada tem sempre a soma de 100%.
 
@@ -2078,13 +2081,13 @@ As percentagens são independentes entre setores."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "0%"
+bbcode_enabled = true
 
 [node name="EletrificacaoResidencial" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
-margin_left = 511.245
-margin_top = 148.39
-margin_right = 652.245
-margin_bottom = 193.39
+margin_left = 457.0
+margin_top = 148.0
+margin_right = 652.0
+margin_bottom = 193.0
 hint_tooltip = "O tipo de economia é determinado pela exergia usada pelos diferentes setores representados.
 A distribuição (\"shares de exergia\") pelos diversos setores aqui representada tem sempre a soma de 100%.
 
@@ -2093,13 +2096,13 @@ As percentagens são independentes entre setores."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "0%"
+bbcode_enabled = true
 
 [node name="EletrificacaoServicos" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
-margin_left = 511.245
-margin_top = 191.39
-margin_right = 653.245
-margin_bottom = 236.39
+margin_left = 457.0
+margin_top = 191.0
+margin_right = 654.0
+margin_bottom = 236.0
 hint_tooltip = "O tipo de economia é determinado pela exergia usada pelos diferentes setores representados.
 A distribuição (\"shares de exergia\") pelos diversos setores aqui representada tem sempre a soma de 100%.
 
@@ -2108,7 +2111,7 @@ As percentagens são independentes entre setores."
 theme = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 7 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "0%"
+bbcode_enabled = true
 
 [node name="SharesIndustria" type="RichTextLabel" parent="EstadoAtual/FundoTabela/Control"]
 margin_left = 273.245
@@ -3324,6 +3327,7 @@ mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 custom_fonts/font = ExtResource( 3 )
 text = "Fechar"
+
 [connection signal="pressed" from="ContainerDecisoes/EnviarDecisoes" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="ModelPopup/Control/EscreverFicheiro" to="." method="_on_EscreverFicheiro_pressed"]
 [connection signal="pressed" from="ModelPopup/Control/Simular" to="." method="_on_Simular_pressed"]

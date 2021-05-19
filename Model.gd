@@ -28,11 +28,12 @@ var POTENCIA_MAXIMA_SOLAR = 18.6 #GW
 var POTENCIA_MAXIMA_VENTO = 15.0
 var POTENCIA_MAXIMA_BIOMASSA= 2.2464802
 
-var CUSTO_POR_GIGAWATT_INSTALADO_SOLAR = 700 #euro/GW
-var CUSTO_POR_GIGAWATT_INSTALADO_VENTO = 1000
+var CUSTO_POR_GIGAWATT_INSTALADO_SOLAR = 995000000 #euro/GW
+var CUSTO_POR_GIGAWATT_INSTALADO_VENTO = 1231000000
+var CUSTO_POR_GIGAWATT_INSTALADO_VENTO_OFFSHORE = 3581000000
 var CUSTO_POR_GIGAWATT_INSTALADO_SOLAR_BIOMASSA = 4700
 
-var CUSTO_POR_GIGAWATT_INSTALADO = 20100 #euro/GW #esta é uma média dos valores acima, para apresentação estatística. Os valores a usar são os acima.
+var CUSTO_POR_GIGAWATT_INSTALADO = 1936 #euro/GW #esta é uma média dos valores acima, para apresentação estatística. Os valores a usar são os acima.
 
 var PERCENTAGEM_A_RETIRAR_DO_PIB = 0.16 #cenário pessimista
 
@@ -503,7 +504,6 @@ func calcular_tfp():
 # FUNCS 7) - PIB (milhares de milhões de euros)
 func calcular_pib():
 	pib_do_ano.push_back(tfp_do_ano[ano_atual_indice]* pow(capital_do_ano[ano_atual_indice], 0.3) *pow(labour_do_ano[ano_atual_indice], 0.7))
-	print (pib_do_ano)
 	
 # FUNCS 8) - EXERGIA ÚTIL ANUAL (terajoule) (1 megajoule = 1 euro)
 func calcular_exergia_util():
@@ -767,7 +767,7 @@ func calcular_emissoes_totais():
 
 # FUNCS 24) - CONSUMO (milhares de milhões de euros)
 func calcular_consumo():
-	consumo_do_ano.push_back(pib_do_ano[ano_atual_indice] - investimento_total_do_ano[ano_atual_indice])
+	consumo_do_ano.push_back(pib_do_ano[-1] - investimento_total_do_ano[ano_atual_indice])
 	
 # FUNCS 25) - UTILIDADE (Felicidade dos cidadãos; um dos objetivos do jogo) (Atenção: para efeitos de apresentação no jogo, estamos a dividir os resultados pelo resultado do ano 1)
 func calcular_utilidade():
