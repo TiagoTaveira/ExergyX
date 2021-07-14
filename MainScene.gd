@@ -188,7 +188,7 @@ func update_game_after_model(): #TODO: change final year names to current year
 	PlayerVariables.economic_growth = 1
 	PlayerVariables.cost_per_gigawatt = Model.CUSTO_POR_GIGAWATT_INSTALADO
 	PlayerVariables.efficiency = Model.eficiencia_agregada_do_ano[Model.ano_atual_indice]
-	PlayerVariables.total_installed_power = Model.potencia_do_ano_solar[Model.ano_atual_indice] + Model.potencia_do_ano_biomassa[Model.ano_atual_indice] + Model.potencia_do_ano_vento[Model.ano_atual_indice] + Model.POTENCIA_ANUAL_HIDRO
+	PlayerVariables.total_installed_power = Model.potencia_do_ano_solar[Model.ano_atual_indice] + Model.potencia_do_ano_vento_offshore[Model.ano_atual_indice] + Model.potencia_do_ano_vento[Model.ano_atual_indice] + Model.POTENCIA_ANUAL_HIDRO
 	PlayerVariables.renewable_energy = Model.eletricidade_renovavel_do_ano[Model.ano_atual_indice]
 	
 	PlayerVariables.economy_type_percentage_transportation = Model.shares_exergia_final_transportes_do_ano[Model.ano_atual_indice] * 100.0  #TODO: Apresentar com 1 casa decimal
@@ -1172,10 +1172,10 @@ func update_simulator_text():
 		$ModelPopup/Control/Texto.text += "Ano: " + str(Model.ano_do_indice(n)) \
 			+ "\nPotência Instalada Solar: " + str(Model.potencia_do_ano_solar[n]) + " GW" \
 			+ "\nPotência Instalada Vento: " + str(Model.potencia_do_ano_vento[n]) + " GW" \
-			+ "\nPotência Instalada Biomassa: " + str(Model.potencia_do_ano_biomassa[n]) + " GW" \
+			+ "\nPotência Instalada Vento Offshore: " + str(Model.potencia_do_ano_vento_offshore[n]) + " GW" \
 			+ "\nCusto solar: " + str(Model.custo_do_ano_solar[n]) + " euros" \
 			+ "\nCusto vento: " + str(Model.custo_do_ano_vento[n]) + " euros" \
-			+ "\nCusto biomassa: " + str(Model.custo_do_ano_biomassa[n]) + " euros" \
+			+ "\nCusto vento offshore: " + str(Model.custo_do_ano_vento_offshore[n]) + " euros" \
 			+ "\nCusto total: " + str(Model.custo_total_do_ano[n]) + " euros" \
 			+ "\nPIB: " + str(Model.pib_do_ano[n]) + " milhares de milhões euros" \
 			+ "\nInvestimento para capital: " + str(Model.investimento_para_capital_do_ano[n]) + " milhares de milhões de euros" \

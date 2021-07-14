@@ -26,12 +26,11 @@ var ANO_INICIAL = 2011
 
 var POTENCIA_MAXIMA_SOLAR = 18.6 #GW
 var POTENCIA_MAXIMA_VENTO = 15.0
-var POTENCIA_MAXIMA_BIOMASSA= 2.2464802
+var POTENCIA_MAXIMA_VENTO_OFFSHORE = 10
 
 var CUSTO_POR_GIGAWATT_INSTALADO_SOLAR = 995000000 #euro/GW
 var CUSTO_POR_GIGAWATT_INSTALADO_VENTO = 1231000000
 var CUSTO_POR_GIGAWATT_INSTALADO_VENTO_OFFSHORE = 3581000000
-var CUSTO_POR_GIGAWATT_INSTALADO_SOLAR_BIOMASSA = 4700
 
 var CUSTO_POR_GIGAWATT_INSTALADO = 1936 #euro/GW #esta é uma média dos valores acima, para apresentação estatística. Os valores a usar são os acima.
 
@@ -86,7 +85,7 @@ var FATOR_DE_EMISSAO_COMB_RENOVAVEIS = 0.00 * 1000
 
 var FATOR_DE_PRODUCAO_SOLAR = 0.1960
 var FATOR_DE_PRODUCAO_VENTO = 0.2690
-var FATOR_DE_PRODUCAO_BIOMASSA = 0.4920
+var FATOR_DE_PRODUCAO_VENTO_OFFSHORE = 0.2200
 var FATOR_DE_PRODUCAO_HIDRO = 0.1180
 
 var POTENCIA_ANUAL_HIDRO = 5.57 #GW
@@ -104,11 +103,12 @@ var EFICIENCIA_DE_PRODUCAO_DE_ELETRICIDADE_COM_CARVAO = 0.40
 var POTENCIA_DO_ANO_ZERO_SOLAR = 0.493 #GW
 var POTENCIA_DO_ANO_ZERO_VENTO= 5.099
 var POTENCIA_DO_ANO_ZERO_BIOMASSA = 0.653
+var POTENCIA_DO_ANO_ZERO_VENTO_OFFSHORE = 0.5
 
 var CUSTO_TOTAL_DO_ANO_ZERO = 0.00 #i.e. custo da potência de todas as fontes renováveis consideradas. Preencher se houver necessidade de mostrar ao jogador.
 var CUSTO_DO_ANO_ZERO_SOLAR = 0.00
 var CUSTO_DO_ANO_ZERO_VENTO = 0.00
-var CUSTO_DO_ANO_ZERO_BIOMASSA = 0.00
+var CUSTO_DO_ANO_ZERO_VENTO_OFFSHORE = 0.00
 
 var PIB_DO_ANO_ZERO = 169.11 #milhares de milhões de euros
 var ORCAMENTO_ANO_ZERO = PIB_DO_ANO_ZERO * 0.01
@@ -189,17 +189,18 @@ var input_percentagem_eletrificacao_servicos = 0.0
 ## VARS 1)
 var potencia_solar_instantanea = 0.0
 var potencia_vento_instantanea = 0.0
-var potencia_biomassa_instantanea = 0.0
+var potencia_vento_offshore_instantanea = 0.0
 
 var potencia_do_ano_solar = [POTENCIA_DO_ANO_ZERO_SOLAR]
 var potencia_do_ano_vento = [POTENCIA_DO_ANO_ZERO_VENTO]
 var potencia_do_ano_biomassa = [POTENCIA_DO_ANO_ZERO_BIOMASSA]
+var potencia_do_ano_vento_offshore = [POTENCIA_DO_ANO_ZERO_VENTO_OFFSHORE]
 
 ## VARS 2)
 var custo_total_do_ano = [CUSTO_TOTAL_DO_ANO_ZERO]
 var custo_do_ano_solar = [CUSTO_DO_ANO_ZERO_SOLAR]
 var custo_do_ano_vento = [CUSTO_DO_ANO_ZERO_VENTO]
-var custo_do_ano_biomassa = [CUSTO_DO_ANO_ZERO_BIOMASSA]
+var custo_do_ano_vento_offshore = [CUSTO_DO_ANO_ZERO_VENTO_OFFSHORE]
 
 ## VARS 3)
 var pib_do_ano = [PIB_DO_ANO_ZERO]
@@ -423,45 +424,35 @@ func calcular_distribuicao_por_fonte():
 	
 	var potencia_maxima_solar_alcancada = (potencia_do_ano_solar[ano_atual_indice - 1] >= POTENCIA_MAXIMA_SOLAR)
 	var potencia_maxima_vento_alcancada = (potencia_do_ano_vento[ano_atual_indice - 1] >= POTENCIA_MAXIMA_VENTO)
-	var potencia_maxima_biomassa_alcancada = (potencia_do_ano_biomassa[ano_atual_indice - 1] >= POTENCIA_MAXIMA_BIOMASSA)
 	
 	#111
 	potencia_solar_instantanea = 0.0
 	potencia_vento_instantanea = 0.0
-	potencia_biomassa_instantanea = 0.0
+	potencia_vento_offshore_instantanea = 0.0
 	
-	if(!potencia_maxima_solar_alcancada && !potencia_maxima_vento_alcancada && !potencia_maxima_biomassa_alcancada): #000
-		potencia_solar_instantanea = input_potencia_a_instalar / 3
-		potencia_vento_instantanea = input_potencia_a_instalar / 3
-		potencia_biomassa_instantanea = input_potencia_a_instalar / 3
-	elif(!potencia_maxima_solar_alcancada && !potencia_maxima_vento_alcancada && potencia_maxima_biomassa_alcancada): #001
+	if(!potencia_maxima_solar_alcancada && !potencia_maxima_vento_alcancada): #000
 		potencia_solar_instantanea = input_potencia_a_instalar / 2
 		potencia_vento_instantanea = input_potencia_a_instalar / 2
-	elif(!potencia_maxima_solar_alcancada && potencia_maxima_vento_alcancada && potencia_maxima_biomassa_alcancada): #011
-		potencia_solar_instantanea = input_potencia_a_instalar
-	elif(potencia_maxima_solar_alcancada && !potencia_maxima_vento_alcancada && !potencia_maxima_biomassa_alcancada): #100
-		potencia_vento_instantanea = input_potencia_a_instalar / 2
-		potencia_biomassa_instantanea = input_potencia_a_instalar / 2
-	elif(potencia_maxima_solar_alcancada && !potencia_maxima_vento_alcancada && potencia_maxima_biomassa_alcancada): #101
+	elif(!potencia_maxima_solar_alcancada && potencia_maxima_vento_alcancada): #011
+		potencia_solar_instantanea = input_potencia_a_instalar / 2
+		potencia_vento_offshore_instantanea = input_potencia_a_instalar / 2
+	elif(potencia_maxima_solar_alcancada && !potencia_maxima_vento_alcancada): #100
 		potencia_vento_instantanea = input_potencia_a_instalar
-	elif(!potencia_maxima_solar_alcancada && potencia_maxima_vento_alcancada && !potencia_maxima_biomassa_alcancada): #010
-		potencia_solar_instantanea = input_potencia_a_instalar / 2
-		potencia_biomassa_instantanea = input_potencia_a_instalar / 2
-	elif(potencia_maxima_solar_alcancada && potencia_maxima_vento_alcancada && !potencia_maxima_biomassa_alcancada): #110
-		potencia_biomassa_instantanea = input_potencia_a_instalar
+	elif(potencia_maxima_solar_alcancada && potencia_maxima_vento_alcancada ): #110
+		potencia_vento_offshore_instantanea = input_potencia_a_instalar
 	
 # Prevenção da quebra dos limites máximos
 	if((potencia_do_ano_solar[ano_atual_indice - 1] + potencia_solar_instantanea) > POTENCIA_MAXIMA_SOLAR):
 		potencia_solar_instantanea = POTENCIA_MAXIMA_SOLAR - potencia_do_ano_solar[ano_atual_indice - 1]
 	if((potencia_do_ano_vento[ano_atual_indice - 1] + potencia_vento_instantanea) > POTENCIA_MAXIMA_VENTO):
 		potencia_vento_instantanea = POTENCIA_MAXIMA_VENTO - potencia_do_ano_vento[ano_atual_indice - 1]
-	if((potencia_do_ano_biomassa[ano_atual_indice - 1] + potencia_biomassa_instantanea) > POTENCIA_MAXIMA_BIOMASSA):
-		potencia_biomassa_instantanea = POTENCIA_MAXIMA_BIOMASSA - potencia_do_ano_biomassa[ano_atual_indice - 1]
+	if((potencia_do_ano_vento_offshore[ano_atual_indice - 1] + potencia_vento_offshore_instantanea) > POTENCIA_MAXIMA_VENTO_OFFSHORE):
+		potencia_vento_offshore_instantanea = POTENCIA_MAXIMA_VENTO_OFFSHORE - potencia_do_ano_vento_offshore[ano_atual_indice - 1]
 	
 # Soma dos valores instantâneos aos do ano anterior e adição ao vetor respetivo
 	potencia_do_ano_solar.push_back(potencia_do_ano_solar[ano_atual_indice - 1] + potencia_solar_instantanea)
 	potencia_do_ano_vento.push_back(potencia_do_ano_vento[ano_atual_indice - 1] + potencia_vento_instantanea)
-	potencia_do_ano_biomassa.push_back(potencia_do_ano_biomassa[ano_atual_indice - 1] + potencia_biomassa_instantanea)
+	potencia_do_ano_vento_offshore.push_back(potencia_do_ano_vento_offshore[ano_atual_indice - 1] + potencia_vento_offshore_instantanea)
 	
 	
 # FUNCS 2) - CUSTO DA POTÊNCIA (euros)
@@ -469,13 +460,13 @@ func calcular_custo():
 	
 	var custo_solar_instantaneo = potencia_do_ano_solar[ano_atual_indice] * CUSTO_POR_GIGAWATT_INSTALADO_SOLAR
 	var custo_vento_instantaneo = potencia_do_ano_vento[ano_atual_indice] * CUSTO_POR_GIGAWATT_INSTALADO_VENTO
-	var custo_biomassa_instantaneo = potencia_do_ano_biomassa[ano_atual_indice] * CUSTO_POR_GIGAWATT_INSTALADO_SOLAR_BIOMASSA
+	var custo_vento_offshore_instantaneo = potencia_do_ano_vento_offshore[ano_atual_indice] * CUSTO_POR_GIGAWATT_INSTALADO_VENTO_OFFSHORE
 	
 	custo_do_ano_solar.push_back(custo_solar_instantaneo)
 	custo_do_ano_vento.push_back(custo_vento_instantaneo)
-	custo_do_ano_biomassa.push_back(custo_biomassa_instantaneo)
+	custo_do_ano_vento_offshore.push_back(custo_vento_offshore_instantaneo)
 	
-	custo_total_do_ano.push_back(custo_solar_instantaneo + custo_vento_instantaneo + custo_biomassa_instantaneo)
+	custo_total_do_ano.push_back(custo_solar_instantaneo + custo_vento_instantaneo + custo_vento_offshore_instantaneo)
 	
 
 # FUNCS 3) - INVESTIMENTO (milhares de milhões de euros)
@@ -574,10 +565,10 @@ func calcular_eletrificacao_etc_de_setores():
 	if(eletrificacao_servicos_temp <= 0.01):
 		eletrificacao_servicos_temp = 0.01
 		
-	if(eletrificacao_transportes_temp >= 0.99):
-		eletrificacao_transportes_temp = 0.99
-	if(eletrificacao_industria_temp >= 0.99):
-		eletrificacao_industria_temp = 0.99
+	if(eletrificacao_transportes_temp >= 0.90): # ALterado!!!
+		eletrificacao_transportes_temp = 0.90	#
+	if(eletrificacao_industria_temp >= 0.70):	#
+		eletrificacao_industria_temp = 0.70		#
 	if(eletrificacao_residencial_temp >= 0.99):
 		eletrificacao_residencial_temp = 0.99
 	if(eletrificacao_servicos_temp >= 0.99):
@@ -735,10 +726,10 @@ func calcular_emissoes_CO2_carvao_petroleo_gas_natural():
 func calcular_eletricidade_de_fontes_renovaveis():
 	var eletricidade_solar = potencia_do_ano_solar[ano_atual_indice] * FATOR_DE_PRODUCAO_SOLAR * HORAS_POR_ANO
 	var eletricidade_vento = potencia_do_ano_vento[ano_atual_indice] * FATOR_DE_PRODUCAO_VENTO * HORAS_POR_ANO
-	var eletricidade_biomassa = potencia_do_ano_biomassa[ano_atual_indice] * FATOR_DE_PRODUCAO_BIOMASSA * HORAS_POR_ANO
+	var eletricidade_vento_offshore = potencia_do_ano_vento_offshore[ano_atual_indice] * FATOR_DE_PRODUCAO_VENTO_OFFSHORE * HORAS_POR_ANO
 	var eletricidade_hidro = POTENCIA_ANUAL_HIDRO * FATOR_DE_PRODUCAO_HIDRO * HORAS_POR_ANO
 
-	eletricidade_renovavel_do_ano.push_back(eletricidade_solar + eletricidade_vento + eletricidade_biomassa + eletricidade_hidro)
+	eletricidade_renovavel_do_ano.push_back(eletricidade_solar + eletricidade_vento + eletricidade_vento_offshore + eletricidade_hidro)
 
 # FUNCS 20) - ELETRICIDADE NÃO RENOVÁVEL (GWh)
 func calcular_eletricidade_nao_renovavel():

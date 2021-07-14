@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://MainScene.gd" type="Script" id=1]
 [ext_resource path="res://RoundButtonst.theme" type="Theme" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://FONT_RobotoCondensed-Italic.tres" type="DynamicFont" id=24]
 [ext_resource path="res://FONT_WorkSans-ExtraLight.tres" type="DynamicFont" id=25]
 [ext_resource path="res://FONT_WorkSans-Light.tres" type="DynamicFont" id=26]
+[ext_resource path="res://info (1).png" type="Texture" id=27]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
@@ -1826,7 +1827,7 @@ custom_colors/default_color = Color( 0, 0.615686, 0.878431, 1 )
 text = "Ano Atual"
 
 [node name="TextoDadosEnergeticos" type="RichTextLabel" parent="EstadoAtual"]
-margin_left = 38.0
+margin_left = 65.0
 margin_top = 169.0
 margin_right = 681.0
 margin_bottom = 439.0
@@ -2225,6 +2226,37 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "Eletrificação"
 text = "Eletrificação"
+
+[node name="infoButton1" type="TextureButton" parent="EstadoAtual"]
+margin_left = 13.0
+margin_top = 162.657
+margin_right = 54.0
+margin_bottom = 202.657
+hint_tooltip = "Potência Total Instalada:
+Representa a potência elétrica renovável instalada no país.
+	"
+theme = ExtResource( 4 )
+texture_normal = ExtResource( 27 )
+expand = true
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="infoButton2" type="TextureButton" parent="EstadoAtual"]
+margin_left = 13.0
+margin_top = 219.569
+margin_right = 54.0
+margin_bottom = 259.569
+hint_tooltip = "Eletricidade Renovável:
+A eletricidade produzida no ano no pais."
+theme = ExtResource( 4 )
+texture_normal = ExtResource( 27 )
+expand = true
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 light_mask = 3
