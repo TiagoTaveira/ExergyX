@@ -193,7 +193,6 @@ var potencia_vento_offshore_instantanea = 0.0
 
 var potencia_do_ano_solar = [POTENCIA_DO_ANO_ZERO_SOLAR]
 var potencia_do_ano_vento = [POTENCIA_DO_ANO_ZERO_VENTO]
-var potencia_do_ano_biomassa = [POTENCIA_DO_ANO_ZERO_BIOMASSA]
 var potencia_do_ano_vento_offshore = [POTENCIA_DO_ANO_ZERO_VENTO_OFFSHORE]
 
 ## VARS 2)
